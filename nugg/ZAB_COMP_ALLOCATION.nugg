@@ -1,0 +1,1671 @@
+<?xml version="1.0" encoding="utf-16"?>
+<nugget name="ZAB_COMP_ALLOCATION">
+ <PROG NAME="ZAB_COMP_ALLOCATION" VARCL="X" SUBC="1" SECU="Z0" CNAM="PEGIELL" CDAT="20140418" UNAM="PEGIELL" UDAT="20140418" VERN="000045" RSTAT="K" RMAND="100" RLOAD="E" FIXPT="X" SDATE="20140418" STIME="214827" IDATE="20140418" ITIME="214827" UCCHECK="X">
+  <textPool>
+   <language SPRAS="D">
+    <textElement ID="I" KEY="EXC" ENTRY="Excel Parameters" LENGTH="16 "/>
+    <textElement ID="I" KEY="OTH" ENTRY="Common Parameters" LENGTH="120 "/>
+    <textElement ID="I" KEY="ZRO" ENTRY="ZROLD* Parameters" LENGTH="120 "/>
+    <textElement ID="R" ENTRY="Routings: Components assigment modifications" LENGTH="70 "/>
+    <textElement ID="S" KEY="P_CONV" ENTRY="        Do conversion of data" LENGTH="29 "/>
+    <textElement ID="S" KEY="P_EXCEL" ENTRY="        Upload from Excel" LENGTH="25 "/>
+    <textElement ID="S" KEY="P_MAPP" ENTRY="        Use ZROLD* mapping" LENGTH="26 "/>
+    <textElement ID="S" KEY="P_OLDMT" ENTRY="        Old mandant" LENGTH="19 "/>
+    <textElement ID="S" KEY="P_PATH" ENTRY="        Path" LENGTH="12 "/>
+    <textElement ID="S" KEY="P_ROWS" ENTRY="        Number of last row" LENGTH="26 "/>
+    <textElement ID="S" KEY="P_TEST" ENTRY="        Test" LENGTH="12 "/>
+    <textElement ID="S" KEY="P_ZROLD" ENTRY="        Use ZROLD* tables" LENGTH="25 "/>
+    <textElement ID="S" KEY="S_MATNR" ENTRY="D       ." LENGTH="9 "/>
+    <textElement ID="S" KEY="S_PLNNR" ENTRY="D       ." LENGTH="9 "/>
+    <textElement ID="S" KEY="S_WERKS" ENTRY="D       ." LENGTH="9 "/>
+   </language>
+   <language SPRAS="E">
+    <textElement ID="I" KEY="EXC" ENTRY="Excel Parameters" LENGTH="16 "/>
+    <textElement ID="I" KEY="OTH" ENTRY="Common Parameters" LENGTH="120 "/>
+    <textElement ID="I" KEY="ZRO" ENTRY="ZROLD* Parameters" LENGTH="120 "/>
+    <textElement ID="R" ENTRY="Routings: Components assigment modifications" LENGTH="44 "/>
+    <textElement ID="S" KEY="P_CONV" ENTRY="        Do conversion of data" LENGTH="29 "/>
+    <textElement ID="S" KEY="P_EXCEL" ENTRY="        Upload from Excel" LENGTH="25 "/>
+    <textElement ID="S" KEY="P_MAPP" ENTRY="        Use ZROLD* mapping" LENGTH="26 "/>
+    <textElement ID="S" KEY="P_OLDMT" ENTRY="        Old mandant" LENGTH="19 "/>
+    <textElement ID="S" KEY="P_PATH" ENTRY="        Path" LENGTH="12 "/>
+    <textElement ID="S" KEY="P_ROWS" ENTRY="        Number of last row" LENGTH="26 "/>
+    <textElement ID="S" KEY="P_TEST" ENTRY="        Test" LENGTH="12 "/>
+    <textElement ID="S" KEY="P_ZROLD" ENTRY="        Use ZROLD* tables" LENGTH="25 "/>
+    <textElement ID="S" KEY="S_MATNR" ENTRY="D       ." LENGTH="9 "/>
+    <textElement ID="S" KEY="S_PLNNR" ENTRY="D       ." LENGTH="9 "/>
+    <textElement ID="S" KEY="S_WERKS" ENTRY="D       ." LENGTH="9 "/>
+   </language>
+   <language SPRAS="F">
+    <textElement ID="I" KEY="EXC" ENTRY="Excel Parameters" LENGTH="16 "/>
+    <textElement ID="I" KEY="OTH" ENTRY="Common Parameters" LENGTH="120 "/>
+    <textElement ID="I" KEY="ZRO" ENTRY="ZROLD* Parameters" LENGTH="120 "/>
+    <textElement ID="R" ENTRY="Routings: Components assigment modifications" LENGTH="70 "/>
+    <textElement ID="S" KEY="P_CONV" ENTRY="        Do conversion of data" LENGTH="29 "/>
+    <textElement ID="S" KEY="P_EXCEL" ENTRY="        Upload from Excel" LENGTH="25 "/>
+    <textElement ID="S" KEY="P_MAPP" ENTRY="        Use ZROLD* mapping" LENGTH="26 "/>
+    <textElement ID="S" KEY="P_OLDMT" ENTRY="        Old mandant" LENGTH="19 "/>
+    <textElement ID="S" KEY="P_PATH" ENTRY="        Path" LENGTH="12 "/>
+    <textElement ID="S" KEY="P_ROWS" ENTRY="        Number of last row" LENGTH="26 "/>
+    <textElement ID="S" KEY="P_TEST" ENTRY="        Test" LENGTH="12 "/>
+    <textElement ID="S" KEY="P_ZROLD" ENTRY="        Use ZROLD* tables" LENGTH="25 "/>
+    <textElement ID="S" KEY="S_MATNR" ENTRY="D       ." LENGTH="9 "/>
+    <textElement ID="S" KEY="S_PLNNR" ENTRY="D       ." LENGTH="9 "/>
+    <textElement ID="S" KEY="S_WERKS" ENTRY="D       ." LENGTH="9 "/>
+   </language>
+  </textPool>
+  <pfstatus>
+   <pfstatus_sta CODE="STANDARD" MODAL="D" ACTCODE="000001" PFKCODE="000001" BUTCODE="0001" INT_NOTE="Standard for General List Output in Fullscreen Grid"/>
+   <pfstatus_fun CODE="%ML" TEXTNO="001" TEXT_TYPE="S" FUN_TEXT="Folder" PATH="F"/>
+   <pfstatus_fun CODE="%PC" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_EXPORT" ICON_ID="@49@" FUN_TEXT="Local file..." PATH="L"/>
+   <pfstatus_fun CODE="%SC" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_SEARCH" ICON_ID="@13@" FUN_TEXT="Find" PATH="N"/>
+   <pfstatus_fun CODE="%SC+" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_SEARCH_NEXT" ICON_ID="@4E@" FUN_TEXT="Find next"/>
+   <pfstatus_fun CODE="%SL" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_MAIL" ICON_ID="@1S@" FUN_TEXT="Mail recipient" PATH="M"/>
+   <pfstatus_fun CODE="&amp;ABC" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_ABC" ICON_ID="@DL@" FUN_TEXT="ABC Analysis" PATH="A"/>
+   <pfstatus_fun CODE="&amp;ALL" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_SELECT_ALL" ICON_ID="@4B@" FUN_TEXT="Select all" PATH="S"/>
+   <pfstatus_fun CODE="&amp;AQW" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_WORD_PROCESSING" ICON_ID="@DK@" FUN_TEXT="Word processing..." PATH="W"/>
+   <pfstatus_fun CODE="&amp;AUF" TEXTNO="001" TEXT_TYPE="S" FUN_TEXT="Define totals drilldown..." PATH="S"/>
+   <pfstatus_fun CODE="&amp;AVE" TEXTNO="001" TEXT_TYPE="S" FUN_TEXT="Saving..." PATH="S"/>
+   <pfstatus_fun CODE="&amp;AVE" TEXTNO="002" TEXT_TYPE="S" TEXT_NAME="ICON_ALV_VARIANT_SAVE" ICON_ID="@DN@" FUN_TEXT="Save layout..."/>
+   <pfstatus_fun CODE="&amp;AVR" TEXTNO="001" TEXT_TYPE="S" FUN_TEXT="Mean value" PATH="M"/>
+   <pfstatus_fun CODE="&amp;CDF" TEXTNO="001" TEXT_TYPE="S" FUN_TEXT="Unfreeze" PATH="U"/>
+   <pfstatus_fun CODE="&amp;CFI" TEXTNO="001" TEXT_TYPE="S" FUN_TEXT="Freeze to column" PATH="F"/>
+   <pfstatus_fun CODE="&amp;COUNT" TEXTNO="001" TEXT_TYPE="S" FUN_TEXT="Count" PATH="C"/>
+   <pfstatus_fun CODE="&amp;DATA_SAVE" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_SYSTEM_SAVE" ICON_ID="@2L@" FUN_TEXT="Save"/>
+   <pfstatus_fun CODE="&amp;EB9" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_TABLE_SETTINGS" ICON_ID="@36@" FUN_TEXT="Call Up Report" PATH="C"/>
+   <pfstatus_fun CODE="&amp;ELP" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_SYSTEM_HELP" ICON_ID="@35@" FUN_TEXT="Help"/>
+   <pfstatus_fun CODE="&amp;ERW" TEXTNO="001" TEXT_TYPE="S" FUN_TEXT="Layout Management" PATH="L"/>
+   <pfstatus_fun CODE="&amp;ETA" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_SELECT_DETAIL" ICON_ID="@16@" FUN_TEXT="Details"/>
+   <pfstatus_fun CODE="&amp;F03" TEXTNO="001" TEXT_TYPE="S" FUN_TEXT="Back" PATH="B"/>
+   <pfstatus_fun CODE="&amp;F12" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_CANCEL" ICON_ID="@0W@" FUN_TEXT="Cancel" PATH="A"/>
+   <pfstatus_fun CODE="&amp;F15" TEXTNO="001" TEXT_TYPE="S" FUN_TEXT="Exit" PATH="X"/>
+   <pfstatus_fun CODE="&amp;F4" TEXTNO="001" TEXT_TYPE="S" FUN_TEXT="Possible entries"/>
+   <pfstatus_fun CODE="&amp;GRAPH" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_GRAPHICS" ICON_ID="@0N@" FUN_TEXT="Graphic" PATH="G"/>
+   <pfstatus_fun CODE="&amp;IC1" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_SELECT_DETAIL" ICON_ID="@16@" FUN_TEXT="Choose"/>
+   <pfstatus_fun CODE="&amp;ILD" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_FILTER_UNDO" ICON_ID="@GD@" FUN_TEXT="Delete Filter" PATH="L"/>
+   <pfstatus_fun CODE="&amp;ILT" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_FILTER" ICON_ID="@4G@" FUN_TEXT="Set filter" PATH="F"/>
+   <pfstatus_fun CODE="&amp;INFO" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_INFORMATION" ICON_ID="@0S@" FUN_TEXT="Information"/>
+   <pfstatus_fun CODE="&amp;MAX" TEXTNO="001" TEXT_TYPE="S" FUN_TEXT="Maximum" PATH="A"/>
+   <pfstatus_fun CODE="&amp;MIN" TEXTNO="001" TEXT_TYPE="S" FUN_TEXT="Minimum" PATH="I"/>
+   <pfstatus_fun CODE="&amp;OAD" TEXTNO="001" TEXT_TYPE="S" FUN_TEXT="Choose..." PATH="H"/>
+   <pfstatus_fun CODE="&amp;OAD" TEXTNO="002" TEXT_TYPE="S" TEXT_NAME="ICON_ALV_VARIANT_CHOOSE" ICON_ID="@DM@" FUN_TEXT="Select layout..."/>
+   <pfstatus_fun CODE="&amp;ODN" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_SORT_DOWN" ICON_ID="@3F@" FUN_TEXT="Sort in descending order" PATH="O"/>
+   <pfstatus_fun CODE="&amp;OL0" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_ALV_VARIANTS" ICON_ID="@LZ@" FUN_TEXT="Change layout..."/>
+   <pfstatus_fun CODE="&amp;OLX" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_VARIANTS" ICON_ID="@0R@" FUN_TEXT="Change..." PATH="C"/>
+   <pfstatus_fun CODE="&amp;OPT" TEXTNO="001" TEXT_TYPE="S" FUN_TEXT="Optimize width" PATH="P"/>
+   <pfstatus_fun CODE="&amp;OUP" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_SORT_UP" ICON_ID="@3E@" FUN_TEXT="Sort in Ascending Order" PATH="I"/>
+   <pfstatus_fun CODE="&amp;REFRESH" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_REFRESH" ICON_ID="@42@" FUN_TEXT="Refresh"/>
+   <pfstatus_fun CODE="&amp;RNT" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_PRINT" ICON_ID="@0X@" FUN_TEXT="Print" PATH="P"/>
+   <pfstatus_fun CODE="&amp;RNT_PREV" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_LAYOUT_CONTROL" ICON_ID="@3G@" FUN_TEXT="Print preview" PATH="R"/>
+   <pfstatus_fun CODE="&amp;SAL" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_DESELECT_ALL" ICON_ID="@4D@" FUN_TEXT="Deselect all" PATH="D"/>
+   <pfstatus_fun CODE="&amp;SUM" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_INTERMEDIATE_SUM" ICON_ID="@5V@" FUN_TEXT="Subtotals..." PATH="U"/>
+   <pfstatus_fun CODE="&amp;UMC" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_SUM" ICON_ID="@3Z@" FUN_TEXT="Total" PATH="T"/>
+   <pfstatus_fun CODE="&amp;VEXCEL" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_XLS" ICON_ID="@J2@" FUN_TEXT="Microsoft Excel" PATH="M"/>
+   <pfstatus_fun CODE="&amp;VGRID" TEXTNO="001" TEXT_TYPE="S" FUN_TEXT="SAP List Viewer" PATH="S"/>
+   <pfstatus_fun CODE="&amp;VLOTUS" TEXTNO="001" TEXT_TYPE="S" FUN_TEXT="Lotus 1-2-3" PATH="L"/>
+   <pfstatus_fun CODE="&amp;XINT" TEXTNO="001" TEXT_TYPE="S" FUN_TEXT="Additional Functions of SAP Query" PATH="E"/>
+   <pfstatus_fun CODE="&amp;XXL" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_XXL" ICON_ID="@DJ@" FUN_TEXT="Spreadsheet..." PATH="A"/>
+   <pfstatus_fun CODE="CREATE_ASS" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_LINK" ICON_ID="@C1@" FUN_TEXT="Create assignment"/>
+   <pfstatus_men CODE="000001" NO="01" REF_TYPE="F" REF_CODE="&amp;RNT_PREV" REF_NO="001"/>
+   <pfstatus_men CODE="000001" NO="02" REF_TYPE="F" REF_CODE="&amp;RNT" REF_NO="001"/>
+   <pfstatus_men CODE="000001" NO="03" REF_TYPE="S"/>
+   <pfstatus_men CODE="000001" NO="04" REF_TYPE="M" REF_CODE="000002"/>
+   <pfstatus_men CODE="000001" NO="05" REF_TYPE="M" REF_CODE="000003"/>
+   <pfstatus_men CODE="000001" NO="06" REF_TYPE="S"/>
+   <pfstatus_men CODE="000001" NO="07" REF_TYPE="F" REF_CODE="&amp;F15" REF_NO="001"/>
+   <pfstatus_men CODE="000002" NO="01" REF_TYPE="F" REF_CODE="&amp;AQW" REF_NO="001"/>
+   <pfstatus_men CODE="000002" NO="02" REF_TYPE="F" REF_CODE="&amp;XXL" REF_NO="001"/>
+   <pfstatus_men CODE="000002" NO="03" REF_TYPE="F" REF_CODE="%PC" REF_NO="001"/>
+   <pfstatus_men CODE="000002" NO="04" REF_TYPE="F" REF_CODE="&amp;XINT" REF_NO="001"/>
+   <pfstatus_men CODE="000003" NO="01" REF_TYPE="F" REF_CODE="%SL" REF_NO="001"/>
+   <pfstatus_men CODE="000003" NO="02" REF_TYPE="F" REF_CODE="%ML" REF_NO="001"/>
+   <pfstatus_men CODE="000004" NO="01" REF_TYPE="F" REF_CODE="&amp;ALL" REF_NO="001"/>
+   <pfstatus_men CODE="000004" NO="02" REF_TYPE="F" REF_CODE="&amp;SAL" REF_NO="001"/>
+   <pfstatus_men CODE="000004" NO="03" REF_TYPE="S"/>
+   <pfstatus_men CODE="000004" NO="04" REF_TYPE="F" REF_CODE="&amp;ILT" REF_NO="001"/>
+   <pfstatus_men CODE="000004" NO="05" REF_TYPE="F" REF_CODE="&amp;ILD" REF_NO="001"/>
+   <pfstatus_men CODE="000004" NO="06" REF_TYPE="S"/>
+   <pfstatus_men CODE="000004" NO="07" REF_TYPE="F" REF_CODE="&amp;OUP" REF_NO="001"/>
+   <pfstatus_men CODE="000004" NO="08" REF_TYPE="F" REF_CODE="&amp;ODN" REF_NO="001"/>
+   <pfstatus_men CODE="000004" NO="09" REF_TYPE="S"/>
+   <pfstatus_men CODE="000004" NO="10" REF_TYPE="M" REF_CODE="000005"/>
+   <pfstatus_men CODE="000004" NO="11" REF_TYPE="F" REF_CODE="&amp;SUM" REF_NO="001"/>
+   <pfstatus_men CODE="000004" NO="12" REF_TYPE="S"/>
+   <pfstatus_men CODE="000004" NO="13" REF_TYPE="F" REF_CODE="%SC" REF_NO="001"/>
+   <pfstatus_men CODE="000004" NO="14" REF_TYPE="S"/>
+   <pfstatus_men CODE="000004" NO="15" REF_TYPE="F" REF_CODE="&amp;F12" REF_NO="001"/>
+   <pfstatus_men CODE="000005" NO="01" REF_TYPE="F" REF_CODE="&amp;UMC" REF_NO="001"/>
+   <pfstatus_men CODE="000005" NO="02" REF_TYPE="F" REF_CODE="&amp;AVR" REF_NO="001"/>
+   <pfstatus_men CODE="000005" NO="03" REF_TYPE="F" REF_CODE="&amp;MIN" REF_NO="001"/>
+   <pfstatus_men CODE="000005" NO="04" REF_TYPE="F" REF_CODE="&amp;MAX" REF_NO="001"/>
+   <pfstatus_men CODE="000005" NO="05" REF_TYPE="F" REF_CODE="&amp;COUNT" REF_NO="001"/>
+   <pfstatus_men CODE="000006" NO="01" REF_TYPE="F" REF_CODE="&amp;ABC" REF_NO="001"/>
+   <pfstatus_men CODE="000006" NO="02" REF_TYPE="S"/>
+   <pfstatus_men CODE="000006" NO="03" REF_TYPE="F" REF_CODE="&amp;F03" REF_NO="001"/>
+   <pfstatus_men CODE="000007" NO="01" REF_TYPE="F" REF_CODE="&amp;VGRID" REF_NO="001"/>
+   <pfstatus_men CODE="000007" NO="02" REF_TYPE="F" REF_CODE="&amp;VEXCEL" REF_NO="001"/>
+   <pfstatus_men CODE="000007" NO="03" REF_TYPE="F" REF_CODE="&amp;VLOTUS" REF_NO="001"/>
+   <pfstatus_men CODE="000007" NO="04" REF_TYPE="S"/>
+   <pfstatus_men CODE="000007" NO="05" REF_TYPE="F" REF_CODE="&amp;GRAPH" REF_NO="001"/>
+   <pfstatus_men CODE="000008" NO="01" REF_TYPE="M" REF_CODE="000009"/>
+   <pfstatus_men CODE="000008" NO="02" REF_TYPE="M" REF_CODE="000010"/>
+   <pfstatus_men CODE="000008" NO="03" REF_TYPE="F" REF_CODE="&amp;AUF" REF_NO="001"/>
+   <pfstatus_men CODE="000009" NO="01" REF_TYPE="F" REF_CODE="&amp;OLX" REF_NO="001"/>
+   <pfstatus_men CODE="000009" NO="02" REF_TYPE="F" REF_CODE="&amp;OAD" REF_NO="001"/>
+   <pfstatus_men CODE="000009" NO="03" REF_TYPE="S"/>
+   <pfstatus_men CODE="000009" NO="04" REF_TYPE="F" REF_CODE="&amp;AVE" REF_NO="001"/>
+   <pfstatus_men CODE="000009" NO="05" REF_TYPE="S"/>
+   <pfstatus_men CODE="000009" NO="06" REF_TYPE="F" REF_CODE="&amp;ERW" REF_NO="001"/>
+   <pfstatus_men CODE="000010" NO="01" REF_TYPE="F" REF_CODE="&amp;OPT" REF_NO="001"/>
+   <pfstatus_men CODE="000010" NO="02" REF_TYPE="S"/>
+   <pfstatus_men CODE="000010" NO="03" REF_TYPE="F" REF_CODE="&amp;CFI" REF_NO="001"/>
+   <pfstatus_men CODE="000010" NO="04" REF_TYPE="F" REF_CODE="&amp;CDF" REF_NO="001"/>
+   <pfstatus_mtx CODE="000001" TEXT_TYPE="S" TEXT="List" PATH="L" INT_NOTE="STANDARD_FULLSCREEN List"/>
+   <pfstatus_mtx CODE="000002" TEXT_TYPE="S" TEXT="Export" PATH="E" INT_NOTE="STANDARD Save"/>
+   <pfstatus_mtx CODE="000003" TEXT_TYPE="S" TEXT="Send to" PATH="S"/>
+   <pfstatus_mtx CODE="000004" TEXT_TYPE="S" TEXT="Edit" PATH="E" INT_NOTE="STANDARD"/>
+   <pfstatus_mtx CODE="000005" TEXT_TYPE="S" TEXT="Calculate" PATH="C"/>
+   <pfstatus_mtx CODE="000006" TEXT_TYPE="S" TEXT="Goto" PATH="G" INT_NOTE="STANDARD"/>
+   <pfstatus_mtx CODE="000007" TEXT_TYPE="S" TEXT="Views" PATH="I"/>
+   <pfstatus_mtx CODE="000008" TEXT_TYPE="S" TEXT="Settings" PATH="S" INT_NOTE="STANDARD_FULLSCREEN"/>
+   <pfstatus_mtx CODE="000009" TEXT_TYPE="S" TEXT="Layout" PATH="A" INT_NOTE="Sub STANDARD"/>
+   <pfstatus_mtx CODE="000010" TEXT_TYPE="S" TEXT="Columns" PATH="C"/>
+   <pfstatus_act CODE="000001" NO="01" MENUCODE="000001"/>
+   <pfstatus_act CODE="000001" NO="02" MENUCODE="000004"/>
+   <pfstatus_act CODE="000001" NO="03" MENUCODE="000006"/>
+   <pfstatus_act CODE="000001" NO="04" MENUCODE="000007"/>
+   <pfstatus_act CODE="000001" NO="05" MENUCODE="000008"/>
+   <pfstatus_but PFK_CODE="000001" CODE="0001" NO="01" PFNO="07"/>
+   <pfstatus_but PFK_CODE="000001" CODE="0001" NO="02" PFNO="S"/>
+   <pfstatus_but PFK_CODE="000001" CODE="0001" NO="03" PFNO="28"/>
+   <pfstatus_but PFK_CODE="000001" CODE="0001" NO="04" PFNO="40"/>
+   <pfstatus_but PFK_CODE="000001" CODE="0001" NO="05" PFNO="29"/>
+   <pfstatus_but PFK_CODE="000001" CODE="0001" NO="06" PFNO="38"/>
+   <pfstatus_but PFK_CODE="000001" CODE="0001" NO="07" PFNO="S"/>
+   <pfstatus_but PFK_CODE="000001" CODE="0001" NO="08" PFNO="46"/>
+   <pfstatus_but PFK_CODE="000001" CODE="0001" NO="09" PFNO="S"/>
+   <pfstatus_but PFK_CODE="000001" CODE="0001" NO="10" PFNO="43"/>
+   <pfstatus_but PFK_CODE="000001" CODE="0001" NO="11" PFNO="44"/>
+   <pfstatus_but PFK_CODE="000001" CODE="0001" NO="12" PFNO="45"/>
+   <pfstatus_but PFK_CODE="000001" CODE="0001" NO="13" PFNO="31"/>
+   <pfstatus_but PFK_CODE="000001" CODE="0001" NO="14" PFNO="S"/>
+   <pfstatus_but PFK_CODE="000001" CODE="0001" NO="15" PFNO="32"/>
+   <pfstatus_but PFK_CODE="000001" CODE="0001" NO="16" PFNO="33"/>
+   <pfstatus_but PFK_CODE="000001" CODE="0001" NO="17" PFNO="34"/>
+   <pfstatus_but PFK_CODE="000001" CODE="0001" NO="18" PFNO="S"/>
+   <pfstatus_pfk CODE="000001" PFNO="01" FUNCODE="&amp;ELP" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="02" FUNCODE="&amp;IC1" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="03" FUNCODE="&amp;F03" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="04" FUNCODE="&amp;F4" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="05" FUNCODE="&amp;ALL" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="06" FUNCODE="&amp;SAL" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="07" FUNCODE="CREATE_ASS" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="08" FUNCODE="&amp;REFRESH" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="11" FUNCODE="&amp;DATA_SAVE" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="12" FUNCODE="&amp;F12" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="15" FUNCODE="&amp;F15" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="25" FUNCODE="&amp;ABC" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="28" FUNCODE="&amp;OUP" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="29" FUNCODE="&amp;ILT" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="30" FUNCODE="&amp;UMC" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="31" FUNCODE="%SL" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="32" FUNCODE="&amp;OL0" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="33" FUNCODE="&amp;OAD" FUNNO="002"/>
+   <pfstatus_pfk CODE="000001" PFNO="34" FUNCODE="&amp;AVE" FUNNO="002"/>
+   <pfstatus_pfk CODE="000001" PFNO="36" FUNCODE="&amp;INFO" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="37" FUNCODE="&amp;EB9" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="38" FUNCODE="&amp;ILD" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="39" FUNCODE="&amp;ETA" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="40" FUNCODE="&amp;ODN" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="42" FUNCODE="&amp;SUM" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="43" FUNCODE="&amp;VEXCEL" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="44" FUNCODE="&amp;AQW" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="45" FUNCODE="%PC" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="46" FUNCODE="&amp;RNT_PREV" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="47" FUNCODE="&amp;GRAPH" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="71" FUNCODE="%SC" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="84" FUNCODE="%SC+" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="86" FUNCODE="&amp;RNT" FUNNO="001"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="%CH"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="%ML"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="%PC"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="%SC"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="%SL"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;ABC"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;ALL"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;AQW"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;AUF"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;AVE"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;AVR"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;BS"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;BS+"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;BS-"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;CDF"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;CFI"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;COUNT"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;CRB"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;CRBATCH"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;CRDESIG"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;CRE"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;CRL"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;CRR"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;CRTEMPL"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;CRYSTAL"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;DATA_SAVE"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;DAU"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;DOF"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;DON"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;EB3"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;EB9"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;ELP"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;ERW"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;ETA"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;F03"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;F12"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;F15"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;F4"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;GRAPH"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;IC1"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;ILD"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;ILT"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;INFO"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;KOM"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;LFO"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;LIS"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;MAX"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;MIN"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;NFO"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;NTE"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;OAD"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;ODN"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;OL0"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;OLX"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;OMP"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;OPT"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;OUP"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;REFRESH"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;RNT"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;RNT_PREV"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;SAL"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;SAVE"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;SUM"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;UMC"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;URL"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;VCRYSTAL"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;VEXCEL"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;VGRID"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;VLOTUS"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;XINT"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;XML"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;XPA"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="&amp;XXL"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="BAC1"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="BACK"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="BEB1"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="BEB2"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="BEB3"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="BEB9"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="BEBN"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="COL0"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="COLX"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="CREATE_ASS"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="DETA"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="DRUK"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="DSAL"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="ENTE"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="EXIT"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="EXPA"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="FILD"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="FILT"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="GLIS"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="HELP"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="INFO"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="KOMP"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="P+"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="P++"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="P-"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="P--"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="PF09"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="PF13"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="PIC1"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="PICK"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="PRI"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="PRIN"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="PRNT"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="RW"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="SALL"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="SAUF"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="SAVE"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="SCRB"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="SCRE"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="SCRL"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="SCRR"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="SKOM"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="SODN"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="SOUP"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="SUMC"/>
+   <pfstatus_set STATUS="STANDARD" FUNCTION="ZSUM"/>
+   <pfstatus_doc OBJ_TYPE="A" OBJ_CODE="000001" MODAL="D" INT_NOTE="Standard Interface              STANDARD_FULLSCREEN"/>
+   <pfstatus_doc OBJ_TYPE="P" OBJ_CODE="000001" MODAL="D" NORM="X" INT_NOTE="Standard Maximum Interaction STANDARD_FULLSCREEN"/>
+   <pfstatus_doc OBJ_TYPE="B" OBJ_CODE="000001" SUB_CODE="0001" INT_NOTE="Standard Maximum Interaction STANDARD_FULLSCREEN"/>
+  </pfstatus>
+  <source>report  zab_comp_allocation.
+
+type-pools: cpsc,cmcl, slis.
+tables: mapl.
+
+types: begin of ty_assignment,
+        matnr like mapl-matnr,
+        werks	type werks_d,
+        plnnr	type plnnr,
+        plnfl	type plnfolge,
+        plnal	type plnal,
+        plnty	type plnty,
+        vornr	type vornr,
+        stlnr type stko-stlnr,
+        stlal	type stlal,
+        stlan	type stlan,
+        posnr	type sposn,
+        idnrk type stpo-idnrk,
+        stlst type plmz-stlst,
+      end of ty_assignment.
+
+types: begin of ty_plan,
+        matnr like marc-matnr,
+        werks like marc-werks,
+        stlal like mast-stlal,
+        stlan like mast-stlan,
+        plnty like plko-plnty,
+        plnnr like plko-plnnr,
+        plnal like plko-plnal,
+        plnfl type plnfolge,
+      end of ty_plan.
+
+constants: begin of c_log,
+            read   type balognr value &apos;READ&apos;,
+            delete type balognr value &apos;DELETE&apos;,
+            create type balognr value &apos;CREATE&apos;,
+          end of c_log.
+
+data: gt_plan type standard table of ty_plan.
+data: gt_assignment type standard table of ty_assignment.
+
+data: gt_return type bapiret2_t.
+data: gs_return type bapiret2.
+
+data: g_error type c.
+field-symbols: &lt;assign&gt; like line of gt_assignment.
+field-symbols: &lt;plan&gt; like line of gt_plan.
+
+
+selection-screen begin of block exc with frame title text-exc.
+parameters: p_path type localfile lower case modif id exc.
+parameters: p_rows type i modif id exc.
+selection-screen end of block exc.
+
+selection-screen begin of block oth with frame title text-oth.
+**  parameters: p_delexi as checkbox. &quot;delete exisiting assigment
+parameters: p_test as checkbox.
+select-options: s_matnr for mapl-matnr.
+select-options: s_werks for mapl-werks.
+select-options: s_plnnr for mapl-plnnr.
+selection-screen end of block oth.
+
+at selection-screen on value-request for p_path.
+  perform open_file_dialog changing p_path.
+
+
+
+initialization.
+
+start-of-selection.
+  refresh: gt_plan[], gt_assignment[], gt_return[].
+  perform check_entries.
+  check g_error is initial.
+  perform load_excel.
+
+end-of-selection.
+  check g_error is initial.
+  perform display_log.
+
+*&amp;---------------------------------------------------------------------*
+*&amp;      Form  open_file_dialog
+*&amp;---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+*      --&gt;P_PATH     text
+*----------------------------------------------------------------------*
+form open_file_dialog changing p_path.
+  data: ft_filetable type filetable with header line.
+  data: f_rc type sy-subrc.
+
+  cl_gui_frontend_services=&gt;file_open_dialog(
+  exporting
+*      window_title            = window_title
+    default_extension       = &apos;XLS&apos;
+*      default_filename        = default_filename
+*      file_filter             = file_filter
+*      with_encoding           = with_encoding
+*      initial_directory       = initial_directory
+    multiselection          = space
+  changing
+    file_table              = ft_filetable[]
+    rc                      = f_rc
+*      user_action             = user_action
+*      file_encoding           = file_encoding
+  exceptions
+    file_open_dialog_failed = 1
+    cntl_error              = 2
+    error_no_gui            = 3
+    not_supported_by_gui    = 4
+    others                  = 5
+    ).
+  if sy-subrc eq 0.
+    read table ft_filetable index 1.
+    if sy-subrc eq 0.
+      p_path = ft_filetable.
+    endif.
+
+  endif.
+
+
+
+endform.                    &quot;open_file_dialog
+
+*&amp;---------------------------------------------------------------------*
+*&amp;      Form  check_entries
+*&amp;---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+form check_entries.
+  clear g_error.
+  if  p_path  is initial .
+    message s001(00) with &apos;Fill path!&apos; display like &apos;E&apos;.
+    g_error = &apos;X&apos;.
+  elseif p_rows lt 2.
+    message s001(00) with &apos;Last row number must be greater than 1!&apos; display like &apos;E&apos;.
+    g_error = &apos;X&apos;.
+  endif.
+endform.                    &quot;check_entries
+
+*&amp;---------------------------------------------------------------------*
+*&amp;      Form  load_task_list2
+*&amp;---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+*      --&gt;I_PLNTY    text
+*      --&gt;I_PLNNR    text
+*      --&gt;I_PLNAL    text
+*      --&gt;I_STTAG    text
+*      --&gt;FS_ALV     text
+*----------------------------------------------------------------------*
+form load_task_list  using        i_matnr like marc-matnr
+                                  i_werks like marc-werks
+                                  i_plnty like plko-plnty
+                                  i_plnnr like plko-plnnr
+                                  i_plnal like plko-plnal
+                                  i_sttag like plko-datuv.
+
+  data: fs_classes_in_workarea like classes_in_workarea,
+        fs_tsk_plnty_selection type cpsc_plnty_type,
+        ft_tsk_plnty_selection type cpsc_plnty_type occurs 0,
+        fs_tsk_plnnr_selection type cpsc_plnnr_type,
+        ft_tsk_plnnr_selection type cpsc_plnnr_type occurs 0,
+        fs_tsk_plnal_selection type cpsc_plnal_type,
+        ft_tsk_plnal_selection type cpsc_plnal_type occurs 0,
+        fs_tsk_selection type cpsc_tsk_sel_type,
+        fs_mbm_sel_type type cpsc_mbm_sel_type,
+        fs_mbm_matnr      type cpsc_matnr_type ,
+        fs_mbm_werks      type cpsc_werks_type ,
+        fs_mbm_vbeln      type cpsc_vbeln_type ,
+        fs_mbm_vbpos      type cpsc_posnr_type .
+
+
+  concatenate &apos;I&apos; &apos;EQ&apos; i_matnr into fs_mbm_matnr.
+  append fs_mbm_matnr to fs_mbm_sel_type-matnr.
+
+  concatenate &apos;I&apos; &apos;EQ&apos; i_werks into fs_mbm_werks.
+  append fs_mbm_werks to fs_mbm_sel_type-werks.
+
+
+* objects for loading
+  fs_classes_in_workarea-mtk_inarea = &apos;X&apos;.
+  fs_classes_in_workarea-tsk_inarea = &apos;X&apos;.
+  fs_classes_in_workarea-seq_inarea = &apos;X&apos;.
+  fs_classes_in_workarea-opr_inarea = &apos;X&apos;.
+  fs_classes_in_workarea-suo_inarea = &apos;X&apos;.
+  fs_classes_in_workarea-prt_inarea = &apos;X&apos;.
+  fs_classes_in_workarea-com_inarea = &apos;X&apos;.
+  fs_classes_in_workarea-itm_inarea = &apos;X&apos;.
+  fs_classes_in_workarea-bom_inarea = &apos;X&apos;.
+
+* fill selection conditions - PLNTY
+  concatenate &apos;I&apos; &apos;EQ&apos; i_plnty into fs_tsk_plnty_selection.
+  append fs_tsk_plnty_selection to ft_tsk_plnty_selection.
+  fs_tsk_selection-plnty = ft_tsk_plnty_selection.
+
+  concatenate &apos;I&apos; &apos;EQ&apos; i_plnnr into fs_tsk_plnnr_selection.
+  append fs_tsk_plnnr_selection to ft_tsk_plnnr_selection.
+  fs_tsk_selection-plnnr = ft_tsk_plnnr_selection.
+
+  concatenate &apos;I&apos; &apos;EQ&apos; i_plnal into fs_tsk_plnal_selection.
+  append fs_tsk_plnal_selection to ft_tsk_plnal_selection.
+  fs_tsk_selection-plnal = ft_tsk_plnal_selection.
+
+* load objects into EWB
+  call function &apos;CP_CC_S_LOAD_COMPLEX_BY_TSK&apos;
+    exporting
+      i_class                        = &apos;P&apos;
+      i_classes_in_workarea          = fs_classes_in_workarea
+      i_cpsc_tsk_sel                 = fs_tsk_selection
+      i_date_from                    = i_sttag
+      i_date_to                      = i_sttag
+    exceptions
+      workarea_not_found             = 1
+      workarea_wrong_type            = 2
+      class_in_workarea_inconsistent = 3
+      workarea_not_specified         = 4
+      opr_not_found                  = 5
+      no_selection_criteria          = 6
+      invalid_selection_period       = 7
+      key_date_required_for_ecm      = 8
+      others                         = 9.
+
+  if sy-subrc ne 0.
+
+  endif.
+
+  call function &apos;CP_CC_S_LOAD_COMPLEX_BY_BOM&apos;
+  exporting
+    i_class                              = &apos;P&apos;
+*     I_PROFILE                            = I_PROFILE
+*     I_WORK_AREA                          = I_WORK_AREA
+    i_classes_in_workarea                = fs_classes_in_workarea
+*     I_CPSC_MTK_SEL                       = I_CPSC_MTK_SEL
+*     I_CPSC_COM_SEL                       = I_CPSC_COM_SEL
+*     I_CPSC_TSK_SEL                       = I_CPSC_TSK_SEL
+*     I_CPSC_OPR_SEL                       = I_CPSC_OPR_SEL
+*     I_CPSC_SUO_SEL                       = I_CPSC_SUO_SEL
+    i_cpsc_mbm_sel                       = fs_mbm_sel_type
+*     I_CPSC_BOM_SEL                       = I_CPSC_BOM_SEL
+*     I_CPSC_ITM_SEL                       = I_CPSC_ITM_SEL
+*     I_CPSC_SUI_SEL                       = I_CPSC_SUI_SEL
+*     I_CPSC_PRT_SEL                       = I_CPSC_PRT_SEL
+*     I_CPSC_PAC_SEL                       = I_CPSC_PAC_SEL
+*     I_CPSC_CHA_SEL                       = I_CPSC_CHA_SEL
+*     I_CPSC_MST_SEL                       = I_CPSC_MST_SEL
+*     I_CPSC_ODP_SEL                       = I_CPSC_ODP_SEL
+*     I_CPSC_CLA_SEL                       = I_CPSC_CLA_SEL
+*     I_CPSC_ECN_SEL                       = I_CPSC_ECN_SEL
+*     I_SEL_OPR_IDENT                      = I_SEL_OPR_IDENT
+    i_date_from                          = i_sttag
+    i_date_to                            = i_sttag
+*     I_MESSAGE_HANDLER                    = &apos;X&apos;
+*     I_SAVE_PROTOCOLL                     = &apos; &apos;
+*   IMPORTING
+*     E_BOM_IDENT                          = E_BOM_IDENT
+*     E_BOM_LOCK                           = E_BOM_LOCK
+*     E_ITM_LOCK                           = E_ITM_LOCK
+*     E_TSK_LOCK                           = E_TSK_LOCK
+*     E_SEQ_LOCK                           = E_SEQ_LOCK
+*     E_OPR_LOCK                           = E_OPR_LOCK
+*     E_WORKAREA                           = E_WORKAREA
+*     E_PROFILE                            = E_PROFILE
+*     E_DATE_FROM                          = E_DATE_FROM
+*     E_DATE_TO                            = E_DATE_TO
+*     E_FLG_ECM_EVALUATION                 = E_FLG_ECM_EVALUATION
+  exceptions
+    workarea_not_found                   = 1
+    class_wrong_type                     = 2
+    workarea_wrong_type                  = 3
+    class_in_workarea_inconsistent       = 4
+    workarea_not_specified               = 5
+    bom_not_found                        = 6
+    no_selection_criteria                = 7
+    invalid_selection_period             = 8
+    key_date_required_for_ecm            = 9
+    others                               = 10
+    .
+  if sy-subrc &lt;&gt; 0.
+* MESSAGE ID SY-MSGID TYPE SY-MSGTY NUMBER SY-MSGNO
+*         WITH SY-MSGV1 SY-MSGV2 SY-MSGV3 SY-MSGV4.
+  endif.
+
+
+endform.                    &quot; LOAD_TASK_LIST
+
+
+
+*&amp;---------------------------------------------------------------------*
+*&amp;      Form  componentallocation_ewb
+*&amp;---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+*      --&gt;FS_ALV         text
+*      --&gt;F_PLNNR        text
+*      --&gt;F_PLNAL        text
+*      --&gt;FT_COMALL      text
+*      --&gt;F_ONLY_OPTION  text
+*----------------------------------------------------------------------*
+form componentallocation_ewb  using i_matnr like marc-matnr
+                                    i_werks like marc-werks
+                                    i_stlan like mast-stlan
+                                    i_stlal like mast-stlal
+                                    i_plnnr type plnnr
+                                    i_plnal type plnal
+                                    i_plnty like plpo-plnty
+                                    i_plnfl type plnfolge.
+
+  data: ft_opr_class_data type standard table of opr_class_data.
+  data: ft_itm_tree_data type standard table of itm_tree_class_data.
+  data: ft_com_class_data type standard table of com_class_data.
+  data: ft_opr_all_data_del type cpcl_opr_tab_type.
+  data: fs_com_ident_delete type cmcl_com_ident_type.
+  data: fs_itm_ident type  cscl_itm_id_xt_type.
+  data: fs_opr_ident_new type  cpcl_opr_type.
+  data: ft_opr_ident type cpcl_opr_tab_type.
+  data: ft_opr_ref type  cpcl_opr_ref_set_tab_type.
+  data: ft_ident_delete_tab type cmcl_com_tab_type.
+  data: fs_com_data type com_class_data.
+  data: f_error type c.
+  field-symbols: &lt;opr_all_dell&gt; like line of ft_opr_all_data_del.
+  field-symbols: &lt;com_class_data&gt; like line of ft_com_class_data.
+  field-symbols: &lt;oprdata&gt; like line of ft_opr_class_data.
+  field-symbols: &lt;itmdata&gt; like line of ft_itm_tree_data.
+
+  &quot;read BOM and ROUTING data to memory
+  perform load_task_list
+  using i_matnr
+        i_werks
+        i_plnty
+        i_plnnr
+        i_plnal
+        sy-datum.
+
+
+  &quot;get items tree
+  call function &apos;CP_CC_S_PROVIDE_ITM_BY_AS_PATH&apos;
+  exporting
+    i_key_date_s                   = sy-datum
+    i_application                  = &apos;PP01&apos;
+    i_material_root                = i_matnr
+    i_plant_root                   = i_werks
+    i_usage_root                   = i_stlan
+    i_alternative_root             = i_stlal
+*   I_SALES_ORDER_ROOT              = I_SALES_ORDER_ROOT
+*   I_SALES_ORDER_ITEM_ROOT         = I_SALES_ORDER_ITEM_ROOT
+*   I_REQUIRED_QUANTITY_ROOT        = 1
+*   I_PATH                          = &apos; &apos;
+*    I_FLG_PATH_PROVIDE_ONLY         = &apos; &apos;
+    i_flg_path_expand_totally       = &apos;X&apos;
+*   I_FILTER_EXPRESSION             = I_FILTER_EXPRESSION
+*   I_VERID                         = I_VERID
+* IMPORTING
+*   E_WORKAREA                      = E_WORKAREA
+*   E_DATE_FROM                     = E_DATE_FROM
+*   E_DATE_TO                       = E_DATE_TO
+*   E_FLG_ECM_EVALUATION            = E_FLG_ECM_EVALUATION
+  tables
+    c_itm_tree_class_data           = ft_itm_tree_data
+  exceptions
+    key_date_required_for_ecm       = 1
+    others                          = 2
+    .
+  if sy-subrc eq 0.
+    &quot;after getting BOM we need to check it ant rework a little
+    perform item_check  tables  ft_itm_tree_data.
+
+    &quot;get operations data
+    call function &apos;CP_CC_S_PROVIDE_COM_BY_OPR&apos;
+      exporting
+        i_date_from                    = sy-datum
+        i_date_to                      = sy-datum
+        i_application                  = &apos;PP01&apos;
+        i_material_root                = i_matnr
+        i_plant_root                   = i_werks
+        i_usage_root                   = i_stlan
+        i_alternative_root             = i_stlal
+*       I_SALES_ORDER_ROOT             = I_SALES_ORDER_ROOT
+*       I_SALES_ORDER_ITEM_ROOT        = I_SALES_ORDER_ITEM_ROOT
+*       I_REQUIRED_QUANTITY_ROOT       = I_REQUIRED_QUANTITY_ROOT
+       i_plnty                        = i_plnty
+       i_plnnr                        = i_plnnr
+       i_plnal                        = i_plnal
+       i_plnfl                        = i_plnfl
+*       I_PLNKN                        = I_PLNKN
+*       I_IDENT_OPR                    = I_IDENT_OPR
+*       I_IDENT_REF_OPR                = I_IDENT_REF_OPR
+*       I_VORNR_OPR                    = I_VORNR_OPR
+*       I_IDENT_ITM                    = I_IDENT_ITM
+*       I_FILTER_EXPRESSION            = I_FILTER_EXPRESSION
+*       I_VERID                        = I_VERID
+      tables
+        e_com_class_data               = ft_com_class_data
+     exceptions
+       no_authority                   = 1
+       wrong_key                      = 2
+       bom_not_found                  = 3
+       no_valid_bom                   = 4
+       bom_not_active                 = 5
+       others                         = 6
+              .
+    if sy-subrc eq 0.
+
+      &quot;delete current assignment of components by setting LOEKZ on PLMZ (save directly after)
+      clear f_error .
+      loop at ft_com_class_data assigning &lt;com_class_data&gt;.
+        call function &apos;CP_CL_P_OPR_ALLOCATION_PROVIDE&apos;
+          exporting
+            i_date_from = sy-datum
+            i_plnty     = &lt;com_class_data&gt;-plnty
+            i_plnnr     = &lt;com_class_data&gt;-plnnr
+            i_plnkn     = &lt;com_class_data&gt;-plnkn
+          importing
+            e_opr_ident = ft_opr_all_data_del
+          exceptions
+            wrong_key   = 1.
+        if sy-subrc eq 0.
+          move-corresponding &lt;com_class_data&gt; to fs_com_ident_delete.
+*       delete current component allocation
+          call function &apos;CM_CL_P_COM_DELETE&apos;
+            exporting            &quot;i_ecn_s = i_ecn_s
+              i_key_date_s     = sy-datum
+              i_com_ident      = fs_com_ident_delete
+              i_opr_alloc_data = ft_opr_all_data_del[]
+            exceptions
+              no_valid_com     = 1
+              path_incomplete  = 2.
+          if sy-subrc ne 0.
+            f_error = &apos;X&apos;.
+            perform add_message
+                        using
+                            &apos;W&apos;
+                            &apos;001&apos;
+                            &apos;00&apos;
+                            &apos;Could not delete allocation.&apos;
+                            space
+                            space
+                            space
+                            i_matnr
+                            i_werks
+                            &lt;com_class_data&gt;-plnnr
+                            &lt;com_class_data&gt;-plnal
+                            &lt;com_class_data&gt;-idnrk
+                            c_log-delete.
+
+          endif.
+        endif.
+      endloop.
+
+      &quot;save data (deletion of current assignment)
+      call function &apos;CP_CC_S_SAVE&apos;.
+      if p_test is initial .
+        commit work.
+      else.
+        rollback work.
+      endif.
+
+    endif.
+
+  else.
+    perform add_message
+    using
+          &apos;E&apos;
+          &apos;001&apos;
+          &apos;00&apos;
+          &apos;Could not find BOM for&apos;
+          i_matnr
+          i_werks
+          space
+          i_matnr
+          i_werks
+          i_plnnr
+          i_plnal
+          space
+          c_log-create.
+
+  endif.
+
+&quot;read operation data
+  call function &apos;CP_CC_S_OPR_PROVIDE_BY_MTK&apos;
+   exporting
+     i_date_from                        = sy-datum
+     i_date_to                          = sy-datum
+     i_material                         = i_matnr
+     i_plant                            = i_werks
+*   I_SALES_ORDER                      = I_SALES_ORDER
+*   I_SALES_ORDER_ITEM                 = I_SALES_ORDER_ITEM
+     i_plnty                            = i_plnty
+     i_plnnr                            = i_plnnr
+     i_plnal                            = i_plnal
+     i_plnfl                            = i_plnfl
+*   I_PLNKN                            = I_PLNKN
+*   I_IDENT                            = I_IDENT
+*   I_VORNR                            = I_VORNR
+*   I_FLG_SUB_OPR_PROVIDE              = &apos; &apos;
+*   I_FLG_TSK_GROUP_TYPE_PROVIDE       = &apos; &apos;
+*   I_FLG_PROVIDE_INV                  = &apos; &apos;
+*   I_FILTER_EXPRESSION                = I_FILTER_EXPRESSION
+* IMPORTING
+*   E_OPR_INV                          = E_OPR_INV
+    tables
+      e_opr_class_data                   = ft_opr_class_data
+   exceptions
+     wrong_key                          = 1
+     others                             = 2
+            .
+  if sy-subrc eq 0.
+    sort ft_opr_class_data by plnal plnfl plnty plnnr vornr.
+  endif.
+
+&quot;create components allocation
+  loop at ft_itm_tree_data assigning &lt;itmdata&gt;.
+    clear fs_com_data.
+    if &lt;itmdata&gt;-sortf eq &apos;SKIP&apos;. &quot;skip components of sub-assemblies which are not phantoms
+      continue.
+    endif.
+    move-corresponding &lt;itmdata&gt; to fs_com_data.
+    move &lt;itmdata&gt;-stufe_k to fs_com_data-stlst. &quot;order level
+
+    if &lt;itmdata&gt;-dumps ne &apos;X&apos; and fs_com_data-stlst is not initial and
+       &lt;itmdata&gt;-stlnr_w eq &lt;itmdata&gt;-stlnr.
+      &quot;we have to calculate proper order level manually....
+      subtract 1 from fs_com_data-stlst.
+    endif.
+
+    &quot;read if we have assignment to operation in out internal table
+    &quot;if yes the we create assignment
+    read table gt_assignment assigning &lt;assign&gt; with key matnr = i_matnr
+                                                         werks = i_werks
+                                                         plnnr = i_plnnr
+                                                         plnfl = i_plnfl
+                                                         plnal = i_plnal
+                                                         plnty = i_plnty
+                                                         stlnr = fs_com_data-stlnr
+                                                         stlal = fs_com_data-stlal
+                                                         stlan = i_stlan
+                                                         posnr = fs_com_data-posnr
+                                                         idnrk = fs_com_data-idnrk
+                                                         stlst = fs_com_data-stlst
+                                                         binary search.
+    if sy-subrc eq 0.
+      &quot;read operation data
+      read table ft_opr_class_data assigning &lt;oprdata&gt; with key plnal = &lt;assign&gt;-plnal
+                                                                plnfl = &lt;assign&gt;-plnfl
+                                                                plnty = &lt;assign&gt;-plnty
+                                                                plnnr = &lt;assign&gt;-plnnr
+                                                                vornr = &lt;assign&gt;-vornr
+                                                                binary search.
+      if sy-subrc eq 0.
+        &quot;move proper data from operation and item data to component allocation structure
+        move-corresponding &lt;oprdata&gt;  to   fs_com_data.
+        move: &lt;oprdata&gt;-ident         to fs_com_data-ident.
+        move: &lt;itmdata&gt;-ident         to fs_com_data-ident_itm.
+        move: &lt;itmdata&gt;-kante_v       to fs_com_data-kante.
+        move: &lt;itmdata&gt;-kante_v       to fs_com_data-kante_v.
+        move: &lt;itmdata&gt;-stlty         to fs_com_data-stlty.
+        move: &lt;itmdata&gt;-stlnr         to fs_com_data-stlnr.
+        move: &lt;itmdata&gt;-stlal         to fs_com_data-stlal.
+        move: &lt;itmdata&gt;-stvkn         to fs_com_data-stlkn.
+        move: i_matnr                 to fs_com_data-bomat.
+        move: i_werks                 to fs_com_data-werk_stl.
+
+        if fs_com_data-vornr is not initial.
+
+          &quot;create allocation
+          call function &apos;CP_CC_S_CREATE_COM&apos;
+          exporting
+*         I_ECN_S                         = &apos; &apos;
+            i_key_date_s                    = sy-datum
+            i_com_class_data                = fs_com_data
+*       IMPORTING
+*         E_ITM_LOCK                      = E_ITM_LOCK
+*         E_OPR_LOCK                      = E_OPR_LOCK
+*         E_OPR_IDENT_ALLOC_INV           = E_OPR_IDENT_ALLOC_INV
+*         E_ZUONR                         = E_ZUONR
+*         E_COM_HANDLE_DEL_TAB            = E_COM_HANDLE_DEL_TAB
+*         E_ECM_DATA_ERROR_TYPE           = E_ECM_DATA_ERROR_TYPE
+          exceptions
+            no_authority                    = 1
+            no_valid_operation              = 2
+            no_valid_item                   = 3
+            operation_already_locked        = 4
+            item_already_locked             = 5
+            operation_not_locked            = 6
+            item_not_locked                 = 7
+            item_not_specified              = 8
+            operation_not_specified         = 9
+            ecm_data_not_suitable           = 10
+            allocation_not_valid            = 11
+            link_to_ref_set_of_opr          = 12
+            link_to_wc_ref_set_of_opr       = 13
+            others                          = 14
+            .
+          if sy-subrc &lt;&gt; 0.
+            f_error = &apos;X&apos;.
+            perform add_message
+            using
+                  &apos;E&apos;
+                  &apos;001&apos;
+                  &apos;00&apos;
+                  &apos;Could not create assignment&apos;
+                  i_matnr
+                  i_werks
+                  i_plnnr
+                  i_matnr
+                  i_werks
+                  i_plnnr
+                  i_plnal
+                  fs_com_data-idnrk
+                  c_log-create.
+
+          endif.
+        endif.
+      else.
+        perform add_message
+        using
+              &apos;E&apos;
+              &apos;001&apos;
+              &apos;00&apos;
+              &apos;Could not find operation&apos;
+              &lt;assign&gt;-vornr
+              i_plnnr
+              i_plnal
+              i_matnr
+              i_werks
+              i_plnnr
+              i_plnal
+              fs_com_data-idnrk
+              c_log-create.
+      endif.
+    endif.
+  endloop.
+
+
+  call function &apos;CP_CC_S_SAVE&apos;.
+  if p_test is initial and f_error is initial.
+    &quot;save only in case of no error appeared
+    commit work.
+  else.
+    rollback work.
+  endif.
+
+
+endform.                    &quot; COMPONENTALLOCATION_EWB
+
+*&amp;---------------------------------------------------------------------*
+*&amp;      Form  load_excel
+*&amp;---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+form load_excel.
+  &quot;ole copy of excel data,
+  data: ft_excel type standard table of alsmex_tabline.
+  field-symbols: &lt;excel&gt; like line of ft_excel.
+  data: f_rows type i.
+
+&quot; Excel columns in proper order.
+&quot;MATNR  WERKS PLNNR PLNFL PLNAL PLNTY VORNR STLNR STLAL STLAN POSNR IDNRK STLST
+
+  call function &apos;ALSM_EXCEL_TO_INTERNAL_TABLE&apos;
+    exporting
+      filename                = p_path
+      i_begin_col             = 1
+      i_begin_row             = 2
+      i_end_col               = 13
+      i_end_row               = p_rows
+    tables
+      intern                  = ft_excel
+    exceptions
+      inconsistent_parameters = 1
+      upload_ole              = 2
+      others                  = 3.
+  if sy-subrc &lt;&gt; 0.
+    message id sy-msgid type sy-msgty number sy-msgno
+            with sy-msgv1 sy-msgv2 sy-msgv3 sy-msgv4.
+  endif.
+
+  data: fs_assign type ty_assignment.
+  data: fs_plan type ty_plan.
+  loop at ft_excel assigning &lt;excel&gt;.
+    case &lt;excel&gt;-col.
+      when 1.
+        clear: fs_assign, fs_plan.
+        call function &apos;CONVERSION_EXIT_ALPHA_INPUT&apos;
+          exporting
+            input  = &lt;excel&gt;-value
+          importing
+            output = fs_assign-matnr.
+
+        fs_plan-matnr   = fs_assign-matnr.
+      when 2.
+        fs_assign-werks = &lt;excel&gt;-value.
+        fs_plan-werks   = &lt;excel&gt;-value.
+      when 3.
+        fs_assign-plnnr = &lt;excel&gt;-value.
+        fs_plan-plnnr   = &lt;excel&gt;-value.
+      when 4.
+        call function &apos;CONVERSION_EXIT_ALPHA_INPUT&apos;
+          exporting
+            input  = &lt;excel&gt;-value
+          importing
+            output = fs_assign-plnfl.
+        fs_plan-plnfl   = fs_assign-plnfl.
+      when 5.
+        call function &apos;CONVERSION_EXIT_ALPHA_INPUT&apos;
+          exporting
+            input  = &lt;excel&gt;-value
+          importing
+            output = fs_assign-plnal.
+        fs_plan-plnal   = fs_assign-plnal.
+      when 6.
+        fs_assign-plnty = &lt;excel&gt;-value.
+        fs_plan-plnty   = &lt;excel&gt;-value.
+      when 7.
+        call function &apos;CONVERSION_EXIT_ALPHA_INPUT&apos;
+          exporting
+            input  = &lt;excel&gt;-value
+          importing
+            output = fs_assign-vornr.
+      when 8.
+        fs_assign-stlnr = &lt;excel&gt;-value.
+      when 9.
+        call function &apos;CONVERSION_EXIT_ALPHA_INPUT&apos;
+          exporting
+            input  = &lt;excel&gt;-value
+          importing
+            output = fs_assign-stlal.
+        fs_plan-stlal = fs_assign-stlal.
+      when 10.
+        call function &apos;CONVERSION_EXIT_ALPHA_INPUT&apos;
+          exporting
+            input  = &lt;excel&gt;-value
+          importing
+            output = fs_assign-stlan.
+        fs_plan-stlan = fs_assign-stlan.
+      when 11.
+        call function &apos;CONVERSION_EXIT_ALPHA_INPUT&apos;
+          exporting
+            input  = &lt;excel&gt;-value
+          importing
+            output = fs_assign-posnr.
+      when 12.
+
+        call function &apos;CONVERSION_EXIT_ALPHA_INPUT&apos;
+          exporting
+            input  = &lt;excel&gt;-value
+          importing
+            output = fs_assign-idnrk.
+
+        if fs_plan-matnr in s_matnr and
+           fs_plan-werks in s_werks and
+           fs_plan-plnnr in s_plnnr .
+
+        endif.
+      when 13.
+        call function &apos;CONVERSION_EXIT_ALPHA_INPUT&apos;
+          exporting
+            input  = &lt;excel&gt;-value
+          importing
+            output = fs_assign-stlst.
+
+        &quot;collect data it&apos;s the last cell so we append row to table
+        collect fs_plan into gt_plan.
+        append fs_assign to gt_assignment.
+    endcase.
+    delete table ft_excel from &lt;excel&gt;.
+  endloop.
+
+  delete gt_assignment where matnr is initial.
+
+  &quot;checks of data.
+  loop at gt_assignment assigning &lt;assign&gt;.
+
+    &quot;check if material exists in plant
+    select single matnr into &lt;assign&gt;-matnr
+      from marc
+      where matnr eq &lt;assign&gt;-matnr
+      and werks   eq &lt;assign&gt;-werks.
+    if sy-subrc ne 0. &quot;material not opened in plant
+      &quot;error message here
+      &quot;stop processing  &quot;continue to next routing
+      perform add_message
+      using
+            &apos;E&apos;
+            &apos;001&apos;
+            &apos;00&apos;
+            &apos;Material: &apos;
+            &lt;assign&gt;-matnr
+            &apos;not opened on plant: &apos;
+            &lt;assign&gt;-werks
+            &lt;assign&gt;-matnr
+            &lt;assign&gt;-werks
+            &lt;assign&gt;-plnnr
+            &lt;assign&gt;-plnal
+            space
+            c_log-read.
+      delete gt_assignment where matnr = &lt;assign&gt;-matnr
+                            and werks = &lt;assign&gt;-werks
+                            and plnty = &lt;assign&gt;-plnty
+                            and plnnr = &lt;assign&gt;-plnnr
+                            and plnal = &lt;assign&gt;-plnal
+                            and plnfl = &lt;assign&gt;-plnfl.
+      continue.
+    endif.
+
+
+    &quot;check if material exists in plant
+    select single matnr into &lt;assign&gt;-idnrk
+    from marc
+    where matnr eq &lt;assign&gt;-idnrk
+    and werks   eq &lt;assign&gt;-werks.
+    if sy-subrc ne 0. &quot;material not opened in plant
+      &quot;error message here
+      &quot;stop processing  &quot;continue to next routing
+      perform add_message
+      using
+            &apos;E&apos;
+            &apos;001&apos;
+            &apos;00&apos;
+            &apos;Component: &apos;
+            &lt;assign&gt;-idnrk
+            &apos;not opened on plant: &apos;
+            &lt;assign&gt;-werks
+            &lt;assign&gt;-matnr
+            &lt;assign&gt;-werks
+            &lt;assign&gt;-plnnr
+            &lt;assign&gt;-plnal
+            space
+            c_log-read.
+      delete gt_assignment where matnr = &lt;assign&gt;-matnr
+                              and werks = &lt;assign&gt;-werks
+                              and plnty = &lt;assign&gt;-plnty
+                              and plnnr = &lt;assign&gt;-plnnr
+                              and plnal = &lt;assign&gt;-plnal
+                              and plnfl = &lt;assign&gt;-plnfl.
+      continue.
+    endif.
+
+
+
+    &quot;check if routing exist in plant
+    select single matnr into &lt;assign&gt;-matnr
+      from mapl
+      where matnr eq &lt;assign&gt;-matnr
+      and werks eq &lt;assign&gt;-werks
+      and plnty eq &lt;assign&gt;-plnty
+      and plnnr eq &lt;assign&gt;-plnnr
+      and plnal eq &lt;assign&gt;-plnal.
+    if sy-subrc ne 0.
+      &quot;error message here
+      &quot;stop processing  &quot;continue to next routing
+      perform add_message
+      using
+            &apos;E&apos;
+            &apos;001&apos;
+            &apos;00&apos;
+            &apos;Routing not found: &apos;
+            &lt;assign&gt;-plnty
+            &lt;assign&gt;-plnnr
+            &lt;assign&gt;-plnal
+            &lt;assign&gt;-matnr
+            &lt;assign&gt;-werks
+            &lt;assign&gt;-plnnr
+            &lt;assign&gt;-plnal
+            space
+            c_log-read.
+      delete gt_assignment where matnr = &lt;assign&gt;-matnr
+                            and werks = &lt;assign&gt;-werks
+                            and plnty = &lt;assign&gt;-plnty
+                            and plnnr = &lt;assign&gt;-plnnr
+                            and plnal = &lt;assign&gt;-plnal
+                            and plnfl = &lt;assign&gt;-plnfl.
+      continue.
+    endif.
+
+    if &lt;assign&gt;-stlnr is initial.
+      select single stlnr
+        into &lt;assign&gt;-stlnr
+        from mast
+        where matnr eq &lt;assign&gt;-matnr
+        and werks eq &lt;assign&gt;-werks
+        and stlan eq &lt;assign&gt;-stlan
+        and stlal eq &lt;assign&gt;-stlal.
+      if sy-subrc ne 0.
+        perform add_message
+        using
+              &apos;E&apos;
+              &apos;001&apos;
+              &apos;00&apos;
+              &apos;Could not find BOM for&apos;
+              &lt;assign&gt;-matnr
+              &lt;assign&gt;-werks
+              space
+              &lt;assign&gt;-matnr
+              &lt;assign&gt;-werks
+              &lt;assign&gt;-plnnr
+              &lt;assign&gt;-plnal
+              space
+              c_log-read.
+
+        delete gt_assignment where matnr = &lt;assign&gt;-matnr
+        and werks = &lt;assign&gt;-werks
+        and plnty = &lt;assign&gt;-plnty
+        and plnnr = &lt;assign&gt;-plnnr
+        and plnal = &lt;assign&gt;-plnal
+        and plnfl = &lt;assign&gt;-plnfl.
+
+        continue.
+      endif.
+    else.
+      select single stlnr
+      into &lt;assign&gt;-stlnr
+      from stpo
+      where idnrk eq &lt;assign&gt;-idnrk
+      and   stlnr  eq  &lt;assign&gt;-stlnr.
+      if sy-subrc ne 0.
+        perform add_message
+        using
+              &apos;E&apos;
+              &apos;001&apos;
+              &apos;00&apos;
+              &apos;Could not find BOM for&apos;
+              &lt;assign&gt;-idnrk
+              &lt;assign&gt;-werks
+              space
+              &lt;assign&gt;-idnrk
+              &lt;assign&gt;-werks
+              &lt;assign&gt;-plnnr
+              &lt;assign&gt;-plnal
+              space
+              c_log-read.
+
+        delete gt_assignment where matnr = &lt;assign&gt;-matnr
+        and werks = &lt;assign&gt;-werks
+        and plnty = &lt;assign&gt;-plnty
+        and plnnr = &lt;assign&gt;-plnnr
+        and plnal = &lt;assign&gt;-plnal
+        and plnfl = &lt;assign&gt;-plnfl.
+
+        continue.
+      endif.
+    endif.
+  endloop.
+
+  sort gt_assignment by matnr werks plnnr plnfl plnal plnty stlnr stlal stlan posnr idnrk stlst.
+  sort gt_plan by matnr werks plnty plnnr plnal plnfl.
+
+endform.                    &quot;load_excel
+
+*&amp;---------------------------------------------------------------------*
+*&amp;      Form  create_assignment
+*&amp;---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+form create_assignment.
+
+  loop at gt_plan assigning &lt;plan&gt;.
+
+    perform componentallocation_ewb
+                using
+                   &lt;plan&gt;-matnr
+                   &lt;plan&gt;-werks
+                   &lt;plan&gt;-stlan
+                   &lt;plan&gt;-stlal
+                   &lt;plan&gt;-plnnr
+                   &lt;plan&gt;-plnal
+                   &lt;plan&gt;-plnty
+                   &lt;plan&gt;-plnfl.
+
+  endloop.
+
+endform.                    &quot;create_assignment
+
+*&amp;---------------------------------------------------------------------*
+*&amp;      Form  add_message
+*&amp;---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+*      --&gt;I_TYPE     text
+*      --&gt;I_NUMBER   text
+*      --&gt;I_ID       text
+*      --&gt;I_V1       text
+*      --&gt;I_V2       text
+*      --&gt;I_V3       text
+*      --&gt;I_V4       text
+*      --&gt;I_MATNR    text
+*      --&gt;I_WERKS    text
+*      --&gt;I_PLNNR    text
+*      --&gt;I_PLNAL    text
+*      --&gt;I_IDNRK    text
+*----------------------------------------------------------------------*
+form add_message using value(i_type)
+                       value(i_number)
+                       value(i_id)
+                       value(i_v1)
+                       value(i_v2)
+                       value(i_v3)
+                       value(i_v4)
+                       value(i_matnr)
+                       value(i_werks)
+                       value(i_plnnr)
+                       value(i_plnal)
+                       value(i_idnrk)
+                       value(i_log_no).
+  clear gs_return.
+
+
+  gs_return-type                    = i_type.
+  gs_return-id                      = i_id.
+  gs_return-number                  = i_number.
+  gs_return-message_v1              = i_v1.
+  gs_return-message_v2              = i_v2.
+  gs_return-message_v3              = i_v3.
+  gs_return-message_v4              = i_v4.
+  gs_return-log_no                  = i_log_no.
+  message id i_id type i_type number i_number with i_v1 i_v2 i_v3 i_v4 into gs_return-message.
+
+  concatenate i_matnr i_werks i_plnnr into gs_return-parameter separated by space.
+  concatenate i_plnal i_idnrk into gs_return-field separated by space.
+  &quot;gs_return-row
+  &quot;gs_return-system
+
+  append gs_return to gt_return.
+  clear gs_return.
+
+endform.                    &quot;add_message
+
+*&amp;---------------------------------------------------------------------*
+*&amp;      Form  display_log
+*&amp;---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+form display_log.
+  data: fs_layout type slis_layout_alv.
+
+  fs_layout-colwidth_optimize = &apos;X&apos;.
+
+  if gt_return[] is initial.
+    perform add_message
+                using
+                    &apos;S&apos;
+                    &apos;001&apos;
+                    &apos;00&apos;
+                    &apos;No errors appeared&apos;
+                    space
+                    space
+                    space
+                    space
+                    space
+                    space
+                    space
+                    space
+                    c_log-read.
+
+  endif.
+
+  call function &apos;REUSE_ALV_GRID_DISPLAY&apos;
+   exporting
+*     I_INTERFACE_CHECK                 = &apos; &apos;
+*     I_BYPASSING_BUFFER                = &apos; &apos;
+*     I_BUFFER_ACTIVE                   = &apos; &apos;
+      i_callback_program                = sy-repid
+      i_callback_pf_status_set          = &apos;SET_PF_STATUS&apos;
+      i_callback_user_command           = &apos;USER_COMMAND&apos;
+*     I_CALLBACK_TOP_OF_PAGE            = &apos; &apos;
+*     I_CALLBACK_HTML_TOP_OF_PAGE       = &apos; &apos;
+*     I_CALLBACK_HTML_END_OF_LIST       = &apos; &apos;
+     i_structure_name                  = &apos;BAPIRET2&apos;
+*     I_BACKGROUND_ID                   = &apos; &apos;
+*     I_GRID_TITLE                      = I_GRID_TITLE
+*     I_GRID_SETTINGS                   = I_GRID_SETTINGS
+      is_layout                         = fs_layout
+*     IT_FIELDCAT                       = IT_FIELDCAT
+*     IT_EXCLUDING                      = IT_EXCLUDING
+*     IT_SPECIAL_GROUPS                 = IT_SPECIAL_GROUPS
+*     IT_SORT                           = IT_SORT
+*     IT_FILTER                         = IT_FILTER
+*     IS_SEL_HIDE                       = IS_SEL_HIDE
+*     I_DEFAULT                         = &apos;X&apos;
+*     I_SAVE                            = &apos; &apos;
+*     IS_VARIANT                        = IS_VARIANT
+*     IT_EVENTS                         = IT_EVENTS
+*     IT_EVENT_EXIT                     = IT_EVENT_EXIT
+*     IS_PRINT                          = IS_PRINT
+*     IS_REPREP_ID                      = IS_REPREP_ID
+*     I_SCREEN_START_COLUMN             = 0
+*     I_SCREEN_START_LINE               = 0
+*     I_SCREEN_END_COLUMN               = 0
+*     I_SCREEN_END_LINE                 = 0
+*     I_HTML_HEIGHT_TOP                 = 0
+*     I_HTML_HEIGHT_END                 = 0
+*     IT_ALV_GRAPHICS                   = IT_ALV_GRAPHICS
+*     IT_HYPERLINK                      = IT_HYPERLINK
+*     IT_ADD_FIELDCAT                   = IT_ADD_FIELDCAT
+*     IT_EXCEPT_QINFO                   = IT_EXCEPT_QINFO
+*     IR_SALV_FULLSCREEN_ADAPTER        = IR_SALV_FULLSCREEN_ADAPTER
+*   IMPORTING
+*     E_EXIT_CAUSED_BY_CALLER           = E_EXIT_CAUSED_BY_CALLER
+*     ES_EXIT_CAUSED_BY_USER            = ES_EXIT_CAUSED_BY_USER
+    tables
+      t_outtab                          = gt_return[]
+   exceptions
+     program_error                     = 1
+     others                            = 2
+            .
+  if sy-subrc &lt;&gt; 0.
+* MESSAGE ID SY-MSGID TYPE SY-MSGTY NUMBER SY-MSGNO
+*         WITH SY-MSGV1 SY-MSGV2 SY-MSGV3 SY-MSGV4.
+  endif.
+
+
+endform.                    &quot;display_log
+
+*&amp;---------------------------------------------------------------------*
+*&amp;      Form  set_pf_status
+*&amp;---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+*      --&gt;TT_EXTAB   text
+*----------------------------------------------------------------------*
+form set_pf_status using tt_extab type slis_t_extab.
+
+  set pf-status &apos;STANDARD&apos; of program sy-repid immediately.
+
+endform.                    &quot;set_pf_status
+
+*&amp;---------------------------------------------------------------------*
+*&amp;      Form  user_command
+*&amp;---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+*      --&gt;F_UCOMM      text
+*      --&gt;FS_SELFIELD  text
+*----------------------------------------------------------------------*
+form user_command  using f_ucomm like sy-ucomm
+                         fs_selfield type slis_selfield.
+
+  data: ft_return type bapiret2_t.
+  case f_ucomm.
+    when &apos;CREATE_ASS&apos;.
+      perform create_assignment.
+      ft_return[] = gt_return[].
+      sort ft_return by log_no.
+      read table ft_return with key log_no = c_log-delete transporting no fields binary search.
+      if sy-subrc ne 0.
+        perform add_message
+        using
+              &apos;S&apos;
+              &apos;001&apos;
+              &apos;00&apos;
+              &apos;No errors appeared&apos;
+              space
+              space
+              space
+              space
+              space
+              space
+              space
+              space
+              c_log-delete.
+      endif.
+      read table ft_return with key log_no = c_log-create transporting no fields binary search.
+      if sy-subrc ne 0.
+        perform add_message
+        using
+              &apos;S&apos;
+              &apos;001&apos;
+              &apos;00&apos;
+              &apos;No errors appeared&apos;
+              space
+              space
+              space
+              space
+              space
+              space
+              space
+              space
+              c_log-create.
+      endif.
+
+      fs_selfield-refresh = &apos;X&apos;.
+  endcase.
+
+
+endform.                    &quot;USER_COMMAND
+
+
+*&amp;---------------------------------------------------------------------*
+*&amp;      Form  item_check
+*&amp;---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+*      --&gt;FT_ITEM_CLASS_DATA  text
+*----------------------------------------------------------------------*
+form item_check tables   ft_item_class_data structure itm_tree_class_data.
+  field-symbols: &lt;itmdata&gt; type itm_tree_class_data.
+  data: f_kante type plmz-kante.
+  data: f_kante_global type plmz-kante.
+  field-symbols: &lt;prev_dummy_dumps&gt; type itm_tree_class_data.
+
+
+  read table ft_item_class_data index 1 assigning &lt;prev_dummy_dumps&gt;.
+
+  loop at ft_item_class_data assigning &lt;itmdata&gt;.
+    clear &lt;itmdata&gt;-handle.
+    clear &lt;itmdata&gt;-kante_v.
+    clear &lt;itmdata&gt;-sortf.
+
+    if &lt;prev_dummy_dumps&gt;-stlnr ne &lt;itmdata&gt;-stlnr and &lt;prev_dummy_dumps&gt;-dumps ne &apos;X&apos;.
+      &quot;If we have sub-assembly which is not phantom it still has to be taken into accout
+      &quot;when calculating kante_v but it must be skipped during creation of assignments
+      &lt;itmdata&gt;-sortf = &apos;SKIP&apos;.
+      &quot;I mark in sanfe field that this is sub-assembly without phantom
+      &lt;prev_dummy_dumps&gt;-sanfe = &apos;S&apos;.
+      continue.
+    endif.
+
+
+    if &lt;itmdata&gt;-dumps eq &apos;X&apos;.
+      read table ft_item_class_data index sy-tabix assigning &lt;prev_dummy_dumps&gt;.
+    endif.
+  endloop.
+
+
+  loop at ft_item_class_data assigning &lt;itmdata&gt;.
+    if &lt;itmdata&gt;-handle is not initial.
+      continue.
+    endif.
+    &lt;itmdata&gt;-handle = sy-tabix.
+    if &lt;itmdata&gt;-dumps eq &apos;X&apos; .
+      add 1 to f_kante_global.
+      &lt;itmdata&gt;-kante_v = f_kante_global.
+      perform recursive_item_check tables ft_item_class_data
+                                   using &lt;itmdata&gt;
+                                   changing &lt;itmdata&gt;-kante_v
+                                            f_kante_global.
+
+
+    elseif &lt;itmdata&gt;-sanfe eq &apos;S&apos;. &quot;dummy code for not needed entry
+      data: f_dummy_kante type plmz-kante.
+      add 1 to f_kante_global.
+      perform recursive_item_check tables ft_item_class_data
+                                  using &lt;itmdata&gt;
+                                  changing f_dummy_kante
+                                    f_kante_global.
+
+    elseif &lt;itmdata&gt;-itsob eq &apos;52&apos;.
+      add 1 to f_kante_global.
+      &lt;itmdata&gt;-kante_v = f_kante_global.
+    else.
+      clear &lt;itmdata&gt;-kante_v.
+    endif.
+
+
+  endloop.
+
+endform.                    &quot;item_check
+
+*&amp;---------------------------------------------------------------------*
+*&amp;      Form  recursive_item_check
+*&amp;---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+*      --&gt;FT_ITEM_CLASS_DATA  text
+*      --&gt;FS_ITEM             text
+*      --&gt;F_KANTE             text
+*      --&gt;F_KANTE_GLOBAL      text
+*----------------------------------------------------------------------*
+form recursive_item_check  tables   ft_item_class_data structure itm_tree_class_data
+                            using    fs_item type itm_tree_class_data
+                        changing  f_kante type plmz-kante
+                                  f_kante_global type plmz-kante.
+
+
+  field-symbols: &lt;itmdata&gt; type itm_tree_class_data.
+  data: ls_items type itm_tree_class_data.
+  data: f_tabix type sy-tabix.
+  data: f_stlnr type stko-stlnr.
+
+  f_tabix = fs_item-handle + 1 .
+
+  read table ft_item_class_data assigning &lt;itmdata&gt; index f_tabix.
+  if sy-subrc eq 0.
+    f_stlnr = &lt;itmdata&gt;-stlnr.
+  endif.
+  loop at ft_item_class_data assigning &lt;itmdata&gt; from f_tabix .
+    if &lt;itmdata&gt;-stlnr ne f_stlnr.
+      exit.
+    endif.
+    &lt;itmdata&gt;-handle = sy-tabix.
+
+    if &lt;itmdata&gt;-dumps eq &apos;X&apos; .
+      add 1 to f_kante_global.
+      &lt;itmdata&gt;-kante_v = f_kante_global.
+
+      perform recursive_item_check tables ft_item_class_data
+                                using
+            &lt;itmdata&gt;
+      changing
+        &lt;itmdata&gt;-kante_v
+        f_kante_global .
+    elseif &lt;itmdata&gt;-sanfe eq &apos;S&apos;. &quot;dummy code for not needed entriy
+      data: f_dummy_kante type plmz-kante.
+      add 1 to f_kante_global.
+      perform recursive_item_check tables ft_item_class_data
+      using &lt;itmdata&gt;
+      changing f_dummy_kante
+        f_kante_global.
+
+    elseif &lt;itmdata&gt;-itsob eq &apos;52&apos;.
+      add 1 to f_kante_global.
+      &lt;itmdata&gt;-kante_v = f_kante_global.
+
+    else.
+      &lt;itmdata&gt;-kante_v = f_kante. &quot;path in expl
+    endif.
+  endloop.
+
+endform.</source>
+ </PROG>
+</nugget>

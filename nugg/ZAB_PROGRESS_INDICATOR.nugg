@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<nugget name="ZAB_PROGRESS_INDICATOR">
+ <PROG NAME="ZAB_PROGRESS_INDICATOR" VARCL="X" SUBC="1" RMAND="001" RLOAD="E" FIXPT="X" UCCHECK="X">
+  <textPool>
+   <language SPRAS="E">
+    <textElement ID="R" ENTRY="Program ZAB_PROGRESS_INDICATOR" LENGTH="30 "/>
+    <textElement ID="S" KEY="P_TIMES1" ENTRY="        Immediately" LENGTH="19 "/>
+    <textElement ID="S" KEY="P_TIMES2" ENTRY="        Once per 10 seconds" LENGTH="27 "/>
+   </language>
+  </textPool>
+  <source>report zab_prog_indicator.
+
+parameters: p_times1 type i default  15, &quot;Immediately
+            p_times2 type i default  42. &quot;Once per 10 seconds
+
+
+do p_times1 times.
+
+  cl_progress_indicator=&gt;progress_indicate(
+  exporting
+    i_text               = | output immediately { sy-index } / { p_times1 } |
+*    i_msgid              = i_msgid    &quot; Message Class (If I_TEXT is not transferred)
+*    i_msgno              = i_msgno    &quot; Message Number (If I_TEXT is not transferred)
+*    i_msgv1              = i_msgv1    &quot; Message Variable (Maximum of 50 Characters)
+*    i_msgv2              = i_msgv2    &quot; Message Variable (Maximum of 50 Characters)
+*    i_msgv3              = i_msgv3    &quot; Message Variable (Maximum of 50 Characters)
+*    i_msgv4              = i_msgv4    &quot; Message Variable (Maximum of 50 Characters)
+    i_processed          = sy-index    &quot; Number of Objects Already Processed
+    i_total              = p_times1    &quot; Total Number of Objects to Be Processed
+    i_output_immediately = abap_true    &quot; X = Display Progress Immediately
+*  importing
+*    e_progress_sent      = e_progress_sent    &quot; X = Progress Information Was Displayed
+    ).
+  wait up to 1 seconds.
+
+enddo.
+
+do p_times2 times.
+
+  cl_progress_indicator=&gt;progress_indicate(
+  exporting
+    i_text               = | output once per 10 seconds { sy-index } / { p_times2 } |
+*    i_msgid              = i_msgid    &quot; Message Class (If I_TEXT is not transferred)
+*    i_msgno              = i_msgno    &quot; Message Number (If I_TEXT is not transferred)
+*    i_msgv1              = i_msgv1    &quot; Message Variable (Maximum of 50 Characters)
+*    i_msgv2              = i_msgv2    &quot; Message Variable (Maximum of 50 Characters)
+*    i_msgv3              = i_msgv3    &quot; Message Variable (Maximum of 50 Characters)
+*    i_msgv4              = i_msgv4    &quot; Message Variable (Maximum of 50 Characters)
+    i_processed          = sy-index    &quot; Number of Objects Already Processed
+    i_total              = p_times2    &quot; Total Number of Objects to Be Processed
+    i_output_immediately = abap_false    &quot; X = Display Progress Immediately
+*  importing
+*    e_progress_sent      = e_progress_sent    &quot; X = Progress Information Was Displayed
+    ).
+
+  wait up to 1 seconds.
+enddo.</source>
+ </PROG>
+</nugget>

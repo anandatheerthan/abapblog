@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-16"?>
+<nugget name=";L">
+ <PROG NAME="ZAB_CLASSIFICATIONS_POPUP" VARCL="X" SUBC="1" CNAM="BCUSER" CDAT="20130817" UNAM="BCUSER" UDAT="20131117" VERN="000015" LEVL="700" RMAND="100" RLOAD="E" FIXPT="X" SDATE="20131117" STIME="211022" IDATE="20131117" ITIME="211022" UCCHECK="X">
+  <textPool>
+   <language SPRAS="E">
+    <textElement ID="I" KEY="E00" ENTRY="Error opening dataset, return code:" LENGTH="38 "/>
+    <textElement ID="I" KEY="I01" ENTRY="Session name" LENGTH="20 "/>
+    <textElement ID="I" KEY="I02" ENTRY="Open session" LENGTH="30 "/>
+    <textElement ID="I" KEY="I03" ENTRY="Insert transaction" LENGTH="25 "/>
+    <textElement ID="I" KEY="I04" ENTRY="Close Session" LENGTH="30 "/>
+    <textElement ID="I" KEY="I05" ENTRY="Return code =" LENGTH="13 "/>
+    <textElement ID="I" KEY="I06" ENTRY="Error session created" LENGTH="25 "/>
+    <textElement ID="I" KEY="S01" ENTRY="Session name" LENGTH="25 "/>
+    <textElement ID="I" KEY="S02" ENTRY="User" LENGTH="25 "/>
+    <textElement ID="I" KEY="S03" ENTRY="Keep session" LENGTH="25 "/>
+    <textElement ID="I" KEY="S04" ENTRY="Lock date" LENGTH="25 "/>
+    <textElement ID="I" KEY="S05" ENTRY="Processing Mode" LENGTH="25 "/>
+    <textElement ID="I" KEY="S06" ENTRY="Update Mode" LENGTH="25 "/>
+    <textElement ID="I" KEY="S07" ENTRY="Generate session" LENGTH="25 "/>
+    <textElement ID="I" KEY="S08" ENTRY="Call transaction" LENGTH="25 "/>
+    <textElement ID="I" KEY="S09" ENTRY="Error sessn" LENGTH="11 "/>
+    <textElement ID="I" KEY="S10" ENTRY="Nodata indicator" LENGTH="18 "/>
+    <textElement ID="I" KEY="S11" ENTRY="Short log" LENGTH="13 "/>
+    <textElement ID="R" ENTRY="Characteristics popup with own values" LENGTH="37 "/>
+   </language>
+  </textPool>
+  <source>program  zab_classifications_popup.
+*--------------------------------------------------------------------*
+* This program was prepared by #ukasz P#giel for presentation purpose
+* at http://abapblog.com .
+* You can use it in your SAP instance without any warranty
+* for non-commercial and commercial  use but you cannot sell it as
+* a full program or a part of it.
+*
+* If you&apos;d like to use it on your own site please contact me before to
+* get the agreement before.
+*
+*--------------------------------------------------------------------*
+data: begin of fs_class ,
+        object type objnum,
+        class type klasse_d,
+        klart type klassenart,
+        data type ref to data,
+      end of fs_class.
+
+select-options: s_object for fs_class-object no intervals .
+parameters: p_class type klah-class obligatory .
+parameters: p_clty type klah-klart obligatory .
+parameters: p_atnam type api_value-atnam obligatory .
+parameters: p_table type tcla-obtab.
+
+
+loop at s_object.
+
+  fs_class-object = s_object-low.
+  fs_class-class  = p_class.
+  fs_class-klart  = p_clty.
+
+  zcl_abapblog_com_classific=&gt;get_object_details(
+    exporting
+      i_object           = fs_class-object
+      i_class            = fs_class-class
+      i_classtype        = fs_class-klart
+*    i_objecttable      = i_objecttable
+*    i_key_date         = SY-DATUM
+*    i_structure        = i_structure
+  importing
+*    et_objvaluesnum    = et_objvaluesnum
+*    et_objvalueschar   = et_objvalueschar
+*    et_objvaluescurr   = et_objvaluescurr
+    e_data             = fs_class-data
+  exceptions
+    fetch_values_error = 1
+    structure_error    = 2
+    others             = 3
+         ).
+  if sy-subrc eq 0.
+
+    zcl_abapblog_com_classific=&gt;show_charact_values_screen(
+      exporting
+        i_display                 = space
+        i_class                   = fs_class-class
+        i_klart                   = fs_class-klart
+        i_atnam                   = p_atnam
+*    it_values                 = it_values
+        i_set_val_from_object     = space
+        i_object                  = fs_class-object
+        i_table                   = p_table
+*    i_date                    = SY-DATUM
+*    i_structure               = i_structure
+*  importing
+*    et_values                 = et_values
+      changing
+        c_data        = fs_class-data
+      exceptions
+        characteristic_unknown    = 1
+        error_setting_char_values = 2
+        no_values_found           = 3
+        error_creating_table      = 4
+        others                    = 5
+           ).
+    if sy-subrc eq 0.
+      zcl_abapblog_com_classific=&gt;save_charact_from_ref_data(
+      exporting
+      i_data          = fs_class-data
+*    i_change_number = i_change_number
+      exceptions
+        no_data         = 1
+        others          = 2
+        ).
+      if sy-subrc &lt;&gt; 0.
+* Implement suitable error handling here
+      endif.
+    endif.
+  endif.
+
+
+
+endloop.</source>
+ </PROG>
+</nugget>

@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-16"?>
+<nugget name="ZAB_CHART_STACKEDCOLUMNS">
+ <PROG NAME="ZAB_CHART_STACKEDCOLUMNS" VARCL="X" DBAPL="S" SUBC="1" CNAM="PEGIELL" CDAT="20150428" UNAM="PEGIELL" UDAT="20150428" VERN="000012" RMAND="100" FIXPT="X" SDATE="20150428" STIME="193936" IDATE="20150428" ITIME="193936" LDBNAME="D$S" UCCHECK="X">
+  <textPool>
+   <language SPRAS="E">
+    <textElement ID="R" ENTRY="Chart" LENGTH="5 "/>
+   </language>
+  </textPool>
+  <dynpros>
+   <dynpro PROG="ZAB_CHART_STACKEDCOLUMNS" DNUM="0100" FNUM="0100" BZMX="40 " BZBR="215 " MILI="192 " MICO="37 " MALI="0 " MACO="0 " NOLI="40 " NOCO="216 " VALP="0 " CUAN="G" SPRA="E" DGEN="20150428" TGEN="190746" DTEXT="test">
+    <dynprofield FNAM="CHART" DIDX="0028" FLG1="00" FLG2="30" FLG3="00" FILL="U" FMB1="30" FMB2="00" LENG="D7" LINE="01" COLN="02" LANF="00" LBLK="00" LREP="00" AUTH="101" AGLT="0A" ADEZ="0A"/>
+    <dynprofield FNAM="OK_CODE" DIDX="0000" FLG1="80" FLG2="10" FLG3="00" FMB1="00" FMB2="00" LENG="14" LINE="FF" COLN="01" LTYP="O" LANF="00" LBLK="00" LREP="00" TYPE="CHAR" AGLT="00" ADEZ="00" STXT="____________________"/>
+    <dynproflowsource>process before output.
+ module pbo.
+*
+process after input.
+  module pai.</dynproflowsource>
+   </dynpro>
+  </dynpros>
+  <pfstatus>
+   <pfstatus_sta CODE="TEST" MODAL="D" ACTCODE="000001" PFKCODE="000001" BUTCODE="0001" INT_NOTE="test"/>
+   <pfstatus_fun CODE="END" TEXTNO="001" TEXT_TYPE="S" FUN_TEXT="Back"/>
+   <pfstatus_fun CODE="END" TEXTNO="002" TEXT_TYPE="S" FUN_TEXT="Exit"/>
+   <pfstatus_fun CODE="END" TEXTNO="003" TEXT_TYPE="S" TEXT_NAME="ICON_CANCEL" ICON_ID="@0W@" FUN_TEXT="Cancel"/>
+   <pfstatus_pfk CODE="000001" PFNO="03" FUNCODE="END" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="12" FUNCODE="END" FUNNO="003"/>
+   <pfstatus_pfk CODE="000001" PFNO="15" FUNCODE="END" FUNNO="002"/>
+   <pfstatus_set STATUS="TEST" FUNCTION="END"/>
+   <pfstatus_doc OBJ_TYPE="A" OBJ_CODE="000001" MODAL="D" INT_NOTE="test"/>
+   <pfstatus_doc OBJ_TYPE="P" OBJ_CODE="000001" MODAL="D" INT_NOTE="test"/>
+   <pfstatus_doc OBJ_TYPE="B" OBJ_CODE="000001" SUB_CODE="0001" MODAL="D" INT_NOTE="test"/>
+  </pfstatus>
+  <source>report zab_chart_stackedcolumns.
+
+data: ok_code type sy-ucomm.
+
+
+class lcl_chart definition.
+  public section.
+    data: go_cc_chart type ref to cl_gui_custom_container.
+    data go_chart type ref to cl_gui_chart_engine .
+    methods read_standard_text
+      importing
+        !i_tdid             type rssce-tdid
+        !i_tdspras          type rssce-tdspras
+        !i_tdname           type rssce-tdname
+        !i_replace_brackets type c default space
+      changing
+        !c_string           type string .
+
+    methods create_chart_customizing
+      importing
+        !i_textname      type rssce-tdname
+        !i_title         type csequence
+        !i_subtitle      type csequence
+      returning
+        value(c_xstring) type xstring .
+    methods create_chart_data
+      returning
+        value(r_datastring) type xstring .
+
+    methods create_and_init_chart .
+    methods pbo.
+    methods pai.
+endclass.
+
+
+class lcl_chart implementation.
+  method read_standard_text.
+    field-symbols: &lt;itf&gt; type tline.
+    data: m_itf_text type table of tline.
+    data: m_string type string.
+    clear: c_string.
+
+    call function &apos;READ_TEXT&apos;
+      exporting
+        id        = i_tdid
+        language  = i_tdspras
+        name      = i_tdname
+        object    = &apos;TEXT&apos;
+      tables
+        lines     = m_itf_text
+      exceptions
+        id        = 1
+        language  = 2
+        name      = 3
+        not_found = 4
+        object    = 5
+        others    = 8.
+    if sy-subrc &lt;&gt; 0.
+*    raise error_reading_standard_text.
+    else.
+      loop at m_itf_text assigning &lt;itf&gt;.
+        concatenate m_string &lt;itf&gt;-tdline into m_string.
+      endloop.
+
+      if i_replace_brackets eq &apos;X&apos;.
+        replace all occurrences of &apos;{&apos; in m_string with &apos;&lt;&apos;.
+        replace all occurrences of &apos;}&apos; in m_string with &apos;&gt;&apos;.
+      endif.
+      c_string = m_string.
+    endif.
+  endmethod.
+  method create_chart_customizing.
+    data: ft_raw255 type solix_tab.
+    data: f_string type string.
+    data fo_ixml type ref to if_ixml.
+    data fo_streamfactory type ref to if_ixml_stream_factory.
+    data fo_istream type ref to if_ixml_istream.
+    data fo_document type ref to if_ixml_document. &quot;&lt;=== here is IF_IXML_DOCUMENT
+    data fo_parser type ref to if_ixml_parser.
+    data f_ostream type ref to if_ixml_ostream.
+    data: f_subtitle type string.
+    data: f_title type string.
+
+    f_subtitle = i_subtitle.
+    f_title = i_title.
+
+    me-&gt;read_standard_text(
+    exporting
+      i_tdid             = &apos;ST&apos;
+      i_tdspras          = &apos;E&apos;
+      i_tdname           = i_textname
+      i_replace_brackets = abap_true
+    changing
+      c_string           = f_string
+      ).
+
+
+    if f_string is not initial.
+      replace all occurrences of &apos;&amp;&apos; in f_subtitle with &apos;&amp;amp;&apos;.
+      replace all occurrences of &apos;&amp;&apos; in f_title with &apos;&amp;amp;&apos;.
+      replace all occurrences of &apos;&lt;&apos; in f_subtitle with &apos;&amp;lt;&apos;.
+      replace all occurrences of &apos;&lt;&apos; in f_title with &apos;&amp;lt;&apos;.
+      replace all occurrences of &apos;&gt;&apos; in f_subtitle with &apos;&amp;gt;&apos;.
+      replace all occurrences of &apos;&gt;&apos; in f_title with &apos;&amp;gt;&apos;.
+      replace all occurrences of &apos;SUBTITLE_REPLACE&apos; in f_string with f_subtitle.
+      replace all occurrences of &apos;TITLE_REPLACE&apos; in f_string with f_title.
+
+      try.
+          data(f_xstring) = cl_bcs_convert=&gt;string_to_xstring( iv_string = f_string ).
+          data(f_lenght) = xstrlen( f_xstring ).
+        catch cx_bcs.
+          return.
+      endtry.
+
+      try.
+          data(ft_solix) = cl_bcs_convert=&gt;xstring_to_solix( iv_xstring = f_xstring  ).
+        catch cx_bcs.
+          return.
+      endtry.
+
+      check ft_solix[] is not initial.
+      fo_ixml = cl_ixml=&gt;create( ).
+      fo_streamfactory = fo_ixml-&gt;create_stream_factory( ).
+      fo_document = fo_ixml-&gt;create_document( ).
+      fo_istream = fo_streamfactory-&gt;create_istream_itable(
+                                                          size = f_lenght
+                                                          table = ft_solix ).
+      fo_parser = fo_ixml-&gt;create_parser( stream_factory = fo_streamfactory
+                                          istream        = fo_istream
+                                          document       = fo_document ).
+      fo_parser-&gt;parse( ).
+      clear c_xstring.
+      f_ostream = fo_streamfactory-&gt;create_ostream_xstring( c_xstring ).
+      call method fo_document-&gt;render
+        exporting
+          ostream = f_ostream.
+    endif.
+  endmethod.
+
+  method create_chart_data.
+    data: fo_ixml_mf type ref to if_ixml.
+    data: fo_ixml_sf type ref to if_ixml_stream_factory.
+    data: f_ixml_data_doc type ref to if_ixml_document, &quot; XML data doc.
+          f_ostream       type ref to if_ixml_ostream.  &quot; output stream
+
+* processing
+* create an iXML DOM instance
+
+    data: f_encoding type ref to if_ixml_encoding.
+* chart data elements:
+    data: f_chartdata  type ref to if_ixml_element,
+          f_categories type ref to if_ixml_element,
+          f_category   type ref to if_ixml_element,
+          f_series     type ref to if_ixml_element,
+          f_point      type ref to if_ixml_element,
+          f_value      type ref to if_ixml_element.
+* graph data
+
+    data: f_string type string.
+
+* processing
+    fo_ixml_mf = cl_ixml=&gt;create( ).
+    fo_ixml_sf = fo_ixml_mf-&gt;create_stream_factory( ).
+* create an empty document and set encoding
+    f_ixml_data_doc = fo_ixml_mf-&gt;create_document( ).
+    f_encoding = fo_ixml_mf-&gt;create_encoding(
+    byte_order    = if_ixml_encoding=&gt;co_little_endian
+    character_set = &apos;utf-8&apos; ).
+    f_ixml_data_doc-&gt;set_encoding( f_encoding ).
+
+* Now build a DOM, representing an XML document with chart data
+    f_chartdata = f_ixml_data_doc-&gt;create_simple_element(
+                                    name   = &apos;ChartData&apos;
+                                    parent = f_ixml_data_doc ).
+
+* &apos;Categories&apos; section consists of 1 category per timestamp:
+    f_categories = f_ixml_data_doc-&gt;create_simple_element(
+    name   = &apos;Categories&apos;
+    parent = f_chartdata ).
+    f_category = f_ixml_data_doc-&gt;create_simple_element(
+    name   = &apos;Category&apos;
+    parent = f_categories ).
+    f_category-&gt;if_ixml_node~set_value( &apos;TEST1&apos; ).
+
+
+
+* Build all series sections
+    f_series = f_ixml_data_doc-&gt;create_simple_element(
+              name = &apos;Series&apos;
+              parent = f_chartdata ).
+    f_series-&gt;set_attribute( name = &apos;customizing&apos;
+                            value =  &apos;Series1&apos; ).
+
+
+
+      f_point = f_ixml_data_doc-&gt;create_simple_element(
+      name = &apos;Point&apos;
+      parent = f_series ).                                  &quot;#EC NOTEXT
+      f_value = f_ixml_data_doc-&gt;create_simple_element(
+      name = &apos;Value&apos;
+      parent = f_point ).                                   &quot;#EC NOTEXT
+      f_value-&gt;if_ixml_node~set_value( &apos;100&apos; ).
+
+
+    f_series = f_ixml_data_doc-&gt;create_simple_element(
+    name = &apos;Series&apos;
+    parent = f_chartdata ).
+    f_series-&gt;set_attribute( name = &apos;customizing&apos;
+    value = &apos;Series2&apos; ).
+
+      f_point = f_ixml_data_doc-&gt;create_simple_element(
+      name = &apos;Point&apos;
+      parent = f_series ).                                  &quot;#EC NOTEXT
+      f_value = f_ixml_data_doc-&gt;create_simple_element(
+      name = &apos;Value&apos;
+      parent = f_point ).                                   &quot;#EC NOTEXT
+      f_value-&gt;if_ixml_node~set_value( &apos;100&apos; ).
+
+
+    f_series = f_ixml_data_doc-&gt;create_simple_element(
+    name = &apos;Series&apos;
+    parent = f_chartdata ).
+    f_series-&gt;set_attribute( name = &apos;customizing&apos;
+    value = &apos;Series3&apos; ).
+
+      f_point = f_ixml_data_doc-&gt;create_simple_element(
+      name = &apos;Point&apos;
+      parent = f_series ).                                  &quot;#EC NOTEXT
+      f_value = f_ixml_data_doc-&gt;create_simple_element(
+      name = &apos;Value&apos;
+      parent = f_point ).                                   &quot;#EC NOTEXT
+      f_value-&gt;if_ixml_node~set_value( &apos;100&apos; ).
+
+* create ostream (into string variable) and render document into stream
+    f_ostream = fo_ixml_sf-&gt;create_ostream_xstring( r_datastring ).
+    f_ixml_data_doc-&gt;render( f_ostream ).
+  endmethod.
+
+  method create_and_init_chart.
+    data: f_string type string.
+    data: f_string2 type string.
+    data: f_string3 type string.
+    data: f_val_refnor type zbc22-val_refnor.
+    data: f_min type i.
+    data: f_max type i.
+    data: f_lenght type i.
+    data: f_index type i.
+    data: f_random1 type i.
+    data: f_random2 type i.
+    data: f_random3 type i.
+    data: f_random4 type i.
+    data: f_random5 type i.
+    data: ft_chart type sorted table of zca_mdq_error with unique key val_refnor.
+    data: f_xstring type xstring.
+    &quot;  if go_cc_chart is initial.
+
+    check go_cc_chart is initial.
+
+    create object go_cc_chart
+      exporting
+        container_name = &apos;CHART&apos;.
+
+    create object go_chart
+      exporting
+        parent = go_cc_chart.
+
+*    perform create_data_demo using l_ixml_data_doc.
+    f_xstring = me-&gt;create_chart_data(  ).
+    go_chart-&gt;set_data( xdata = f_xstring ).
+
+    clear f_xstring.
+    f_xstring = create_chart_customizing(
+                i_textname = &apos;ZTEST_TEXT&apos;
+
+                i_title = &apos;Title&apos;
+                i_subtitle = &apos;Subtitle&apos;).
+
+    go_chart-&gt;set_customizing( xdata = f_xstring ).
+
+    go_chart-&gt;render( ).
+    &quot;  endif.
+  endmethod.
+  method pbo.
+    set pf-status &apos;TEST&apos;.
+
+    if me-&gt;go_chart is initial.
+      me-&gt;create_and_init_chart(  ).
+    endif.
+  endmethod.
+  method pai.
+    if ok_code eq &apos;END&apos;.
+      leave to screen 0.
+    endif.
+  endmethod.
+endclass.
+data: chart type ref to lcl_chart.
+
+module pbo output.
+   chart-&gt;pbo( ).
+endmodule.
+
+module pai input.
+  chart-&gt;pai( ).
+endmodule.
+
+start-of-selection.
+
+  chart = new lcl_chart( ).
+
+  call screen 0100.</source>
+ </PROG>
+</nugget>

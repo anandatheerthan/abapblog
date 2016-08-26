@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<nugget name="ZABCOPYBOM">
+ <PROG NAME="ZZABCOPYBOM" VARCL="X" DBAPL="S" SUBC="1" RMAND="100" RLOAD="E" FIXPT="X" LDBNAME="D$S" UCCHECK="X">
+  <textPool>
+   <language SPRAS="E">
+    <textElement ID="I" KEY="B01" ENTRY="Source" LENGTH="50 "/>
+    <textElement ID="I" KEY="B02" ENTRY="Target" LENGTH="50 "/>
+    <textElement ID="R" ENTRY="CEWB Bom copy example" LENGTH="21 "/>
+    <textElement ID="S" KEY="P_MATNR" ENTRY="D       ." LENGTH="9 "/>
+    <textElement ID="S" KEY="P_MATTO" ENTRY="D       ." LENGTH="9 "/>
+    <textElement ID="S" KEY="P_STLAL" ENTRY="D       ." LENGTH="9 "/>
+    <textElement ID="S" KEY="P_STLAN" ENTRY="D       ." LENGTH="9 "/>
+    <textElement ID="S" KEY="P_STLTO" ENTRY="D       ." LENGTH="9 "/>
+    <textElement ID="S" KEY="P_STNTO" ENTRY="D       ." LENGTH="9 "/>
+    <textElement ID="S" KEY="P_WERKS" ENTRY="D       ." LENGTH="9 "/>
+    <textElement ID="S" KEY="P_WERTO" ENTRY="D       ." LENGTH="9 "/>
+   </language>
+  </textPool>
+  <source>report zabcopybom.
+data: c_bom_class_data      like bom_class_data,
+      e_ecm_data_error_type type cpcc_message_type.
+
+
+selection-screen begin of block b01 with frame title text-b01.
+parameters: p_matnr type mara-matnr obligatory,
+            p_werks type marc-werks obligatory,
+            p_stlal type mast-stlal obligatory,
+            p_stlan type mast-stlan obligatory.
+selection-screen end of block b01.
+selection-screen begin of block b02 with frame title text-b02.
+parameters: p_matto type mara-matnr obligatory,
+            p_werto type marc-werks obligatory,
+            p_stlto type mast-stlal obligatory,
+            p_stnto type mast-stlan.
+selection-screen end of block b02.
+
+
+
+start-of-selection.
+  perform copy_bom.
+
+
+form copy_bom.
+  &quot;! refresh FG data to be sure we get correct data only
+  call function &apos;CP_CC_S_REFRESH_DATA&apos;
+    exceptions
+      workarea_not_set = 1
+      others           = 2.
+  if sy-subrc &lt;&gt; 0.
+    &quot;! no problem if there was error as this means nothing was to refresh
+  endif.
+
+  data i_cpsc_bom_sel type cpsc_bom_sel_type.
+  data: source_stlnr type stko-stlnr.
+  select single stlnr into @source_stlnr from mast
+  where matnr eq @p_matnr
+  and   werks eq @p_werks
+  and   stlal eq @p_stlal.
+  check sy-subrc eq 0.
+
+  i_cpsc_bom_sel-stlnr = value #( ( low = source_stlnr sign = &apos;I&apos; option = &apos;EQ&apos;  ) ).
+  i_cpsc_bom_sel-stlty = value #( ( low = &apos;M&apos; sign = &apos;I&apos; option = &apos;EQ&apos;  ) ).
+  i_cpsc_bom_sel-stlal = value #( ( low = p_stlal sign = &apos;I&apos; option = &apos;EQ&apos;  ) ).
+  i_cpsc_bom_sel-stlan = value #( ( low = p_stlan sign = &apos;I&apos; option = &apos;EQ&apos;  ) ).
+
+  call function &apos;CP_CC_S_LOAD_COMPLEX_BY_BOM&apos;
+    exporting
+      i_class                        = &apos;P&apos;
+      i_work_area                    = &apos;SAP_BOM&apos;
+      i_classes_in_workarea          = value classes_in_workarea( bom_inarea = abap_true itm_inarea = abap_true sui_inarea = abap_true )
+      i_cpsc_bom_sel                 = i_cpsc_bom_sel
+      i_date_from                    = sy-datum
+      i_date_to                      = sy-datum
+    exceptions
+      workarea_not_found             = 1
+      class_wrong_type               = 2
+      workarea_wrong_type            = 3
+      class_in_workarea_inconsistent = 4
+      workarea_not_specified         = 5
+      bom_not_found                  = 6
+      no_selection_criteria          = 7
+      invalid_selection_period       = 8
+      key_date_required_for_ecm      = 9
+      others                         = 10.
+  check sy-subrc eq 0.
+
+  call function &apos;CP_CC_S_LOAD_COMPLEX_BY_ITM&apos;
+    exporting
+      i_class                        = &apos;P&apos;
+      i_work_area                    = &apos;SAP_ITEM&apos;
+      i_classes_in_workarea          = value classes_in_workarea( bom_inarea = abap_true itm_inarea = abap_true sui_inarea = abap_true )
+      i_cpsc_bom_sel                 = i_cpsc_bom_sel
+      i_date_from                    = sy-datum
+      i_date_to                      = sy-datum
+    exceptions
+      workarea_not_found             = 1
+      class_wrong_type               = 2
+      workarea_wrong_type            = 3
+      class_in_workarea_inconsistent = 4
+      workarea_not_specified         = 5
+      itm_not_found                  = 6
+      no_selection_criteria          = 7
+      invalid_selection_period       = 8
+      key_date_required_for_ecm      = 9
+      others                         = 10.
+  check sy-subrc eq 0.
+
+  data e_bom_class_data type standard table of bom_class_data .
+
+  call function &apos;CP_CC_S_BOM_PROVIDE_BY_MBM&apos;
+    exporting
+      i_date_from      = sy-datum
+      i_date_to        = sy-datum
+      i_material       = p_matnr
+      i_plant          = p_werks
+      i_stlan          = p_stlan
+      i_stlnr          = source_stlnr
+      i_stlal          = p_stlal
+    tables
+      e_bom_class_data = e_bom_class_data
+    exceptions
+      wrong_key        = 1
+      others           = 2.
+  check sy-subrc eq 0 and line_exists( e_bom_class_data[ 1 ] ).
+
+  c_bom_class_data-stlal = p_stlto.
+  c_bom_class_data-stlan = p_stnto.
+
+  call function &apos;CS_CL_S_MAT_BOM_CREATE_BY_COPY&apos;
+    exporting
+*     I_ECN_S                = &apos; &apos;
+      i_key_date_s           = sy-datum
+      i_stlty                = e_bom_class_data[ 1 ]-stlty
+      i_stlnr                = e_bom_class_data[ 1 ]-stlnr
+      i_stlal                = e_bom_class_data[ 1 ]-stlal
+      i_stkoz                = e_bom_class_data[ 1 ]-stkoz
+      i_matnr_new            = p_matto
+      i_werks_new            = p_werto
+      i_stlan_new            = c_bom_class_data-stlan
+      i_stlnr_new            = c_bom_class_data-stlnr
+      i_stlal_new            = c_bom_class_data-stlal
+      i_flg_bom_check        = abap_false
+    changing
+      c_bom_class_data       = c_bom_class_data
+    exceptions
+      mbm_not_consistent     = 1
+      bom_not_consistent     = 2
+      no_authority           = 3
+      bom_not_locked         = 4
+      no_valid_material      = 5
+      no_valid_plant         = 6
+      no_valid_usage         = 7
+      alternative_overflow   = 8
+      ident_already_exists   = 9
+      multiple_bom           = 10
+      variant_bom            = 11
+      bom_in_plant_not_found = 12
+      ecm_data_not_suitable  = 13
+      input_incomplete       = 14
+      no_valid_bom           = 15
+      others                 = 16.
+  if sy-subrc = 0.
+    data: e_itm_class_data type standard table of itm_class_data.
+    call function &apos;CS_CL_P_ITM_PROVIDE&apos;
+      exporting
+        i_date_from      = sy-datum
+        i_date_to        = sy-datum
+        i_stlty          = e_bom_class_data[ 1 ]-stlty
+        i_stlnr          = e_bom_class_data[ 1 ]-stlnr
+        i_stlal          = e_bom_class_data[ 1 ]-stlal
+        i_werks          = p_werks
+      tables
+        e_itm_class_data = e_itm_class_data
+      exceptions
+        wrong_key        = 1
+        others           = 2.
+    if sy-subrc eq 0.
+      data: i_itm_class_data_new type itm_class_data.
+      data: i_alternatives_new type cscl_alt_tb_type.
+      loop at e_itm_class_data assigning field-symbol(&lt;itm&gt;).
+        call function &apos;CS_CL_S_ITM_CREATE_BY_COPY&apos;
+          exporting
+*           i_ecn_s                  = i_ecn_s
+            i_key_date_s             = sy-datum
+            i_stlty                  = e_bom_class_data[ 1 ]-stlty
+            i_stlnr                  = e_bom_class_data[ 1 ]-stlnr
+            i_stlal                  = e_bom_class_data[ 1 ]-stlal
+            i_stvkn                  = &lt;itm&gt;-stvkn
+            i_stlkn                  = &lt;itm&gt;-stlkn
+            i_stpoz                  = &lt;itm&gt;-stpoz
+            i_itm_class_data_new     = i_itm_class_data_new
+            i_stlty_new              = c_bom_class_data-stlty
+            i_stlnr_new              = c_bom_class_data-stlnr
+            i_alternatives_new       = value cscl_alt_tb_type( ( stlal = p_stlto ) )
+            i_flg_itm_check          = abap_false
+          exceptions
+            new_item_not_consistent  = 1
+            no_authority             = 2
+            no_valid_item            = 3
+            new_item_not_locked      = 4
+            new_ident_already_exists = 5
+            wrong_new_ident_type     = 6
+            no_valid_new_bom         = 7
+            input_incomplete         = 8
+            ecm_data_not_suitable    = 9
+            others                   = 10.
+        if sy-subrc ne 0.
+          return.
+        endif.
+      endloop.
+      call function &apos;CP_CC_S_SAVE&apos;
+        exceptions
+          error_at_save = 1
+          others        = 2.
+      if sy-subrc = 0.
+        commit work.
+      else.
+        rollback work.
+      endif.
+    endif.
+  endif.
+
+endform.</source>
+ </PROG>
+</nugget>

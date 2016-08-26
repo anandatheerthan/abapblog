@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-16"?>
+<nugget name="ZAB_EXTMD07">
+ <PROG NAME="ZAB_MD07" VARCL="X" SUBC="1" CNAM="BCUSER" CDAT="20130616" UNAM="BCUSER" UDAT="20130616" VERN="000011" RSTAT="K" RMAND="001" RLOAD="E" FIXPT="X" SDATE="20130616" STIME="225820" IDATE="20130616" ITIME="225820" UCCHECK="X">
+  <textPool>
+   <language SPRAS="E">
+    <textElement ID="R" ENTRY="Program ZAB_MD07" LENGTH="16 "/>
+   </language>
+  </textPool>
+  <source>report  zab_md07.
+
+type-pools: m61x.
+tables: marc,
+        sscrfields,
+        mdkpdb.
+
+constants: memo_id_md07(10) type c value &apos;START_MD07&apos;.
+
+data: rm61r like rm61r.
+data smp_dyntxt type smp_dyntxt.
+
+types: begin of t_vendor,
+  matnr like eina-matnr,
+  lifnr like eina-lifnr,
+end of t_vendor.
+
+data: g_vendor type t_vendor.
+data: gt_vendor like standard table of g_vendor.
+data: gt_mdkp like standard table of mdkp.
+data: g_dtart like mdkp-dtart.
+
+*--&gt; Table of selected materials
+data: begin of mdmwx occurs 0.
+        include structure mdmw.        &quot;material / plant
+data: end of mdmwx.
+
+*--&gt; Sicherung  des Dispokopfes
+data: begin of gt_mdkps occurs 0.
+        include structure mdkp.
+data: berid like rm61r-berid.
+data: end of gt_mdkps.
+
+data: gt_mdkpdb like standard table of mdkpdb.
+data: gt_mdma like standard table of mdma.
+field-symbols: &lt;mdma&gt; type mdma,
+               &lt;vend&gt; type t_vendor,
+               &lt;mdkpdb&gt; type mdkpdb,
+               &lt;mdkp&gt; type mdkp,
+               &lt;mdkps&gt; like line of gt_mdkps.
+
+&quot;add buttons on selection screen to be able to go to MD07, MS07
+selection-screen: function key 1,
+                  function key 2.
+
+*--------------------------------------------------------------------*
+* Selection screen fields
+*--------------------------------------------------------------------*
+parameters:     p_plscn like rm61r-plscn.
+selection-screen begin of line.
+parameters: p_dbrkz radiobutton group grp2.
+selection-screen comment (28) for field s_berid.
+select-options: s_berid for rm61r-berid.
+selection-screen end of line.
+selection-screen begin of line.
+parameters: p_wrkkz radiobutton group grp2.
+selection-screen comment (28) for field s_werks.
+select-options: s_werks for rm61r-werks.
+selection-screen end of line.
+
+selection-screen begin of block blk1 with frame title text-bl1.
+  parameters:
+          p_dspkz radiobutton group grp1,
+          p_liekz radiobutton group grp1.
+selection-screen end of block blk1.
+
+selection-screen begin of block blk2 with frame title text-bl2.
+select-options: s_matnr for marc-matnr,
+                s_ekgrp for marc-ekgrp,
+                s_dispo for marc-dispo,
+                s_dismm for marc-dismm,
+                s_lifnr for rm61r-lifnr.
+
+selection-screen end of block blk2.
+
+
+selection-screen begin of block blk3 with frame title text-bl3.
+parameters:   p_dfilt like rm61r-dfilt,
+              p_filbz like rm61r-filbz,
+              p_ergbz like rm61r-ergbz.
+selection-screen end of block blk3.
+
+*--------------------------------------------------------------------*
+*
+*--------------------------------------------------------------------*
+
+at selection-screen.
+  case sscrfields-ucomm.
+    when &apos;FC01&apos;.
+      call transaction &apos;MD07&apos;.
+    when &apos;FC02&apos;.
+      call transaction &apos;MS07&apos;.
+  endcase .
+
+
+initialization.
+*additional icons on selecetion screen
+  clear smp_dyntxt.
+  smp_dyntxt-text = text-s01.
+  smp_dyntxt-icon_id = &apos;@79@&apos;.
+  smp_dyntxt-icon_text = text-s01.
+  smp_dyntxt-quickinfo = text-s01.
+  smp_dyntxt-path = &apos;T&apos;.
+  sscrfields-functxt_01 = smp_dyntxt.
+  clear smp_dyntxt.
+  smp_dyntxt-text = text-s02.
+  smp_dyntxt-icon_id = &apos;@79@&apos;.
+  smp_dyntxt-icon_text = text-s02.
+  smp_dyntxt-quickinfo = text-s02.
+  smp_dyntxt-path = &apos;T&apos;.
+  sscrfields-functxt_02 = smp_dyntxt.
+
+start-of-selection.
+
+  if s_werks[] is initial and s_berid[] is initial.
+    message s663(61).
+*   Enter plant or MRP area
+    exit.
+  elseif s_werks[] is initial and p_wrkkz eq &apos;X&apos;.
+    message s664(61).
+*   Enter a plant
+    exit.
+  elseif s_berid[] is initial and p_dbrkz eq &apos;X&apos;.
+    message s665(61).
+*   Enter an MRP area
+    exit.
+  endif.
+  if s_lifnr[] is initial and p_liekz eq &apos;X&apos;.
+    message s619(61).
+*   Please specity valid vendor
+    exit.
+  endif.
+  if s_dispo[] is initial and p_dspkz eq &apos;X&apos;.
+    message s677(61).
+*   Please enter an MRP controller
+    exit.
+  endif.
+
+  if p_wrkkz eq &apos;X&apos;. &quot;select materials by plant
+    select matnr werks werks as berid from marc
+    into corresponding fields of table gt_mdma
+    where werks in s_werks
+    and   matnr in s_matnr
+    and   ekgrp in s_ekgrp
+    and   dispo in s_dispo
+    and   dismm in s_dismm.
+  elseif p_dbrkz eq &apos;X&apos;. &quot;select material by MRP area
+    select mdma~matnr mdma~werks mdma~berid
+    into corresponding fields of table gt_mdma
+    from mdma
+    inner join marc as marc
+    on  marc~matnr eq mdma~matnr
+    and marc~werks eq mdma~werks
+    where mdma~matnr in s_matnr
+    and mdma~berid in s_berid
+    and mdma~dismm in s_dismm
+    and mdma~dispo in s_dispo
+    and marc~ekgrp in s_ekgrp.
+  endif.
+
+  sort gt_mdma by matnr werks berid.
+  delete adjacent duplicates from gt_mdma comparing all fields.
+
+  &quot;check if we want to filter material on a base of inforecords
+  &quot; for vendor
+  if gt_mdma[] is not initial and s_lifnr[] is not initial.
+    &quot;select material for vendors
+    select matnr lifnr from eina
+    into corresponding fields of table gt_vendor
+    for all entries in gt_mdma
+    where lifnr in s_lifnr
+    and   matnr eq gt_mdma-matnr
+    and   loekz eq space.
+
+    sort gt_vendor by matnr lifnr.
+    delete adjacent duplicates from gt_vendor comparing matnr.
+  endif.
+
+
+  if p_liekz eq &apos;X&apos;. &quot;filter materials for selected vendors
+    loop at gt_mdma assigning &lt;mdma&gt;.
+      read table gt_vendor assigning &lt;vend&gt; with key matnr = &lt;mdma&gt;-matnr
+      binary search.
+      if sy-subrc eq 0.
+        move &lt;mdma&gt;-matnr to mdmwx-matnr.
+        move &lt;mdma&gt;-werks to mdmwx-werks.
+        move &lt;mdma&gt;-berid to mdmwx-berid.
+        append mdmwx. clear mdmwx.
+      endif.
+    endloop.
+  else. &quot;append all materials to MDMWX
+    loop at gt_mdma assigning &lt;mdma&gt;.
+      move &lt;mdma&gt;-matnr to mdmwx-matnr.
+      move &lt;mdma&gt;-werks to mdmwx-werks.
+      move &lt;mdma&gt;-berid to mdmwx-berid.
+      append mdmwx. clear mdmwx.
+    endloop.
+  endif.
+
+
+  move p_plscn to rm61r-plscn.
+  move p_dbrkz to rm61r-dbrkz.
+  move p_wrkkz to rm61r-wrkkz.
+  move p_dspkz to rm61r-dspkz.
+
+  move: p_dfilt to rm61r-dfilt,
+  p_filbz to rm61r-filbz,
+  p_ergbz to rm61r-ergbz.
+
+end-of-selection.
+
+&quot;check if our table is not empty
+  if mdmwx[] is initial.
+    message e085(61).
+  endif.
+
+*--&gt; export of table MDMWX to the memory (note 1019303)
+  export mdmwx rm61r-plscn rm61r-werks rm61r-dispo
+  rm61r-dspkz rm61r-berid
+  rm61r-dfilt rm61r-filbz rm61r-ergbz
+  to memory id memo_id_md07.
+
+*--&gt; Start of dummy-Transaction, which simulates the entry screen
+*    of transaction MD07 or MS07.
+  if rm61r-plscn is initial.                                &quot;HW 652438
+    call transaction &apos;MDC7&apos; and skip first screen.
+  else.
+    call transaction &apos;MSC7&apos; and skip first screen.
+  endif.</source>
+ </PROG>
+</nugget>

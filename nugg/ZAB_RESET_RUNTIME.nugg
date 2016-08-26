@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-16"?>
+<nugget name="ZAB_RESET_RUNTIME">
+ <PROG NAME="ZAB_RESET_RUNTIME" VARCL="X" SUBC="1" CNAM="BCUSER" CDAT="20130818" UNAM="BCUSER" UDAT="20130818" VERN="000012" RSTAT="K" RMAND="001" RLOAD="E" FIXPT="X" SDATE="20130818" STIME="113938" IDATE="20130818" ITIME="113938" UCCHECK="X">
+  <textPool>
+   <language SPRAS="E">
+    <textElement ID="R" ENTRY="Program ZAB_RESET_RUNTIME" LENGTH="25 "/>
+   </language>
+  </textPool>
+  <source>report  zab_reset_runtime.
+*--------------------------------------------------------------------*
+* This program was prepared by #ukasz P#giel for presentation purpose
+* at http://abapblog.com .
+* You can use it in your SAP instance without any warranty
+* for non-commercial and commercial  use but you cannot sell it as
+* a full program or a part of it.
+*
+* If you&apos;d like to use it on your own site please contact me before to
+* get the agreement before.
+*
+*--------------------------------------------------------------------*
+
+data: gt_vbak type standard table of vbak.
+do.
+  select  * up to 1000 rows from vbak
+  into corresponding fields of table gt_vbak.
+  call function &apos;SAPGUI_PROGRESS_INDICATOR&apos;
+    exporting
+*     PERCENTAGE = 0
+      text       = sy-index.
+  if sy-index eq 1000.
+    exit.
+  endif.
+enddo.
+
+&quot;or
+do.
+  select  * up to 1000 rows from vbak
+  into corresponding fields of table gt_vbak.
+  commit work.
+  if sy-index eq 1000.
+    exit.
+  endif.
+enddo.
+
+&quot;or
+do.
+  select  * up to 1000 rows from vbak
+  into corresponding fields of table gt_vbak.
+  call function &apos;TH_REDISPATCH&apos;
+    exporting
+      check_runtime = 0.
+
+  if sy-index eq 1000.
+    exit.
+  endif.
+enddo.</source>
+ </PROG>
+</nugget>

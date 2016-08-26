@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-16"?>
+<nugget name="ZAB_SELECT_CONFIGURATION">
+ <PROG NAME="ZAB_SELECT_CONFIGURATION" VARCL="X" SUBC="1" APPL="*" CNAM="BCUSER" CDAT="20130531" UNAM="BCUSER" UDAT="20130818" VERN="000026" RSTAT="K" RMAND="001" RLOAD="E" FIXPT="X" SDATE="20130818" STIME="112437" IDATE="20130818" ITIME="112437" UCCHECK="X">
+  <textPool>
+   <language SPRAS="E">
+    <textElement ID="R" ENTRY="Program ZAB_SELECT_CONFIGURATION" LENGTH="32 "/>
+   </language>
+  </textPool>
+  <source>report  zab_select_configuration.
+*--------------------------------------------------------------------*
+* This program was prepared by #ukasz P#giel for presentation purpose
+* at http://abapblog.com .
+* You can use it in your SAP instance without any warranty
+* for non-commercial and commercial  use but you cannot sell it as
+* a full program or a part of it.
+*
+* If you&apos;d like to use it on your own site please contact me before to
+* get the agreement before.
+*
+*--------------------------------------------------------------------*
+
+*--------------------------------------------------------------------*
+*ZCONF structure
+*--------------------------------------------------------------------*
+*CARRID type  S_CARR_ID
+*PLANETYPE  type S_PLANETYE
+*CONF1  type CHAR1
+*CONF2  type INT4
+*CONF3  type INT4
+*--------------------------------------------------------------------*
+
+
+data: gt_zconf type standard table of zconf.
+data: gs_zconf_static  type zconf.
+data: gs_zconf_dynamic type zconf.
+data: gs_zconf_source  type zconf.
+data: gt_sflight type standard table of sflight.
+field-symbols: &lt;sf&gt; type sflight.
+
+
+&quot;select our configuration
+select * into corresponding fields of table gt_zconf
+  from zconf.
+
+&quot;select sample data to check
+select * up to 100 rows into corresponding fields of table gt_sflight
+  from sflight.
+
+
+loop at gt_sflight assigning &lt;sf&gt;.
+  &quot; static version where you manually check key fields and at each change of
+  &quot; your configuration table structure you have to adjust it
+  clear gs_zconf_static.
+  perform select_configuration_static using &lt;sf&gt;-carrid
+                                            &lt;sf&gt;-planetype
+                                   changing gs_zconf_static.
+
+  &quot; dynamic verision, once done never changed again
+  clear: gs_zconf_dynamic, gs_zconf_source.
+  move-corresponding &lt;sf&gt; to gs_zconf_source.
+  perform select_configuration_dynamic using gs_zconf_source
+                                    changing gs_zconf_dynamic.
+*--------------------------------------------------------------------*
+* do your coding here with configuration in gs_zconf_static or
+* gs_zconf_dynamic
+*--------------------------------------------------------------------*
+endloop.
+
+
+*&amp;---------------------------------------------------------------------*
+*&amp;      Form  select_configuration_static
+*&amp;---------------------------------------------------------------------*
+form select_configuration_static using f_carrid    type s_carrid
+                                       f_planetype type s_planetye
+                              changing f_zconf type zconf.
+
+  field-symbols: &lt;conf&gt; type zconf.
+  data: f_current_score type i.
+  data: f_best_score type i.
+
+  &quot;loop at our configuration table
+  loop at gt_zconf assigning &lt;conf&gt;.
+    clear f_current_score. &quot;clear previous score
+    if f_carrid eq &lt;conf&gt;-carrid.
+      &quot;if the fields are same then we add 20 to score
+      add 20 to f_current_score.
+    elseif &lt;conf&gt;-carrid is initial.
+      &quot;if the configuration field is empty this means this is valid for all
+      &quot;we add 10
+      add 10 to f_current_score.
+    else.
+      &quot;if the fields are different and configuration is not valid for all
+      &quot;then we go to next line of configuration
+      continue.
+    endif.
+
+    &quot;same rules applies here but as this is second key then the score is lower
+    if f_planetype eq &lt;conf&gt;-planetype.
+      add 2 to f_current_score.
+    elseif &lt;conf&gt;-planetype is initial.
+      add 1 to f_current_score.
+    else.
+      continue.
+    endif.
+
+    &quot;check if we have bigger score than before and if yes then we change
+    &quot;our configuration structure
+    if f_current_score &gt; f_best_score.
+      f_best_score = f_current_score.
+      f_zconf = &lt;conf&gt;.
+    endif.
+  endloop.
+
+endform.                    &quot;select_configuration_static
+
+*&amp;---------------------------------------------------------------------*
+*&amp;      Form  select_configuration_dynamic
+*&amp;---------------------------------------------------------------------*
+form select_configuration_dynamic using f_sour_conf type zconf
+                               changing f_resu_conf type zconf.
+
+
+  field-symbols: &lt;source&gt; type any,
+                 &lt;config&gt; type any,
+                 &lt;conf&gt;   type zconf,
+                 &lt;dfies&gt; type dfies.
+
+  data: f_keys_number type i.
+  data: f_score type i.
+  data: f_current_score type i.
+  data: f_best_score type i.
+  data: fo_conf_str type ref to cl_abap_structdescr.
+  data: ft_ddfields type ddfields.
+  data: f_continue  type c.
+
+  &quot;we create structure object for our customization table
+  fo_conf_str ?= cl_abap_elemdescr=&gt;describe_by_name( &apos;ZCONF&apos; ).
+
+  &quot;lets get fields for table
+  fo_conf_str-&gt;get_ddic_field_list(
+*    exporting
+*      p_langu                  = SY-LANGU
+*      p_including_substructres = ABAP_FALSE
+    receiving
+      p_field_list             = ft_ddfields
+    exceptions
+      not_found                = 1
+      no_ddic_type             = 2
+      others                   = 3
+         ).
+  if sy-subrc eq 0.
+*   Implement suitable error handling here
+  endif.
+
+  &quot;check it there was no problem before
+  check ft_ddfields[] is not initial.
+
+  &quot;get the number of key fields
+  loop at ft_ddfields assigning &lt;dfies&gt; where keyflag eq &apos;X&apos;.
+    add 1 to f_keys_number.
+  endloop.
+
+  &quot;loop at our configuration table
+  loop at gt_zconf assigning &lt;conf&gt;.
+    clear f_current_score. &quot;clear score.
+
+    &quot;we will check key fields only
+    do f_keys_number times.
+      &quot;assign key field of configuration
+      assign component sy-index of structure &lt;conf&gt; to &lt;config&gt;.
+      if sy-subrc ne 0. exit. endif.
+      &quot;assign key field of source
+      assign component sy-index of structure f_sour_conf to &lt;source&gt;.
+      if sy-subrc ne 0. exit. endif.
+
+      &quot;prepare score value
+      f_score = 1.
+      do ( f_keys_number - sy-index + 1 ) times.
+        &quot;we do power of 10, the lower key field position the higher score
+        f_score = 10 * f_score.
+      enddo.
+
+      if &lt;config&gt; eq &lt;source&gt;.
+        &quot;if the fields are same then we add 2 times score
+        do 2 times.
+          add f_score to f_current_score.
+        enddo.
+      elseif &lt;config&gt; is initial.
+        &quot;if the configuration field is empty this means this is valid for all
+        &quot;so we add score
+        add f_score to f_current_score.
+      else.
+        &quot;there is no match and configuration is not empty
+        &quot;so we have to go to next line of configuration
+        f_continue = &apos;X&apos;.
+        exit.
+      endif.
+
+    enddo.
+
+    &quot;check if we have to continue or not
+    if f_continue eq &apos;X&apos;.
+      clear f_continue.
+      continue.
+    endif.
+
+    &quot;check if we have bigger score than before and if yes then we change
+    &quot;our configuration structure
+    if f_current_score &gt; f_best_score.
+      f_best_score = f_current_score.
+      f_resu_conf = &lt;conf&gt;.
+    endif.
+  endloop.
+
+endform.                    &quot;select_configuration_dynamic</source>
+ </PROG>
+</nugget>

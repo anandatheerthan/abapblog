@@ -1,0 +1,2919 @@
+<?xml version="1.0" encoding="utf-8"?>
+<nugget name="ZAB_BATTLESHIPS">
+ <PROG NAME="ZAB_BATTLESHIPS" VARCL="X" SUBC="1" APPL="*" RSTAT="K" RMAND="001" RLOAD="E" FIXPT="X" UCCHECK="X">
+  <textPool>
+   <language SPRAS="E">
+    <textElement ID="R" ENTRY="Program ZBATTLESHIPS" LENGTH="20 "/>
+   </language>
+  </textPool>
+  <dynpros>
+   <dynpro PROG="ZAB_BATTLESHIPS" DNUM="0100" FNUM="0100" BZMX="200 " BZBR="255 " MILI="192 " MICO="37 " MALI="0 " MACO="0 " NOLI="200 " NOCO="255 " VALP="0 " CUAN="G" SPRA="E" DTEXT="Map builder">
+    <dynprofield FNAM="SS_0200" DIDX="00C8" FLG1="00" FLG2="30" FLG3="00" FILL="B" FMB1="30" FMB2="00" LENG="FF" LINE="01" COLN="02" LANF="00" LBLK="00" LREP="00" AUTH="101" AGLT="02" ADEZ="02"/>
+    <dynprofield FNAM="G_OK_CODE" DIDX="0000" FLG1="80" FLG2="10" FLG3="00" FMB1="00" FMB2="00" LENG="14" LINE="FF" COLN="01" LTYP="O" LANF="00" LBLK="00" LREP="00" TYPE="CHAR" AGLT="00" ADEZ="00" STXT="____________________"/>
+    <dynproflowsource>process before output.
+  module pbo_0100.
+  call subscreen ss_0200 including sy-repid &apos;0200&apos;.
+
+*
+process after input.
+  call subscreen ss_0200 .
+  module pai_0100.</dynproflowsource>
+   </dynpro>
+   <dynpro PROG="ZAB_BATTLESHIPS" DNUM="0200" TYPE="I" FNUM="0200" BZMX="200 " BZBR="255 " MILI="192 " MICO="37 " MALI="0 " MACO="0 " NOLI="200 " NOCO="255 " VALP="0 " CUAN="G" SPRA="E" DTEXT="Map builder">
+    <dynprofield FNAM="CC_MAP_OWN" DIDX="00C8" FLG1="00" FLG2="30" FLG3="00" FILL="U" FMB1="30" FMB2="00" LENG="FF" LINE="01" COLN="02" LANF="00" LBLK="00" LREP="00" AUTH="101" AGLT="14" ADEZ="14"/>
+    <dynprofield DIDX="0000" FLG1="80" FLG2="10" FLG3="00" FMB1="00" FMB2="00" LENG="14" LINE="FF" COLN="01" LTYP="O" LANF="00" LBLK="00" LREP="00" TYPE="CHAR" AGLT="00" ADEZ="00" STXT="____________________" RES1="                                       00"/>
+    <dynproflowsource>process before output.
+
+  module pbo_0200.
+*
+process after input.
+
+  module pai_0200.</dynproflowsource>
+   </dynpro>
+   <dynpro PROG="ZAB_BATTLESHIPS" DNUM="0300" FNUM="0300" BZMX="129 " BZBR="121 " MILI="192 " MICO="37 " MALI="0 " MACO="0 " NOLI="129 " NOCO="121 " VALP="0 " CUAN="G" SPRA="E" DTEXT="Game screen">
+    <dynprofield FNAM="CC_MESSAGES" DIDX="0009" FLG1="00" FLG2="30" FLG3="00" FILL="U" FMB1="30" FMB2="00" LENG="79" LINE="01" COLN="02" LANF="00" LBLK="00" LREP="00" AUTH="101" AGLT="09" ADEZ="01"/>
+    <dynprofield FNAM="SS_0200" DIDX="0078" FLG1="00" FLG2="30" FLG3="00" FILL="B" FMB1="30" FMB2="00" LENG="3C" LINE="0A" COLN="02" LANF="00" LBLK="00" LREP="00" AUTH="102" AGLT="02" ADEZ="02"/>
+    <dynprofield FNAM="CC_MAP_OPP" DIDX="0078" FLG1="00" FLG2="30" FLG3="00" FILL="U" FMB1="30" FMB2="00" LENG="3C" LINE="0A" COLN="3F" LANF="00" LBLK="00" LREP="00" AUTH="103" AGLT="01" ADEZ="01"/>
+    <dynprofield FNAM="G_OK_CODE" DIDX="0000" FLG1="80" FLG2="10" FLG3="00" FMB1="00" FMB2="00" LENG="14" LINE="FF" COLN="01" LTYP="O" LANF="00" LBLK="00" LREP="00" TYPE="CHAR" AGLT="00" ADEZ="00" STXT="____________________"/>
+    <dynproflowsource>process before output.
+  call subscreen ss_0200 including sy-repid &apos;0200&apos;.
+  module pbo_0300.
+*
+process after input.
+  call subscreen ss_0200.
+  module pai_0300.</dynproflowsource>
+   </dynpro>
+  </dynpros>
+  <pfstatus>
+   <pfstatus_sta CODE="STATUS_0200" MODAL="D" ACTCODE="000001" PFKCODE="000001" BUTCODE="0001" INT_NOTE="MAP Builder"/>
+   <pfstatus_sta CODE="STATUS_0300" MODAL="D" ACTCODE="000002" PFKCODE="000002" BUTCODE="0001" INT_NOTE="MAP Builder"/>
+   <pfstatus_fun CODE="ADD_SHIP1" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_WORKFLOW_ADHOC_ANCHOR" ICON_ID="@Q5@" FUN_TEXT="Submarine" ICON_TEXT="Add Submarine"/>
+   <pfstatus_fun CODE="ADD_SHIP2" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_WORKFLOW_ADHOC_ANCHOR" ICON_ID="@Q5@" FUN_TEXT="Destroyer" ICON_TEXT="Add Destroyer"/>
+   <pfstatus_fun CODE="ADD_SHIP3" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_WORKFLOW_ADHOC_ANCHOR" ICON_ID="@Q5@" FUN_TEXT="Cruiser" ICON_TEXT="Add Cruiser"/>
+   <pfstatus_fun CODE="ADD_SHIP4" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_WORKFLOW_ADHOC_ANCHOR" ICON_ID="@Q5@" FUN_TEXT="Battleship" ICON_TEXT="Add Battleship"/>
+   <pfstatus_fun CODE="ADD_SHIP5" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_WORKFLOW_ADHOC_ANCHOR" ICON_ID="@Q5@" FUN_TEXT="Aircraft Carrier" ICON_TEXT="Add Aircraft Carrier"/>
+   <pfstatus_fun CODE="BACK" TEXTNO="001" TEXT_TYPE="S" FUN_TEXT="Back"/>
+   <pfstatus_fun CODE="CLEAR_DB" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_DELETE" ICON_ID="@11@" FUN_TEXT="Clear DB" ICON_TEXT="Delete INDX"/>
+   <pfstatus_fun CODE="EXIT" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_CANCEL" ICON_ID="@0W@" FUN_TEXT="Cancel"/>
+   <pfstatus_fun CODE="JOIN_GAME" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_OPERATOR" ICON_ID="@KP@" FUN_TEXT="Join Game"/>
+   <pfstatus_fun CODE="UP" TEXTNO="001" TEXT_TYPE="S" FUN_TEXT="Exit"/>
+   <pfstatus_but PFK_CODE="000001" CODE="0001" NO="01" PFNO="05"/>
+   <pfstatus_but PFK_CODE="000001" CODE="0001" NO="02" PFNO="S"/>
+   <pfstatus_but PFK_CODE="000001" CODE="0001" NO="03" PFNO="13"/>
+   <pfstatus_but PFK_CODE="000001" CODE="0001" NO="04" PFNO="14"/>
+   <pfstatus_but PFK_CODE="000001" CODE="0001" NO="05" PFNO="16"/>
+   <pfstatus_but PFK_CODE="000001" CODE="0001" NO="06" PFNO="17"/>
+   <pfstatus_but PFK_CODE="000001" CODE="0001" NO="07" PFNO="18"/>
+   <pfstatus_but PFK_CODE="000001" CODE="0001" NO="08" PFNO="S"/>
+   <pfstatus_but PFK_CODE="000001" CODE="0001" NO="09" PFNO="09"/>
+   <pfstatus_pfk CODE="000001" PFNO="03" FUNCODE="BACK" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="05" FUNCODE="JOIN_GAME" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="09" FUNCODE="CLEAR_DB" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="12" FUNCODE="EXIT" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="13" FUNCODE="ADD_SHIP1" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="14" FUNCODE="ADD_SHIP2" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="15" FUNCODE="UP" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="16" FUNCODE="ADD_SHIP3" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="17" FUNCODE="ADD_SHIP4" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="18" FUNCODE="ADD_SHIP5" FUNNO="001"/>
+   <pfstatus_pfk CODE="000002" PFNO="03" FUNCODE="BACK" FUNNO="001"/>
+   <pfstatus_pfk CODE="000002" PFNO="12" FUNCODE="EXIT" FUNNO="001"/>
+   <pfstatus_pfk CODE="000002" PFNO="15" FUNCODE="UP" FUNNO="001"/>
+   <pfstatus_set STATUS="STATUS_0200" FUNCTION="ADD_SHIP1"/>
+   <pfstatus_set STATUS="STATUS_0200" FUNCTION="ADD_SHIP2"/>
+   <pfstatus_set STATUS="STATUS_0200" FUNCTION="ADD_SHIP3"/>
+   <pfstatus_set STATUS="STATUS_0200" FUNCTION="ADD_SHIP4"/>
+   <pfstatus_set STATUS="STATUS_0200" FUNCTION="ADD_SHIP5"/>
+   <pfstatus_set STATUS="STATUS_0200" FUNCTION="BACK"/>
+   <pfstatus_set STATUS="STATUS_0200" FUNCTION="CLEAR_DB"/>
+   <pfstatus_set STATUS="STATUS_0200" FUNCTION="EXIT"/>
+   <pfstatus_set STATUS="STATUS_0200" FUNCTION="JOIN_GAME"/>
+   <pfstatus_set STATUS="STATUS_0200" FUNCTION="UP"/>
+   <pfstatus_set STATUS="STATUS_0300" FUNCTION="BACK"/>
+   <pfstatus_set STATUS="STATUS_0300" FUNCTION="EXIT"/>
+   <pfstatus_set STATUS="STATUS_0300" FUNCTION="UP"/>
+   <pfstatus_doc OBJ_TYPE="A" OBJ_CODE="000001" MODAL="D" INT_NOTE="MAP Builder"/>
+   <pfstatus_doc OBJ_TYPE="P" OBJ_CODE="000001" MODAL="D" INT_NOTE="MAP Builder"/>
+   <pfstatus_doc OBJ_TYPE="B" OBJ_CODE="000001" SUB_CODE="0001" MODAL="D" INT_NOTE="MAP Builder"/>
+   <pfstatus_doc OBJ_TYPE="A" OBJ_CODE="000002" MODAL="D" INT_NOTE="MAP Builder"/>
+   <pfstatus_doc OBJ_TYPE="P" OBJ_CODE="000002" MODAL="D" INT_NOTE="MAP Builder"/>
+   <pfstatus_doc OBJ_TYPE="B" OBJ_CODE="000002" SUB_CODE="0001" MODAL="D" INT_NOTE="MAP Builder"/>
+   <pfstatus_tit CODE="TITLE_0200" TEXT="Abapblog.com - Battleships (Map builder)"/>
+   <pfstatus_tit CODE="TITLE_0300" TEXT="Abapblog.com - Battleships"/>
+  </pfstatus>
+  <source>REPORT  ZAB_BATTLESHIPS.
+
+class lcl_ships_controller definition deferred.
+class lcl_ships_map definition deferred.
+
+data: g_ok_code type sy-ucomm.
+data: go_game_control type ref to lcl_ships_controller.
+data: g_game_started type abap_bool.
+
+*----------------------------------------------------------------------*
+*       CLASS lcl_ships_MAP DEFINITION
+*----------------------------------------------------------------------*
+*
+*----------------------------------------------------------------------*
+class lcl_ships_map definition
+
+inheriting from cl_gui_alv_grid
+
+
+friends lcl_ships_controller .
+
+  public section.
+
+    types:
+    begin of t_map_s,
+      row(1) type c,
+      c1   type icon_d,
+      c2   type icon_d,
+      c3   type icon_d,
+      c4   type icon_d,
+      c5   type icon_d,
+      c6   type icon_d,
+      c7   type icon_d,
+      c8   type icon_d,
+      c9   type icon_d,
+      c10   type icon_d,
+      style type lvc_t_styl,
+    end of t_map_s .
+    types:
+    t_map_t type standard table of t_map_s .
+    types:
+    begin of t_fields_s,
+      field type char03,
+      hit   type flag,
+      shipid(2) type n,
+    end of t_fields_s .
+    types:
+    t_fields_t type sorted table of t_fields_s with unique key field
+    with non-unique sorted key shipid components shipid .
+    types:
+    &quot;with further secondary keys shipid.
+    begin of t_ships_s,
+      type type i,
+      count type i,
+      fields type t_fields_t,
+    end of t_ships_s .
+
+    constants c_max_1f_ships type i value 2.                &quot;#EC NOTEXT
+    constants c_max_2f_ships type i value 2.                &quot;#EC NOTEXT
+    constants c_max_3f_ships type i value 1.                &quot;#EC NOTEXT
+    constants c_max_4f_ships type i value 1.                &quot;#EC NOTEXT
+    constants c_max_5f_ships type i value 1.                &quot;#EC NOTEXT
+    constants c_cr_step1 type i value 1.                    &quot;#EC NOTEXT
+    constants c_cr_step2 type i value 2.                    &quot;#EC NOTEXT
+    type-pools icon .
+    constants c_icon_water type icon_d value icon_workflow_external_event. &quot;#EC NOTEXT
+    constants c_icon_ship type icon_d value icon_ws_ship.   &quot;#EC NOTEXT
+    data gt_fcat type lvc_t_fcat .
+    data gs_layout type lvc_s_layo .
+    data gs_variant type disvariant .
+    data g_save type char1 .
+    data g_own_map type flag .
+    data gt_map type t_map_t .
+    data gt_map_opp type t_map_t .
+    constants c_icon_hit type icon_d value icon_cancel.     &quot;#EC NOTEXT
+
+    methods check_all_ships_entered
+    returning
+    value(r_all) type flag .
+    methods constructor
+    importing
+      value(i_shellstyle) type i default 0
+      value(i_lifetime) type i optional
+      value(i_parent) type ref to cl_gui_container
+      value(i_appl_events) type char01 default space
+      !i_parentdbg type ref to cl_gui_container optional
+      !i_applogparent type ref to cl_gui_container optional
+      !i_graphicsparent type ref to cl_gui_container optional
+      value(i_name) type string optional
+      !i_fcat_complete type sap_bool default space
+      value(i_own_map) type flag
+      value(i_map_builder) type flag
+      !io_controller type ref to lcl_ships_controller
+    exceptions
+      error_cntl_create
+      error_cntl_init
+      error_cntl_link
+      error_dp_create .
+    methods set_icon_for_cell
+    importing
+      value(i_row) type i
+      value(i_column) type csequence
+      value(i_icon) type icon_d .
+    methods add_ship_start
+    importing
+      value(iv_type) type i .
+    methods convert_fields_to_map
+    importing
+      !it_fields type t_fields_t
+    changing
+      !ct_map type t_map_t .
+  protected section.
+
+    data g_1f_ships type i value 0.       &quot;#EC NOTEXT .  .  .  .  . &quot; .
+    data g_2f_ships type i value 0.       &quot;#EC NOTEXT .  .  .  .  . &quot; .
+    data g_3f_ships type i value 0.       &quot;#EC NOTEXT .  .  .  .  . &quot; .
+    data g_4f_ships type i value 0.       &quot;#EC NOTEXT .  .  .  .  . &quot; .
+    data g_5f_ships type i value 0.       &quot;#EC NOTEXT .  .  .  .  . &quot; .
+
+    methods get_map
+    exporting
+      value(rt_map) type t_map_t .
+  private section.
+
+    data g_step type i .
+    data g_start_row type i .
+    data g_start_column type i .
+    data g_ship_type type i .
+    data g_end_row type i .
+    data g_end_column type i .
+    data gt_fields type t_fields_t .
+    data g_map_builder type flag .
+    data go_controller type ref to lcl_ships_controller .
+    type-pools abap .
+    data g_fields_converted type abap_bool .
+
+    methods get_gt_fields .
+    methods calculate_internal_field
+    importing
+      value(iv_column) type i
+      returning
+      value(r_fieldname) type lvc_s_fcat-fieldname .
+    methods check_can_end
+    importing
+      value(iv_row) type i
+      value(iv_column) type i
+      value(it_possible_fields) type t_map_t
+      value(iv_type) type i
+      returning
+      value(r_cannot_end_here) type flag .
+    methods check_can_start
+    importing
+      value(iv_row) type i
+      value(iv_column) type i
+      value(it_possible_fields) type t_map_t
+      value(iv_type) type i
+      returning
+      value(r_cannot_start_here) type flag .
+    methods check_neighbours_empty
+    importing
+      value(iv_row) type i
+      value(iv_column) type i
+      returning
+      value(r_cannot_put_ship) type flag .
+    methods clear_ship_add .
+    methods event_button_click
+    for event button_click of cl_gui_alv_grid
+    importing
+      !es_col_id
+      !es_row_no .
+    methods set_display_mode .
+    methods set_field_style
+    importing
+      value(iv_button) type flag optional
+      value(iv_disabled) type flag default &apos;X&apos;
+      value(iv_fieldname) type lvc_s_styl-fieldname
+    changing
+      !ct_style type lvc_t_styl .
+    methods set_ship_icons .
+    methods calculate_field
+    importing
+      value(iv_row) type i
+      value(iv_column) type lvc_s_fcat-fieldname
+      returning
+      value(r_field) type char03 .
+    methods create_fcat .
+    methods create_layout .
+    methods init_map .
+    methods add_ship_end
+    importing
+      value(iv_type) type i .
+    methods set_possible_fields
+    importing
+      value(iv_type) type i
+      value(iv_step) type i .
+    methods check_hit
+    importing
+      value(iv_row) type i
+      value(iv_column) type lvc_s_fcat-fieldname
+    exporting
+      value(e_hit) type flag
+      value(e_full_ship) type flag
+      value(e_end_of_game) type flag .
+    methods check_ship_fully_hit
+    importing
+      value(iv_row) type i
+      value(iv_column) type lvc_s_fcat-fieldname
+    exporting
+      value(e_fully_hit) type flag
+      value(e_end_of_game) type flag .
+    methods set_field_was_hit
+    importing
+      value(iv_row) type i
+      value(iv_column) type lvc_s_fcat-fieldname .
+endclass.
+
+
+*----------------------------------------------------------------------*
+*       CLASS lcl_ships_CONTROLLER DEFINITION
+*----------------------------------------------------------------------*
+*
+*----------------------------------------------------------------------*
+class lcl_ships_controller definition friends lcl_ships_map .
+
+  public section.
+
+
+
+    types:
+    t_char1000 type c length 1000 .
+    types:
+    tt_char1000 type standard table of t_char1000 .
+    types:
+    begin of t_players,
+      player_guid type indx_srtfd,
+      game_guid   type indx_srtfd,
+      player_nr   type i, &quot;1 or 2
+      date        type sy-datum,
+      time        type sy-uzeit,
+    end of t_players .
+    types:
+    begin of t_games,
+      game_guid type indx_srtfd,
+      player_turn type i,
+      player_won type p length 2 decimals 0,
+      player1_fields  type lcl_ships_map=&gt;t_fields_t,
+      player2_fields  type lcl_ships_map=&gt;t_fields_t,
+      date        type sy-datum,
+      time        type sy-uzeit,
+    end of t_games .
+    types:
+    tt_games type sorted table of t_games with unique key game_guid .
+    types:
+    tt_players type sorted table of t_players with unique key player_guid .  &quot; game_guid .
+
+    data gt_message type tt_char1000 .
+    data go_own_map type ref to lcl_ships_map .
+    data go_opp_map type ref to lcl_ships_map .
+    constants c_indx_key_players type indx_srtfd value &apos;AB_SG_PLAYERS&apos;. &quot;#EC NOTEXT
+    constants c_indx_key_games type indx_srtfd value &apos;AB_SG_GAMES&apos;. &quot;#EC NOTEXT
+    data g_indx_key_game type indx_srtfd .
+    data g_indx_key_player type indx_srtfd .
+    data go_cc_own type ref to cl_gui_custom_container .
+    data go_cc_opp type ref to cl_gui_custom_container .
+    data go_cc_messages type ref to cl_gui_custom_container .
+    data go_messages type ref to cl_gui_html_viewer .
+    class lcl_ships_map definition load .
+    data gt_opp_fields type lcl_ships_map=&gt;t_fields_t .
+    type-pools abap .
+    data g_game_started type abap_bool read-only .
+
+    methods start_game .
+    methods event_finished_game_start
+    for event finished of cl_gui_timer .
+    methods event_finished_turn_check
+    for event finished of cl_gui_timer .
+    methods constructor .
+    methods show_text
+    importing
+      value(iv_type) type char20 .
+    methods create_own_map .
+    methods create_opp_map .
+    methods create_message_window .
+    methods check_turn
+    returning
+    value(r_my_turn) type abap_bool .
+    methods set_turn
+    importing
+      value(iv_my_turn) type abap_bool .
+    methods finish_game .
+  protected section.
+
+    methods save_to_indx
+    importing
+      value(iv_type) type char01
+      value(iv_change_turn) type flag .
+    methods read_from_indx
+    importing
+      value(iv_type) type char01 .
+  private section.
+
+    type-pools abap .
+    data g_resign type abap_bool .
+    data g_indx_player_nr type i .
+    data g_session_guid type char256 .
+
+    class lcl_ships_map definition load .
+    data gt_own_fields type lcl_ships_map=&gt;t_fields_t .
+    data g_your_turn type abap_bool .
+    data go_timer_game_start type ref to cl_gui_timer .
+    data go_timer_turn_check type ref to cl_gui_timer .
+    data g_game_start_timer_interval type i value 2. &quot;#EC NOTEXT .  .  . &quot; .
+    data g_turn_check_timer_interval type i value 2. &quot;#EC NOTEXT .  .  . &quot; .
+    data g_won type abap_bool .
+endclass.
+
+class lcl_ships_map implementation.
+
+
+* &lt;SIGNATURE&gt;---------------------------------------------------------------------------------------+
+* | Instance Private Method lcl_ships_MAP-&gt;ADD_SHIP_END
+* +-------------------------------------------------------------------------------------------------+
+* | [---&gt;] IV_TYPE                        TYPE        I
+* +--------------------------------------------------------------------------------------&lt;/SIGNATURE&gt;
+  method add_ship_end.
+    g_step = c_cr_step2.
+    me-&gt;set_possible_fields( exporting iv_type = iv_type
+      iv_step = c_cr_step2 ).
+  endmethod.
+
+
+* &lt;SIGNATURE&gt;---------------------------------------------------------------------------------------+
+* | Instance Public Method lcl_ships_MAP-&gt;ADD_SHIP_START
+* +-------------------------------------------------------------------------------------------------+
+* | [---&gt;] IV_TYPE                        TYPE        I
+* +--------------------------------------------------------------------------------------&lt;/SIGNATURE&gt;
+  method add_ship_start.
+    field-symbols: &lt;map&gt; like line of gt_map.
+    data: m_fieldname type lvc_s_styl-fieldname.
+    if g_step eq c_cr_step2.
+      &quot;old ship was not ended so we need to clear icon
+      read table gt_map assigning &lt;map&gt; index g_start_row.
+      me-&gt;set_icon_for_cell(
+      i_row    = g_start_row
+      i_column = me-&gt;calculate_internal_field( iv_column = g_start_column )
+      i_icon   = space
+      ).
+      me-&gt;clear_ship_add( ).
+
+    endif.
+    case iv_type.
+      when 1.
+        if c_max_1f_ships eq g_1f_ships.
+          message s001(00) with &apos;Maximum number of such ships reached&apos; display like &apos;E&apos;.
+*   &amp;1&amp;2&amp;3&amp;4&amp;5&amp;6&amp;7&amp;8
+          return.
+        endif.
+
+      when 2.
+        if c_max_2f_ships eq g_2f_ships.
+          message s001(00) with &apos;Maximum number of such ships reached&apos; display like &apos;E&apos;.
+*   &amp;1&amp;2&amp;3&amp;4&amp;5&amp;6&amp;7&amp;8
+          return.
+        endif.
+      when 3.
+        if c_max_3f_ships eq g_3f_ships.
+          message s001(00) with &apos;Maximum number of such ships reached&apos; display like &apos;E&apos;.
+*   &amp;1&amp;2&amp;3&amp;4&amp;5&amp;6&amp;7&amp;8
+          return.
+        endif.
+      when 4.
+        if c_max_4f_ships eq g_4f_ships.
+          message s001(00) with &apos;Maximum number of such ships reached&apos; display like &apos;E&apos;.
+*   &amp;1&amp;2&amp;3&amp;4&amp;5&amp;6&amp;7&amp;8
+          return.
+        endif.
+      when 5.
+        if c_max_5f_ships eq g_5f_ships.
+          message s001(00) with &apos;Maximum number of such ships reached&apos; display like &apos;E&apos;.
+*   &amp;1&amp;2&amp;3&amp;4&amp;5&amp;6&amp;7&amp;8
+          return.
+        endif.
+    endcase.
+    me-&gt;set_possible_fields( exporting iv_type = iv_type
+      iv_step = c_cr_step1 ).
+    g_ship_type = iv_type.
+    g_step = c_cr_step1.
+  endmethod.
+
+
+* &lt;SIGNATURE&gt;---------------------------------------------------------------------------------------+
+* | Instance Private Method lcl_ships_MAP-&gt;CALCULATE_FIELD
+* +-------------------------------------------------------------------------------------------------+
+* | [---&gt;] IV_ROW                         TYPE        I
+* | [---&gt;] IV_COLUMN                      TYPE        LVC_S_FCAT-FIELDNAME
+* | [&lt;-()] R_FIELD                        TYPE        CHAR03
+* +--------------------------------------------------------------------------------------&lt;/SIGNATURE&gt;
+  method calculate_field.
+    data: f_offset type i.
+    field-symbols: &lt;fcat&gt; like line of gt_fcat.
+    f_offset = iv_row - 1.
+
+    read table gt_fcat with key fieldname = iv_column assigning &lt;fcat&gt;.
+    if sy-subrc eq 0.
+      concatenate  sy-abcde+f_offset(1) &lt;fcat&gt;-scrtext_s into r_field.
+    endif.
+
+  endmethod.
+
+
+* &lt;SIGNATURE&gt;---------------------------------------------------------------------------------------+
+* | Instance Private Method lcl_ships_MAP-&gt;CALCULATE_INTERNAL_FIELD
+* +-------------------------------------------------------------------------------------------------+
+* | [---&gt;] IV_COLUMN                      TYPE        I
+* | [&lt;-()] R_FIELDNAME                    TYPE        LVC_S_FCAT-FIELDNAME
+* +--------------------------------------------------------------------------------------&lt;/SIGNATURE&gt;
+  method calculate_internal_field.
+    data: m_column(2) type c.
+
+    m_column = iv_column.
+    concatenate &apos;C&apos; m_column into r_fieldname.
+  endmethod.
+
+
+* &lt;SIGNATURE&gt;---------------------------------------------------------------------------------------+
+* | Instance Public Method lcl_ships_MAP-&gt;CHECK_ALL_SHIPS_ENTERED
+* +-------------------------------------------------------------------------------------------------+
+* | [&lt;-()] R_ALL                          TYPE        FLAG
+* +--------------------------------------------------------------------------------------&lt;/SIGNATURE&gt;
+  method check_all_ships_entered.
+    if c_max_1f_ships eq g_1f_ships and
+    c_max_2f_ships eq g_2f_ships and
+    c_max_3f_ships eq g_3f_ships and
+    c_max_4f_ships eq g_4f_ships and
+    c_max_5f_ships eq g_5f_ships.
+      r_all = abap_true.
+    endif.
+
+  endmethod.
+
+
+* &lt;SIGNATURE&gt;---------------------------------------------------------------------------------------+
+* | Instance Private Method lcl_ships_MAP-&gt;CHECK_CAN_END
+* +-------------------------------------------------------------------------------------------------+
+* | [---&gt;] IV_ROW                         TYPE        I
+* | [---&gt;] IV_COLUMN                      TYPE        I
+* | [---&gt;] IT_POSSIBLE_FIELDS             TYPE        T_MAP_T
+* | [---&gt;] IV_TYPE                        TYPE        I
+* | [&lt;-()] R_CANNOT_END_HERE              TYPE        FLAG
+* +--------------------------------------------------------------------------------------&lt;/SIGNATURE&gt;
+  method check_can_end.
+    field-symbols: &lt;map&gt; like line of gt_map.
+    field-symbols: &lt;field&gt; type any.
+    data: m_row type i.
+    data: m_field type string.
+    data: m_column type i.
+    data: m_index type i.
+    data: m_times type i.
+
+    m_times = iv_type - 1.
+
+    r_cannot_end_here = abap_true.
+
+    check g_start_row is not initial and g_start_column is not initial.
+
+    &quot;top
+    if g_start_row ge iv_type.
+      m_row = g_start_row - 1.
+      m_column = g_start_column.
+      m_field = me-&gt;calculate_internal_field( iv_column = m_column ).
+      do m_times times.
+        m_index = sy-index.
+        read table it_possible_fields assigning &lt;map&gt; index m_row.
+        assign component m_field of structure &lt;map&gt; to &lt;field&gt;.
+        if &lt;field&gt; is not initial.
+          exit. &quot;finish top
+        endif.
+        if  m_index eq m_times and
+        m_column eq iv_column and
+        m_row    eq iv_row.
+          &quot;we can start here
+          clear r_cannot_end_here.
+          return.
+        endif.
+        subtract 1 from m_row.
+      enddo.
+    endif.
+
+
+    &quot;right
+    m_column = 10 - iv_type + 1.
+    if g_start_column le m_column.
+      m_row = g_start_row.
+      m_column = g_start_column + 1.
+      read table it_possible_fields assigning &lt;map&gt; index m_row.
+      do m_times times.
+        m_index = sy-index.
+        m_field = me-&gt;calculate_internal_field( iv_column = m_column ).
+        assign component m_field of structure &lt;map&gt; to &lt;field&gt;.
+        if &lt;field&gt; is not initial.
+          exit. &quot;finish right
+        endif.
+        if  m_index eq m_times and
+        m_column eq iv_column and
+        m_row    eq iv_row.
+          &quot;we can start here
+          clear r_cannot_end_here.
+          return.
+        endif.
+        add 1 to m_column.
+      enddo.
+    endif.
+
+
+    &quot;bottom
+    m_row = 10 - iv_type + 1.
+    if g_start_row le m_row.
+      m_row = g_start_row + 1.
+      m_column = g_start_column.
+      m_field = me-&gt;calculate_internal_field( iv_column = m_column ).
+      do m_times times.
+        m_index = sy-index.
+        read table it_possible_fields assigning &lt;map&gt; index m_row.
+        assign component m_field of structure &lt;map&gt; to &lt;field&gt;.
+        if &lt;field&gt; is not initial.
+          exit. &quot;finish bottom
+        endif.
+        if  m_index eq m_times and
+        m_column eq iv_column and
+        m_row    eq iv_row.
+          &quot;we can start here
+          clear r_cannot_end_here.
+          return.
+        endif.
+        add 1 to m_row.
+      enddo.
+    endif.
+
+    &quot;left
+    if g_start_column ge iv_type.
+      m_row = g_start_row.
+      m_column = g_start_column - 1.
+      read table it_possible_fields assigning &lt;map&gt; index m_row.
+      do m_times times.
+        m_index = sy-index.
+        m_field = me-&gt;calculate_internal_field( iv_column = m_column ).
+        assign component m_field of structure &lt;map&gt; to &lt;field&gt;.
+        if &lt;field&gt; is not initial.
+          exit. &quot;finish left
+        endif.
+        if  m_index eq m_times and
+        m_column eq iv_column and
+        m_row    eq iv_row.
+          &quot;we can start here
+          clear r_cannot_end_here.
+          return.
+        endif.
+        subtract 1 from m_column.
+      enddo.
+    endif.
+  endmethod.
+
+
+* &lt;SIGNATURE&gt;---------------------------------------------------------------------------------------+
+* | Instance Private Method lcl_ships_MAP-&gt;CHECK_CAN_START
+* +-------------------------------------------------------------------------------------------------+
+* | [---&gt;] IV_ROW                         TYPE        I
+* | [---&gt;] IV_COLUMN                      TYPE        I
+* | [---&gt;] IT_POSSIBLE_FIELDS             TYPE        T_MAP_T
+* | [---&gt;] IV_TYPE                        TYPE        I
+* | [&lt;-()] R_CANNOT_START_HERE            TYPE        FLAG
+* +--------------------------------------------------------------------------------------&lt;/SIGNATURE&gt;
+  method check_can_start.
+    field-symbols: &lt;map&gt; like line of gt_map.
+    field-symbols: &lt;field&gt; type any.
+    data: m_row type i.
+    data: m_field type string.
+    data: m_column type i.
+    data: m_index type i.
+
+    if iv_type eq 1.
+      return. &quot;can be putten anywhere no need to check!
+    endif.
+    r_cannot_start_here = abap_true.
+
+    &quot;top
+    if iv_row ge iv_type.
+      m_row = iv_row.
+      m_column = iv_column.
+      m_field = me-&gt;calculate_internal_field( iv_column = m_column ).
+      do iv_type times.
+        m_index = sy-index.
+        read table it_possible_fields assigning &lt;map&gt; index m_row.
+        assign component m_field of structure &lt;map&gt; to &lt;field&gt;.
+        if &lt;field&gt; is not initial.
+          exit. &quot;finish top
+        endif.
+        if m_index = iv_type.
+          &quot;we can start here
+          clear r_cannot_start_here.
+          return.
+        endif.
+        subtract 1 from m_row.
+      enddo.
+    endif.
+
+
+    &quot;right
+    m_column = 10 - iv_type.
+    if iv_column le m_column.
+      m_row = iv_row.
+      m_column = iv_column.
+      read table it_possible_fields assigning &lt;map&gt; index m_row.
+      do iv_type times.
+        m_index = sy-index.
+        m_field = me-&gt;calculate_internal_field( iv_column = m_column ).
+        assign component m_field of structure &lt;map&gt; to &lt;field&gt;.
+        if &lt;field&gt; is not initial.
+          exit. &quot;finish right
+        endif.
+        if m_index = iv_type.
+          &quot;we can start here
+          clear r_cannot_start_here.
+          return.
+        endif.
+        add 1 to m_column.
+      enddo.
+    endif.
+
+
+    &quot;bottom
+    m_row = 10 - iv_type.
+    if iv_row le m_row.
+      m_row = iv_row.
+      m_column = iv_column.
+      m_field = me-&gt;calculate_internal_field( iv_column = m_column ).
+      do iv_type times.
+        m_index = sy-index.
+        read table it_possible_fields assigning &lt;map&gt; index m_row.
+        assign component m_field of structure &lt;map&gt; to &lt;field&gt;.
+        if &lt;field&gt; is not initial.
+          exit. &quot;finish top
+        endif.
+        if m_index = iv_type.
+          &quot;we can start here
+          clear r_cannot_start_here.
+          return.
+        endif.
+        add 1 to m_row.
+      enddo.
+    endif.
+
+    &quot;left
+    if iv_column ge iv_type.
+      m_row = iv_row.
+      m_column = iv_column.
+      read table it_possible_fields assigning &lt;map&gt; index m_row.
+      do iv_type times.
+        m_index = sy-index.
+        m_field = me-&gt;calculate_internal_field( iv_column = m_column ).
+        assign component m_field of structure &lt;map&gt; to &lt;field&gt;.
+        if &lt;field&gt; is not initial.
+          exit. &quot;finish right
+        endif.
+        if m_index = iv_type.
+          &quot;we can start here
+          clear r_cannot_start_here.
+          return.
+        endif.
+        subtract 1 from m_column.
+      enddo.
+    endif.
+
+
+  endmethod.
+
+
+* &lt;SIGNATURE&gt;---------------------------------------------------------------------------------------+
+* | Instance Private Method lcl_ships_MAP-&gt;CHECK_HIT
+* +-------------------------------------------------------------------------------------------------+
+* | [---&gt;] IV_ROW                         TYPE        I
+* | [---&gt;] IV_COLUMN                      TYPE        LVC_S_FCAT-FIELDNAME
+* | [&lt;---] E_HIT                          TYPE        FLAG
+* | [&lt;---] E_FULL_SHIP                    TYPE        FLAG
+* | [&lt;---] E_END_OF_GAME                  TYPE        FLAG
+* +--------------------------------------------------------------------------------------&lt;/SIGNATURE&gt;
+  method check_hit.
+    field-symbols: &lt;row&gt; like line of gt_map.
+    field-symbols: &lt;field&gt; type any.
+
+    if g_fields_converted eq abap_false.
+      convert_fields_to_map( exporting it_fields = gt_fields changing ct_map = gt_map_opp ).
+    endif.
+    read table gt_map_opp index iv_row assigning &lt;row&gt;.
+    if sy-subrc eq 0.
+      assign component iv_column of structure &lt;row&gt; to &lt;field&gt;.
+      if &lt;field&gt; is not initial.
+        me-&gt;set_icon_for_cell(
+        i_row    = iv_row
+        i_column = iv_column
+        i_icon   = c_icon_ship
+        ).
+        e_hit = abap_true.
+
+        me-&gt;set_field_was_hit( iv_row = iv_row
+        iv_column = iv_column ).
+
+        me-&gt;check_ship_fully_hit(  exporting iv_row = iv_row
+          iv_column = iv_column
+        importing e_fully_hit = e_full_ship
+          e_end_of_game = e_end_of_game  ).
+      else.
+        me-&gt;set_icon_for_cell(
+        i_row    = iv_row
+        i_column = iv_column
+        i_icon   = c_icon_water
+        ).
+
+        me-&gt;set_field_was_hit( iv_row = iv_row
+        iv_column = iv_column ).
+        clear: e_hit, e_full_ship, e_end_of_game.
+      endif.
+    endif.
+
+  endmethod.
+
+
+* &lt;SIGNATURE&gt;---------------------------------------------------------------------------------------+
+* | Instance Private Method lcl_ships_MAP-&gt;CHECK_NEIGHBOURS_EMPTY
+* +-------------------------------------------------------------------------------------------------+
+* | [---&gt;] IV_ROW                         TYPE        I
+* | [---&gt;] IV_COLUMN                      TYPE        I
+* | [&lt;-()] R_CANNOT_PUT_SHIP              TYPE        FLAG
+* +--------------------------------------------------------------------------------------&lt;/SIGNATURE&gt;
+  method check_neighbours_empty.
+    field-symbols: &lt;map&gt; like line of gt_map.
+    field-symbols: &lt;field&gt; type any.
+    data: m_row type i.
+    data: m_field type string.
+    data: m_column type i.
+
+    &quot;top
+    if iv_row gt 1.
+      m_row = iv_row - 1.
+      m_column = iv_column.
+      read table gt_map assigning &lt;map&gt; index m_row.
+      m_field = me-&gt;calculate_internal_field( iv_column = m_column ).
+      assign component m_field of structure &lt;map&gt; to &lt;field&gt;.
+      if &lt;field&gt; is not initial and not ( g_step eq c_cr_step2 and m_row eq g_start_row and m_column eq g_start_column ).
+        r_cannot_put_ship = abap_true.
+        return.
+      endif.
+    endif.
+
+    &quot;top right
+    if iv_row gt 1 and iv_column lt 10.
+      m_row = iv_row - 1.
+      m_column = iv_column + 1.
+      read table gt_map assigning &lt;map&gt; index m_row.
+      m_field = me-&gt;calculate_internal_field( iv_column = m_column ).
+      assign component m_field of structure &lt;map&gt; to &lt;field&gt;.
+      if &lt;field&gt; is not initial and not ( g_step eq c_cr_step2 and m_row eq g_start_row and m_column eq g_start_column ).
+        r_cannot_put_ship = abap_true.
+        return.
+      endif.
+    endif.
+
+    &quot;right
+    if iv_column lt 10.
+      m_row = iv_row.
+      m_column = iv_column + 1.
+      read table gt_map assigning &lt;map&gt; index m_row.
+      m_field = me-&gt;calculate_internal_field( iv_column = m_column ).
+      assign component m_field of structure &lt;map&gt; to &lt;field&gt;.
+      if &lt;field&gt; is not initial and not ( g_step eq c_cr_step2 and m_row eq g_start_row and m_column eq g_start_column ).
+        r_cannot_put_ship = abap_true.
+        return.
+      endif.
+    endif.
+
+    &quot;bottom right
+    if iv_row lt 10 and iv_column lt 10.
+      m_row = iv_row + 1.
+      m_column = iv_column + 1.
+      read table gt_map assigning &lt;map&gt; index m_row.
+      m_field = me-&gt;calculate_internal_field( iv_column = m_column ).
+      assign component m_field of structure &lt;map&gt; to &lt;field&gt;.
+      if &lt;field&gt; is not initial and not ( g_step eq c_cr_step2 and m_row eq g_start_row and m_column eq g_start_column ).
+        r_cannot_put_ship = abap_true.
+        return.
+      endif.
+    endif.
+    &quot;bottom
+    if iv_row lt 10.
+      m_row = iv_row + 1.
+      m_column = iv_column.
+      read table gt_map assigning &lt;map&gt; index m_row.
+      m_field = me-&gt;calculate_internal_field( iv_column = m_column ).
+      assign component m_field of structure &lt;map&gt; to &lt;field&gt;.
+      if &lt;field&gt; is not initial and not ( g_step eq c_cr_step2 and m_row eq g_start_row and m_column eq g_start_column ).
+        r_cannot_put_ship = abap_true.
+        return.
+      endif.
+    endif.
+
+    &quot;bottom left
+    if iv_row lt 10 and iv_column gt 1.
+      m_row = iv_row + 1.
+      m_column = iv_column - 1.
+      read table gt_map assigning &lt;map&gt; index m_row.
+      m_field = me-&gt;calculate_internal_field( iv_column = m_column ).
+      assign component m_field of structure &lt;map&gt; to &lt;field&gt;.
+      if &lt;field&gt; is not initial and not ( g_step eq c_cr_step2 and m_row eq g_start_row and m_column eq g_start_column ).
+        r_cannot_put_ship = abap_true.
+        return.
+      endif.
+    endif.
+
+    &quot;left
+    if iv_column gt 1.
+      m_row = iv_row.
+      m_column = iv_column - 1.
+      read table gt_map assigning &lt;map&gt; index m_row.
+      m_field = me-&gt;calculate_internal_field( iv_column = m_column ).
+      assign component m_field of structure &lt;map&gt; to &lt;field&gt;.
+      if &lt;field&gt; is not initial and not ( g_step eq c_cr_step2 and m_row eq g_start_row and m_column eq g_start_column ).
+        r_cannot_put_ship = abap_true.
+        return.
+      endif.
+    endif.
+
+    &quot;top left
+    if iv_row gt 1 and iv_column gt 1.
+      m_row = iv_row - 1.
+      m_column = iv_column - 1.
+      read table gt_map assigning &lt;map&gt; index m_row.
+      m_field = me-&gt;calculate_internal_field( iv_column = m_column ).
+      assign component m_field of structure &lt;map&gt; to &lt;field&gt;.
+      if &lt;field&gt; is not initial and not ( g_step eq c_cr_step2 and m_row eq g_start_row and m_column eq g_start_column ).
+        r_cannot_put_ship = abap_true.
+        return.
+      endif.
+    endif.
+
+  endmethod.
+
+
+* &lt;SIGNATURE&gt;---------------------------------------------------------------------------------------+
+* | Instance Private Method lcl_ships_MAP-&gt;CHECK_SHIP_FULLY_HIT
+* +-------------------------------------------------------------------------------------------------+
+* | [---&gt;] IV_ROW                         TYPE        I
+* | [---&gt;] IV_COLUMN                      TYPE        LVC_S_FCAT-FIELDNAME
+* | [&lt;---] E_FULLY_HIT                    TYPE        FLAG
+* | [&lt;---] E_END_OF_GAME                  TYPE        FLAG
+* +--------------------------------------------------------------------------------------&lt;/SIGNATURE&gt;
+  method check_ship_fully_hit.
+    data: f_field type char03.
+    data: f_shipid(2) type n.
+
+    field-symbols: &lt;field&gt; like line of gt_fields.
+
+    e_fully_hit = abap_true.
+    e_end_of_game = abap_true.
+    f_field = me-&gt;calculate_field(
+    iv_row    = iv_row
+    iv_column = iv_column
+    ).
+
+
+    read table gt_fields assigning &lt;field&gt; with key field = f_field.
+    if sy-subrc eq 0 .
+      if &lt;field&gt;-shipid is not initial.
+        f_shipid = &lt;field&gt;-shipid.
+      else.
+        e_fully_hit = abap_false.
+        e_end_of_game = abap_false.
+        return.
+      endif.
+    endif.
+
+    loop at gt_fields using key shipid
+          assigning &lt;field&gt;
+          where shipid eq f_shipid.
+
+      if &lt;field&gt;-hit ne abap_true.
+        clear e_fully_hit.
+        &quot;return.
+      endif.
+    endloop.
+
+    loop at gt_fields using key shipid
+          assigning &lt;field&gt;.
+
+      check &lt;field&gt;-shipid ne &apos;00&apos;.
+      if &lt;field&gt;-hit ne abap_true.
+        clear e_end_of_game.
+        return.
+      endif.
+    endloop.
+
+  endmethod.
+
+
+* &lt;SIGNATURE&gt;---------------------------------------------------------------------------------------+
+* | Instance Private Method lcl_ships_MAP-&gt;CLEAR_SHIP_ADD
+* +-------------------------------------------------------------------------------------------------+
+* +--------------------------------------------------------------------------------------&lt;/SIGNATURE&gt;
+  method clear_ship_add.
+    clear: g_step,
+    g_start_row,
+    g_start_column,
+    g_end_column,
+    g_end_row,
+    g_ship_type.
+
+  endmethod.
+
+
+* &lt;SIGNATURE&gt;---------------------------------------------------------------------------------------+
+* | Instance Public Method lcl_ships_MAP-&gt;CONSTRUCTOR
+* +-------------------------------------------------------------------------------------------------+
+* | [---&gt;] I_SHELLSTYLE                   TYPE        I (default =0)
+* | [---&gt;] I_LIFETIME                     TYPE        I(optional)
+* | [---&gt;] I_PARENT                       TYPE REF TO CL_GUI_CONTAINER
+* | [---&gt;] I_APPL_EVENTS                  TYPE        CHAR01 (default =SPACE)
+* | [---&gt;] I_PARENTDBG                    TYPE REF TO CL_GUI_CONTAINER(optional)
+* | [---&gt;] I_APPLOGPARENT                 TYPE REF TO CL_GUI_CONTAINER(optional)
+* | [---&gt;] I_GRAPHICSPARENT               TYPE REF TO CL_GUI_CONTAINER(optional)
+* | [---&gt;] I_NAME                         TYPE        STRING(optional)
+* | [---&gt;] I_FCAT_COMPLETE                TYPE        SAP_BOOL (default =SPACE)
+* | [---&gt;] I_OWN_MAP                      TYPE        FLAG
+* | [---&gt;] I_MAP_BUILDER                  TYPE        FLAG
+* | [---&gt;] IO_CONTROLLER                  TYPE REF TO lcl_ships_CONTROLLER
+* | [EXC!] ERROR_CNTL_CREATE
+* | [EXC!] ERROR_CNTL_INIT
+* | [EXC!] ERROR_CNTL_LINK
+* | [EXC!] ERROR_DP_CREATE
+* +--------------------------------------------------------------------------------------&lt;/SIGNATURE&gt;
+  method constructor.
+    super-&gt;constructor(
+    exporting
+      i_shellstyle      = i_shellstyle
+      i_lifetime        = i_lifetime
+      i_parent          = i_parent
+      i_appl_events     = i_appl_events
+      i_parentdbg       = i_parentdbg
+      i_applogparent    = i_applogparent
+      i_graphicsparent  = i_graphicsparent
+      i_name            = i_name
+      i_fcat_complete   = i_fcat_complete
+    exceptions
+      error_cntl_create = 1
+      error_cntl_init   = 2
+      error_cntl_link   = 3
+      error_dp_create   = 4
+      others            = 5
+      ).
+    if sy-subrc eq 0.
+      g_own_map = i_own_map.
+      g_map_builder = i_map_builder.
+      go_controller ?= io_controller.
+      me-&gt;create_fcat( ).
+      me-&gt;create_layout( ).
+      me-&gt;init_map( ).
+
+      me-&gt;set_height( height = 2 ).
+      set handler me-&gt;event_button_click for me.
+      if g_own_map is initial.
+        me-&gt;get_gt_fields( ).
+        me-&gt;convert_fields_to_map( exporting it_fields = gt_fields changing ct_map = gt_map_opp[] ).
+      endif.
+    endif.
+  endmethod.
+
+
+* &lt;SIGNATURE&gt;---------------------------------------------------------------------------------------+
+* | Instance Public Method lcl_ships_MAP-&gt;CONVERT_FIELDS_TO_MAP
+* +-------------------------------------------------------------------------------------------------+
+* | [---&gt;] IT_FIELDS                      TYPE        T_FIELDS_T
+* | [&lt;--&gt;] CT_MAP                         TYPE        T_MAP_T
+* +--------------------------------------------------------------------------------------&lt;/SIGNATURE&gt;
+  method convert_fields_to_map.
+    field-symbols: &lt;fields&gt; type t_fields_s.
+    field-symbols: &lt;fcat&gt; type lvc_s_fcat.
+    field-symbols: &lt;opp&gt; like line of gt_map_opp.
+    field-symbols: &lt;any&gt; type any.
+    data: f_row type i.
+    data: f_column type string.
+
+    loop at it_fields assigning &lt;fields&gt;. &quot; where shipid is not initial.
+      clear f_row. clear f_column.
+      find &lt;fields&gt;-field+0(1) in sy-abcde match offset f_row.
+      add 1 to f_row.
+
+      if strlen( &lt;fields&gt;-field ) eq 3.
+        concatenate &apos;C&apos; &lt;fields&gt;-field+1(2) into f_column.
+      elseif strlen( &lt;fields&gt;-field ) eq 2.
+        concatenate &apos;C&apos; &lt;fields&gt;-field+1(1) into f_column.
+      endif.
+
+      read table ct_map index f_row assigning &lt;opp&gt;.
+      if sy-subrc eq 0.
+        assign component f_column of structure &lt;opp&gt; to &lt;any&gt;.
+        if sy-subrc eq 0.
+          if &lt;fields&gt;-shipid is initial.
+            &lt;any&gt; = c_icon_water.
+          elseif &lt;fields&gt;-hit is not initial.
+            &lt;any&gt; = c_icon_hit.
+          else.
+            &lt;any&gt; = c_icon_ship.
+          endif.
+        endif.
+      endif.
+
+    endloop.
+    if sy-subrc eq 0.
+      g_fields_converted = abap_true.
+    endif.
+  endmethod.
+
+
+* &lt;SIGNATURE&gt;---------------------------------------------------------------------------------------+
+* | Instance Private Method lcl_ships_MAP-&gt;CREATE_FCAT
+* +-------------------------------------------------------------------------------------------------+
+* +--------------------------------------------------------------------------------------&lt;/SIGNATURE&gt;
+  method create_fcat.
+    field-symbols: &lt;fcat&gt; like line of gt_fcat.
+    data: ms_map like line of gt_map.
+    data: m_size type i value 4.
+    append initial line to gt_fcat assigning &lt;fcat&gt;.
+    &lt;fcat&gt;-fieldname = &apos;ROW&apos;.
+    &lt;fcat&gt;-scrtext_l = space.
+    &lt;fcat&gt;-scrtext_m = space.
+    &lt;fcat&gt;-scrtext_s = space.
+    &lt;fcat&gt;-reptext = space.
+    &lt;fcat&gt;-key     = &apos;X&apos;.
+    &lt;fcat&gt;-outputlen = m_size.
+
+    append initial line to gt_fcat assigning &lt;fcat&gt;.
+    &lt;fcat&gt;-fieldname = &apos;C1&apos;.
+    &lt;fcat&gt;-scrtext_l =
+    &lt;fcat&gt;-scrtext_m =
+    &lt;fcat&gt;-scrtext_s =
+    &lt;fcat&gt;-reptext = &apos;1&apos;.
+    &lt;fcat&gt;-key     = &apos;X&apos;.
+    &lt;fcat&gt;-icon    = &apos;X&apos;.
+    &lt;fcat&gt;-outputlen = m_size.
+    if g_own_map is initial.
+      &lt;fcat&gt;-hotspot = &apos;X&apos;.
+    endif.
+
+    append initial line to gt_fcat assigning &lt;fcat&gt;.
+    &lt;fcat&gt;-fieldname = &apos;C2&apos;.
+    &lt;fcat&gt;-scrtext_l =
+    &lt;fcat&gt;-scrtext_m =
+    &lt;fcat&gt;-scrtext_s =
+    &lt;fcat&gt;-reptext = &apos;2&apos;.
+    &lt;fcat&gt;-key     = &apos;X&apos;.
+    &lt;fcat&gt;-icon    = &apos;X&apos;.
+    &lt;fcat&gt;-outputlen = m_size.
+    if g_own_map is initial.
+      &lt;fcat&gt;-hotspot = &apos;X&apos;.
+    endif.
+
+    append initial line to gt_fcat assigning &lt;fcat&gt;.
+    &lt;fcat&gt;-fieldname = &apos;C3&apos;.
+    &lt;fcat&gt;-scrtext_l =
+    &lt;fcat&gt;-scrtext_m =
+    &lt;fcat&gt;-scrtext_s =
+    &lt;fcat&gt;-reptext = &apos;3&apos;.
+    &lt;fcat&gt;-key     = &apos;X&apos;.
+    &lt;fcat&gt;-icon    = &apos;X&apos;.
+    &lt;fcat&gt;-outputlen = m_size.
+    if g_own_map is initial.
+      &lt;fcat&gt;-hotspot = &apos;X&apos;.
+    endif.
+
+    append initial line to gt_fcat assigning &lt;fcat&gt;.
+    &lt;fcat&gt;-fieldname = &apos;C4&apos;.
+    &lt;fcat&gt;-scrtext_l =
+    &lt;fcat&gt;-scrtext_m =
+    &lt;fcat&gt;-scrtext_s =
+    &lt;fcat&gt;-reptext = &apos;4&apos;.
+    &lt;fcat&gt;-key     = &apos;X&apos;.
+    &lt;fcat&gt;-icon    = &apos;X&apos;.
+    &lt;fcat&gt;-outputlen = m_size.
+    if g_own_map is initial.
+      &lt;fcat&gt;-hotspot = &apos;X&apos;.
+    endif.
+
+    append initial line to gt_fcat assigning &lt;fcat&gt;.
+    &lt;fcat&gt;-fieldname = &apos;C5&apos;.
+    &lt;fcat&gt;-scrtext_l =
+    &lt;fcat&gt;-scrtext_m =
+    &lt;fcat&gt;-scrtext_s =
+    &lt;fcat&gt;-reptext = &apos;5&apos;.
+    &lt;fcat&gt;-key     = &apos;X&apos;.
+    &lt;fcat&gt;-icon    = &apos;X&apos;.
+    &lt;fcat&gt;-outputlen = m_size.
+    if g_own_map is initial.
+      &lt;fcat&gt;-hotspot = &apos;X&apos;.
+    endif.
+
+    append initial line to gt_fcat assigning &lt;fcat&gt;.
+    &lt;fcat&gt;-fieldname = &apos;C6&apos;.
+    &lt;fcat&gt;-scrtext_l =
+    &lt;fcat&gt;-scrtext_m =
+    &lt;fcat&gt;-scrtext_s =
+    &lt;fcat&gt;-reptext = &apos;6&apos;.
+    &lt;fcat&gt;-key     = &apos;X&apos;.
+    &lt;fcat&gt;-icon    = &apos;X&apos;.
+    &lt;fcat&gt;-outputlen = m_size.
+    if g_own_map is initial.
+      &lt;fcat&gt;-hotspot = &apos;X&apos;.
+    endif.
+
+    append initial line to gt_fcat assigning &lt;fcat&gt;.
+    &lt;fcat&gt;-fieldname = &apos;C7&apos;.
+    &lt;fcat&gt;-scrtext_l =
+    &lt;fcat&gt;-scrtext_m =
+    &lt;fcat&gt;-scrtext_s =
+    &lt;fcat&gt;-reptext = &apos;7&apos;.
+    &lt;fcat&gt;-key     = &apos;X&apos;.
+    &lt;fcat&gt;-icon    = &apos;X&apos;.
+    &lt;fcat&gt;-outputlen = m_size.
+    if g_own_map is initial.
+      &lt;fcat&gt;-hotspot = &apos;X&apos;.
+    endif.
+
+    append initial line to gt_fcat assigning &lt;fcat&gt;.
+    &lt;fcat&gt;-fieldname = &apos;C8&apos;.
+    &lt;fcat&gt;-scrtext_l =
+    &lt;fcat&gt;-scrtext_m =
+    &lt;fcat&gt;-scrtext_s =
+    &lt;fcat&gt;-reptext = &apos;8&apos;.
+    &lt;fcat&gt;-key     = &apos;X&apos;.
+    &lt;fcat&gt;-icon    = &apos;X&apos;.
+    &lt;fcat&gt;-outputlen = m_size.
+    if g_own_map is initial.
+      &lt;fcat&gt;-hotspot = &apos;X&apos;.
+    endif.
+
+    append initial line to gt_fcat assigning &lt;fcat&gt;.
+    &lt;fcat&gt;-fieldname = &apos;C9&apos;.
+    &lt;fcat&gt;-scrtext_l =
+    &lt;fcat&gt;-scrtext_m =
+    &lt;fcat&gt;-scrtext_s =
+    &lt;fcat&gt;-reptext = &apos;9&apos;.
+    &lt;fcat&gt;-key     = &apos;X&apos;.
+    &lt;fcat&gt;-icon    = &apos;X&apos;.
+    &lt;fcat&gt;-outputlen = m_size.
+    if g_own_map is initial.
+      &lt;fcat&gt;-hotspot = &apos;X&apos;.
+    endif.
+
+
+    append initial line to gt_fcat assigning &lt;fcat&gt;.
+    &lt;fcat&gt;-fieldname = &apos;C10&apos;.
+    &lt;fcat&gt;-scrtext_l =
+    &lt;fcat&gt;-scrtext_m =
+    &lt;fcat&gt;-scrtext_s =
+    &lt;fcat&gt;-reptext = &apos;10&apos;.
+    &lt;fcat&gt;-key     = &apos;X&apos;.
+    &lt;fcat&gt;-icon    = &apos;X&apos;.
+    &lt;fcat&gt;-outputlen = m_size.
+    if g_own_map is initial.
+      &lt;fcat&gt;-hotspot = &apos;X&apos;.
+    endif.
+  endmethod.
+
+
+* &lt;SIGNATURE&gt;---------------------------------------------------------------------------------------+
+* | Instance Private Method lcl_ships_MAP-&gt;CREATE_LAYOUT
+* +-------------------------------------------------------------------------------------------------+
+* +--------------------------------------------------------------------------------------&lt;/SIGNATURE&gt;
+  method create_layout.
+    gs_layout-stylefname = &apos;STYLE&apos;.
+    gs_layout-zebra       = &apos;X&apos;.
+    gs_layout-no_merging  = &apos;X&apos;.
+    gs_layout-no_f4       = &apos;X&apos;.
+    gs_layout-no_rowmove  = &apos;X&apos;.
+    gs_layout-no_toolbar  = &apos;X&apos;.
+    gs_layout-no_colexpd  = &apos;X&apos;.
+  endmethod.
+
+
+* &lt;SIGNATURE&gt;---------------------------------------------------------------------------------------+
+* | Instance Private Method lcl_ships_MAP-&gt;EVENT_BUTTON_CLICK
+* +-------------------------------------------------------------------------------------------------+
+* | [---&gt;] ES_COL_ID                      LIKE
+* | [---&gt;] ES_ROW_NO                      LIKE
+* +--------------------------------------------------------------------------------------&lt;/SIGNATURE&gt;
+  method event_button_click.
+    field-symbols: &lt;map&gt; like line of gt_map.
+    field-symbols: &lt;field&gt; type any.
+
+    if g_map_builder is not initial.
+      if g_step eq c_cr_step1.
+        g_start_row = es_row_no-row_id.
+        g_start_column = es_col_id-fieldname+1(2).
+
+        me-&gt;set_icon_for_cell(
+        i_row    = g_start_row
+        i_column = es_col_id-fieldname
+        i_icon   = c_icon_ship
+        ).
+
+        me-&gt;add_ship_end( iv_type = g_ship_type ).
+        if g_ship_type eq 1.
+          me-&gt;set_ship_icons( ).
+          me-&gt;clear_ship_add( ).
+          add 1 to g_1f_ships.
+
+        endif.
+      elseif g_step eq c_cr_step2.
+        g_end_row = es_row_no-row_id.
+        g_end_column = es_col_id-fieldname+1(2).
+
+        case g_ship_type.
+          when 1.
+            me-&gt;clear_ship_add( ).
+            add 1 to g_1f_ships.
+          when 2.
+            add 1 to g_2f_ships.
+          when 3.
+            add 1 to g_3f_ships.
+          when 4.
+            add 1 to g_4f_ships.
+          when 5.
+            add 1 to g_5f_ships.
+        endcase.
+        me-&gt;set_ship_icons( ).
+        me-&gt;set_display_mode( ).
+
+        me-&gt;refresh_table_display( i_soft_refresh = abap_true ).
+
+      endif.
+    elseif g_own_map is initial .&quot;opp map.
+      data: m_hit type abap_bool.
+      data: m_full_ship type abap_bool.
+      data: m_end_of_game type abap_bool.
+      check go_controller-&gt;g_your_turn eq abap_true.
+
+      me-&gt;check_hit( exporting
+        iv_row      = es_row_no-row_id
+        iv_column   = es_col_id-fieldname
+      importing
+        e_hit       = m_hit
+        e_full_ship = m_full_ship
+        e_end_of_game = m_end_of_game
+        ).
+
+      me-&gt;set_display_mode( ).
+
+      me-&gt;refresh_table_display( i_soft_refresh = abap_true ).
+
+      if m_hit is not initial and m_full_ship is initial.
+        go_controller-&gt;show_text( iv_type = &apos;HIT&apos; ).
+        go_controller-&gt;save_to_indx( iv_type = &apos;C&apos; iv_change_turn = abap_false ).
+      elseif m_hit is not initial and m_full_ship is not initial and m_end_of_game is initial.
+        go_controller-&gt;show_text( iv_type = &apos;HIT_FULL&apos; ).
+        go_controller-&gt;save_to_indx( iv_type = &apos;C&apos; iv_change_turn = abap_false ).
+      elseif m_hit is not initial and m_full_ship is not initial and m_end_of_game is not initial.
+        go_controller-&gt;show_text( iv_type = &apos;WON&apos; ).
+        go_controller-&gt;g_won = abap_true.
+        go_controller-&gt;set_turn( iv_my_turn = abap_false ).
+        go_controller-&gt;save_to_indx( iv_type = &apos;C&apos; iv_change_turn = abap_true ).
+      else.
+        go_controller-&gt;show_text( iv_type = &apos;MISS&apos; ).
+        go_controller-&gt;set_turn( iv_my_turn = abap_false ).
+        go_controller-&gt;save_to_indx( iv_type = &apos;C&apos; iv_change_turn = abap_true ).
+      endif.
+
+    endif.
+  endmethod.
+
+
+* &lt;SIGNATURE&gt;---------------------------------------------------------------------------------------+
+* | Instance Private Method lcl_ships_MAP-&gt;GET_GT_FIELDS
+* +-------------------------------------------------------------------------------------------------+
+* +--------------------------------------------------------------------------------------&lt;/SIGNATURE&gt;
+  method get_gt_fields.
+    gt_fields = go_controller-&gt;gt_opp_fields[].
+  endmethod.
+
+
+* &lt;SIGNATURE&gt;---------------------------------------------------------------------------------------+
+* | Instance Protected Method lcl_ships_MAP-&gt;GET_MAP
+* +-------------------------------------------------------------------------------------------------+
+* | [&lt;---] RT_MAP                         TYPE        T_MAP_T
+* +--------------------------------------------------------------------------------------&lt;/SIGNATURE&gt;
+  method get_map.
+    rt_map[] = gt_map[].
+  endmethod.
+
+
+* &lt;SIGNATURE&gt;---------------------------------------------------------------------------------------+
+* | Instance Private Method lcl_ships_MAP-&gt;INIT_MAP
+* +-------------------------------------------------------------------------------------------------+
+* +--------------------------------------------------------------------------------------&lt;/SIGNATURE&gt;
+  method init_map.
+    data: m_row(1) type c.
+    data: m_column(2) type c.
+    data: m_offset type i.
+    data: ms_style type lvc_s_styl.
+    field-symbols: &lt;map&gt; like line of gt_map.
+
+    if g_own_map eq abap_true or g_map_builder eq abap_true.
+      refresh gt_map[].
+
+      do 10 times.
+        m_offset = sy-index - 1.
+        m_row = sy-abcde+m_offset(1).
+        append initial line to gt_map assigning &lt;map&gt;.
+        &lt;map&gt;-row = m_row.
+        if g_own_map is initial.
+          do 10 times.
+            clear ms_style.
+            m_column =  sy-index.
+            concatenate &apos;C&apos; m_column into ms_style-fieldname .
+            ms_style-style     = cl_gui_alv_grid=&gt;mc_style_button.
+            insert ms_style into table &lt;map&gt;-style.
+          enddo.
+
+        endif.
+      enddo.
+
+    else.
+      refresh gt_map_opp[].
+
+      do 10 times.
+        m_offset = sy-index - 1.
+        m_row = sy-abcde+m_offset(1).
+        append initial line to gt_map_opp assigning &lt;map&gt;.
+        &lt;map&gt;-row = m_row.
+        do 10 times.
+          clear ms_style.
+          m_column =  sy-index.
+          concatenate &apos;C&apos; m_column into ms_style-fieldname .
+          ms_style-style     = cl_gui_alv_grid=&gt;mc_style_button.
+          insert ms_style into table &lt;map&gt;-style.
+        enddo.
+      enddo.
+      gt_map[] = gt_map_opp[].
+    endif.
+  endmethod.
+
+
+* &lt;SIGNATURE&gt;---------------------------------------------------------------------------------------+
+* | Instance Private Method lcl_ships_MAP-&gt;SET_DISPLAY_MODE
+* +-------------------------------------------------------------------------------------------------+
+* +--------------------------------------------------------------------------------------&lt;/SIGNATURE&gt;
+  method set_display_mode.
+    field-symbols: &lt;map&gt; like line of gt_map.
+    data: m_fieldname type lvc_s_styl-fieldname.
+    field-symbols: &lt;field&gt; type any.
+
+    loop at gt_map assigning &lt;map&gt;.
+      do 10 times.
+        m_fieldname = me-&gt;calculate_internal_field( iv_column = sy-index ).
+        assign component m_fieldname of  structure &lt;map&gt; to &lt;field&gt;.
+
+        if g_own_map is not initial or
+        g_map_builder is not initial or
+        &lt;field&gt; is not initial.
+          .
+          me-&gt;set_field_style(
+          exporting
+*        iv_button    = iv_button
+            iv_disabled  = &apos;X&apos;
+            iv_fieldname = m_fieldname
+          changing
+            ct_style     = &lt;map&gt;-style
+            ).
+        endif.
+      enddo.
+    endloop.
+
+  endmethod.
+
+
+* &lt;SIGNATURE&gt;---------------------------------------------------------------------------------------+
+* | Instance Private Method lcl_ships_MAP-&gt;SET_FIELD_STYLE
+* +-------------------------------------------------------------------------------------------------+
+* | [---&gt;] IV_BUTTON                      TYPE        FLAG(optional)
+* | [---&gt;] IV_DISABLED                    TYPE        FLAG (default =&apos;X&apos;)
+* | [---&gt;] IV_FIELDNAME                   TYPE        LVC_S_STYL-FIELDNAME
+* | [&lt;--&gt;] CT_STYLE                       TYPE        LVC_T_STYL
+* +--------------------------------------------------------------------------------------&lt;/SIGNATURE&gt;
+  method set_field_style.
+    data: ms_style like line of ct_style.
+    delete ct_style where fieldname eq iv_fieldname.
+    ms_style-fieldname = iv_fieldname.
+    if iv_button eq abap_true.
+      ms_style-style = cl_gui_alv_grid=&gt;mc_style_button.
+
+    elseif iv_disabled eq abap_true.
+      ms_style-style = cl_gui_alv_grid=&gt;mc_style_disabled.
+
+    endif.
+    insert ms_style into table ct_style.
+  endmethod.
+
+
+* &lt;SIGNATURE&gt;---------------------------------------------------------------------------------------+
+* | Instance Private Method lcl_ships_MAP-&gt;SET_FIELD_WAS_HIT
+* +-------------------------------------------------------------------------------------------------+
+* | [---&gt;] IV_ROW                         TYPE        I
+* | [---&gt;] IV_COLUMN                      TYPE        LVC_S_FCAT-FIELDNAME
+* +--------------------------------------------------------------------------------------&lt;/SIGNATURE&gt;
+  method set_field_was_hit.
+    data: f_field type char03.
+    data: fs_fields like line of gt_fields.
+    field-symbols: &lt;field&gt; like line of gt_fields.
+
+
+    f_field = me-&gt;calculate_field(
+    iv_row    = iv_row
+    iv_column = iv_column
+    ).
+    read table gt_fields with key field = f_field assigning &lt;field&gt;.
+    if sy-subrc eq 0.
+      &lt;field&gt;-hit = abap_true.
+    else.
+      clear fs_fields.
+      fs_fields-field = f_field.
+      fs_fields-hit   = abap_true.
+      insert fs_fields into table gt_fields.
+    endif.
+
+  endmethod.
+
+
+* &lt;SIGNATURE&gt;---------------------------------------------------------------------------------------+
+* | Instance Public Method lcl_ships_MAP-&gt;SET_ICON_FOR_CELL
+* +-------------------------------------------------------------------------------------------------+
+* | [---&gt;] I_ROW                          TYPE        I
+* | [---&gt;] I_COLUMN                       TYPE        CSEQUENCE
+* | [---&gt;] I_ICON                         TYPE        ICON_D
+* +--------------------------------------------------------------------------------------&lt;/SIGNATURE&gt;
+  method set_icon_for_cell.
+    data: mt_delta_cells type lvc_t_modi.
+    field-symbols: &lt;modi&gt; type lvc_s_modi.
+
+    insert initial line into table mt_delta_cells assigning &lt;modi&gt;.
+    if sy-subrc eq 0.
+      &lt;modi&gt;-row_id = i_row.
+      &lt;modi&gt;-fieldname = i_column.
+      &lt;modi&gt;-value  = i_icon.
+    endif.
+
+    me-&gt;set_delta_cells(
+    it_delta_cells  = mt_delta_cells
+    i_modified      = &apos; &apos;
+*      i_frontend_only = i_frontend_only
+    ).
+
+  endmethod.
+
+
+* &lt;SIGNATURE&gt;---------------------------------------------------------------------------------------+
+* | Instance Private Method lcl_ships_MAP-&gt;SET_POSSIBLE_FIELDS
+* +-------------------------------------------------------------------------------------------------+
+* | [---&gt;] IV_TYPE                        TYPE        I
+* | [---&gt;] IV_STEP                        TYPE        I
+* +--------------------------------------------------------------------------------------&lt;/SIGNATURE&gt;
+  method set_possible_fields.
+
+    field-symbols: &lt;field&gt; type any.
+    field-symbols: &lt;map&gt; like line of gt_map.
+    field-symbols: &lt;poss&gt; like line of gt_map.
+    data: m_row type i.
+    data: m_column type i.
+    data: mt_poss like gt_map.
+    data: mt_poss_se like gt_map.
+    data: m_field type lvc_s_styl-fieldname.
+
+    mt_poss[] = gt_map[].
+
+    &quot;fisrt loop check possible fields / step is not checked here
+    loop at mt_poss assigning &lt;map&gt;.
+      m_row = sy-tabix.
+      do 10 times.
+        m_column = sy-index.
+        m_field = me-&gt;calculate_internal_field( iv_column = m_column ).
+        assign component m_field of structure &lt;map&gt; to &lt;field&gt;.
+        if sy-subrc eq 0 and &lt;field&gt; is initial.
+          &lt;field&gt; = me-&gt;check_neighbours_empty(
+          iv_row            = m_row
+          iv_column         = m_column
+          ).
+        endif.
+      enddo.
+    endloop.
+
+    &quot;we have fields in which we can put ships, now we have to check agains types
+    mt_poss_se[] = mt_poss[].
+    loop at mt_poss assigning &lt;poss&gt;.
+      m_row = sy-tabix.
+      do 10 times.
+        m_column = sy-index.
+        m_field = me-&gt;calculate_internal_field( iv_column = m_column ).
+        assign component m_field of structure &lt;poss&gt; to &lt;field&gt;.
+        if sy-subrc eq 0 and &lt;field&gt; is initial.
+          if iv_step eq c_cr_step1.
+            &lt;field&gt; = me-&gt;check_can_start(
+            iv_type           = iv_type
+            iv_row            = m_row
+            iv_column         = m_column
+            it_possible_fields = mt_poss_se[]
+            ).
+          elseif iv_step eq c_cr_step2.
+            &lt;field&gt; = me-&gt;check_can_end(
+            iv_type           = iv_type
+            iv_row            = m_row
+            iv_column         = m_column
+            it_possible_fields = mt_poss_se[]
+            ).
+          endif.
+        endif.
+        read table gt_map assigning &lt;map&gt; index m_row.
+        if &lt;field&gt; is initial.
+          me-&gt;set_field_style(
+          exporting
+            iv_button    = abap_true
+*    iv_disabled  = &apos;X&apos;
+            iv_fieldname = m_field
+          changing
+            ct_style     = &lt;map&gt;-style
+            ).
+        else.
+          me-&gt;set_field_style(
+          exporting
+*          iv_button    = abap_true
+            iv_disabled  = abap_true
+            iv_fieldname = m_field
+          changing
+            ct_style     = &lt;map&gt;-style
+            ).
+        endif.
+      enddo.
+    endloop.
+    me-&gt;refresh_table_display( i_soft_refresh = &apos;X&apos; ).
+  endmethod.
+
+
+* &lt;SIGNATURE&gt;---------------------------------------------------------------------------------------+
+* | Instance Private Method lcl_ships_MAP-&gt;SET_SHIP_ICONS
+* +-------------------------------------------------------------------------------------------------+
+* +--------------------------------------------------------------------------------------&lt;/SIGNATURE&gt;
+  method set_ship_icons.
+    data: m_row type i.
+    data: m_column type i.
+    data: ms_fields type t_fields_s.
+
+
+    case g_ship_type.
+      when 1.
+        ms_fields-shipid(1) = 1 .
+        ms_fields-shipid+1(1) = g_1f_ships.
+      when 2.
+        ms_fields-shipid(1) = 2.
+        ms_fields-shipid+1(1) = g_2f_ships.
+      when 3.
+        ms_fields-shipid(1) = 3 .
+        ms_fields-shipid+1(1) = g_3f_ships.
+      when 4.
+        ms_fields-shipid(1) = 4 .
+        ms_fields-shipid+1(1) =  g_4f_ships.
+      when 5.
+        ms_fields-shipid(1) = 5 .
+        ms_fields-shipid+1(1) = g_5f_ships.
+    endcase.
+
+
+    if g_start_row eq g_end_row and
+    g_start_column gt g_end_column.
+      &quot;right
+      m_row = g_start_row.
+      m_column = g_start_column.
+      do g_start_column - g_end_column + 1 times.
+
+        me-&gt;set_icon_for_cell(
+        i_row    = m_row
+        i_column = me-&gt;calculate_internal_field( iv_column = m_column )
+        i_icon   = c_icon_ship
+        ).
+        ms_fields-field  = me-&gt;calculate_field(
+        iv_row    = m_row
+        iv_column = me-&gt;calculate_internal_field( iv_column = m_column )
+        ).
+        insert ms_fields into table gt_fields.
+        subtract 1 from m_column.
+      enddo.
+    elseif  g_start_row eq g_end_row and
+      g_start_column lt g_end_column.
+      &quot;left
+      m_row = g_start_row.
+      m_column = g_start_column.
+      do g_end_column - g_start_column + 1 times.
+
+        me-&gt;set_icon_for_cell(
+        i_row    = m_row
+        i_column = me-&gt;calculate_internal_field( iv_column = m_column )
+        i_icon   = c_icon_ship
+        ).
+        ms_fields-field  = me-&gt;calculate_field(
+        iv_row    = m_row
+        iv_column = me-&gt;calculate_internal_field( iv_column = m_column )
+        ).
+        insert ms_fields into table gt_fields.
+        add 1 to  m_column.
+      enddo.
+    elseif  g_start_row gt g_end_row and
+      g_start_column eq g_end_column.
+      &quot;down
+      m_row = g_start_row.
+      m_column = g_start_column.
+      do g_start_row - g_end_row + 1 times.
+
+        me-&gt;set_icon_for_cell(
+        i_row    = m_row
+        i_column = me-&gt;calculate_internal_field( iv_column = m_column )
+        i_icon   = c_icon_ship
+        ).
+        ms_fields-field  = me-&gt;calculate_field(
+        iv_row    = m_row
+        iv_column = me-&gt;calculate_internal_field( iv_column = m_column )
+        ).
+        insert ms_fields into table gt_fields.
+        subtract 1 from m_row.
+      enddo.
+    elseif  g_start_row lt g_end_row and
+      g_start_column eq g_end_column.
+      &quot;up
+      m_row = g_start_row.
+      m_column = g_start_column.
+      do g_end_row - g_start_row + 1 times.
+
+
+        me-&gt;set_icon_for_cell(
+        i_row    = m_row
+        i_column = me-&gt;calculate_internal_field( iv_column = m_column )
+        i_icon   = c_icon_ship
+        ).
+        ms_fields-field  = me-&gt;calculate_field(
+        iv_row    = m_row
+        iv_column = me-&gt;calculate_internal_field( iv_column = m_column )
+        ).
+        insert ms_fields into table gt_fields.
+        add 1 to  m_row.
+      enddo.
+    elseif g_end_row eq 0
+      and g_end_column eq 0.
+
+      ms_fields-field  = me-&gt;calculate_field(
+      iv_row    = g_start_row
+      iv_column = me-&gt;calculate_internal_field( iv_column = g_start_column )
+      ).
+      insert ms_fields into table gt_fields.
+    endif.
+
+    me-&gt;clear_ship_add( ).
+
+
+  endmethod.
+endclass.
+
+
+
+
+class lcl_ships_controller implementation.
+
+
+* &lt;SIGNATURE&gt;---------------------------------------------------------------------------------------+
+* | Instance Public Method lcl_ships_CONTROLLER-&gt;CHECK_TURN
+* +-------------------------------------------------------------------------------------------------+
+* | [&lt;-()] R_MY_TURN                      TYPE        ABAP_BOOL
+* +--------------------------------------------------------------------------------------&lt;/SIGNATURE&gt;
+  method check_turn.
+    r_my_turn = g_your_turn.
+  endmethod.                    &quot;check_turn
+
+
+* &lt;SIGNATURE&gt;---------------------------------------------------------------------------------------+
+* | Instance Public Method lcl_ships_CONTROLLER-&gt;CONSTRUCTOR
+* +-------------------------------------------------------------------------------------------------+
+* +--------------------------------------------------------------------------------------&lt;/SIGNATURE&gt;
+  method constructor.
+    create object go_timer_game_start
+*    exporting
+*      lifetime = lifetime
+*      shellstyle = shellstyle
+*      parent = parent
+*    exceptions
+*      error  = 1
+*      others = 2
+    .
+    if sy-subrc &lt;&gt; 0.
+*   MESSAGE ID SY-MSGID TYPE SY-MSGTY NUMBER SY-MSGNO
+*              WITH SY-MSGV1 SY-MSGV2 SY-MSGV3 SY-MSGV4.
+    endif.
+
+    set handler me-&gt;event_finished_game_start for go_timer_game_start.
+    go_timer_game_start-&gt;interval = g_game_start_timer_interval.
+
+    create object go_timer_turn_check
+*    exporting
+*      lifetime = lifetime
+*      shellstyle = shellstyle
+*      parent = parent
+*    exceptions
+*      error  = 1
+*      others = 2
+    .
+    if sy-subrc &lt;&gt; 0.
+*   MESSAGE ID SY-MSGID TYPE SY-MSGTY NUMBER SY-MSGNO
+*              WITH SY-MSGV1 SY-MSGV2 SY-MSGV3 SY-MSGV4.
+    endif.
+
+    set handler me-&gt;event_finished_turn_check for go_timer_turn_check.
+    go_timer_turn_check-&gt;interval = g_turn_check_timer_interval.
+  endmethod.                    &quot;constructor
+
+
+* &lt;SIGNATURE&gt;---------------------------------------------------------------------------------------+
+* | Instance Public Method lcl_ships_CONTROLLER-&gt;CREATE_MESSAGE_WINDOW
+* +-------------------------------------------------------------------------------------------------+
+* +--------------------------------------------------------------------------------------&lt;/SIGNATURE&gt;
+  method create_message_window.
+    if go_cc_messages is initial.
+
+      create object go_cc_messages
+      exporting
+*       parent                      = parent
+        container_name              = &apos;CC_MESSAGES&apos;
+*       style                       = style
+*       lifetime                    = lifetime_default
+*       repid                       = repid
+*       dynnr                       = dynnr
+*       no_autodef_progid_dynnr     = no_autodef_progid_dynnr
+      exceptions
+        cntl_error                  = 1
+        cntl_system_error           = 2
+        create_error                = 3
+        lifetime_error              = 4
+        lifetime_dynpro_dynpro_link = 5
+        others                      = 6
+        .
+      if sy-subrc &lt;&gt; 0.
+*    MESSAGE ID SY-MSGID TYPE SY-MSGTY NUMBER SY-MSGNO
+*               WITH SY-MSGV1 SY-MSGV2 SY-MSGV3 SY-MSGV4.
+      endif.
+
+      create object go_messages
+      exporting
+*      shellstyle         = shellstyle
+        parent             = go_cc_messages
+*      lifetime           = LIFETIME_DEFAULT
+*      saphtmlp           = saphtmlp
+*      uiflag             = uiflag
+*      name               = name
+*      saphttp            = saphttp
+*      query_table_disabled = &apos;&apos;
+      exceptions
+        cntl_error         = 1
+        cntl_install_error = 2
+        dp_install_error   = 3
+        dp_error           = 4
+        others             = 5
+        .
+      if sy-subrc &lt;&gt; 0.
+*   MESSAGE ID SY-MSGID TYPE SY-MSGTY NUMBER SY-MSGNO
+*              WITH SY-MSGV1 SY-MSGV2 SY-MSGV3 SY-MSGV4.
+      endif.
+
+
+    endif.
+  endmethod.                    &quot;CREATE_MESSAGE_WINDOW
+
+
+* &lt;SIGNATURE&gt;---------------------------------------------------------------------------------------+
+* | Instance Public Method lcl_ships_CONTROLLER-&gt;CREATE_OPP_MAP
+* +-------------------------------------------------------------------------------------------------+
+* +--------------------------------------------------------------------------------------&lt;/SIGNATURE&gt;
+  method create_opp_map.
+    if go_cc_opp is initial.
+
+      create object go_cc_opp
+      exporting
+*       parent                      = parent
+        container_name              = &apos;CC_MAP_OPP&apos;
+*       style                       = style
+*       lifetime                    = lifetime_default
+*       repid                       = repid
+*       dynnr                       = dynnr
+*       no_autodef_progid_dynnr     = no_autodef_progid_dynnr
+      exceptions
+        cntl_error                  = 1
+        cntl_system_error           = 2
+        create_error                = 3
+        lifetime_error              = 4
+        lifetime_dynpro_dynpro_link = 5
+        others                      = 6
+        .
+      if sy-subrc &lt;&gt; 0.
+*    MESSAGE ID SY-MSGID TYPE SY-MSGTY NUMBER SY-MSGNO
+*               WITH SY-MSGV1 SY-MSGV2 SY-MSGV3 SY-MSGV4.
+      endif.
+
+      create object go_opp_map
+      exporting
+*      i_shellstyle      = 0
+*      i_lifetime        = i_lifetime
+        i_parent          = go_cc_opp
+*      i_appl_events     = space
+*      i_parentdbg       = i_parentdbg
+*      i_applogparent    = i_applogparent
+*      i_graphicsparent  = i_graphicsparent
+*      i_name            = i_name
+*      i_fcat_complete   = SPACE
+        i_own_map         = space &quot;&apos;X&apos;
+        i_map_builder     = space
+        io_controller     = me
+      exceptions
+        error_cntl_create = 1
+        error_cntl_init   = 2
+        error_cntl_link   = 3
+        error_dp_create   = 4
+        others            = 5
+        .
+      if sy-subrc &lt;&gt; 0.
+*   MESSAGE ID SY-MSGID TYPE SY-MSGTY NUMBER SY-MSGNO
+*              WITH SY-MSGV1 SY-MSGV2 SY-MSGV3 SY-MSGV4.
+      endif.
+
+      go_opp_map-&gt;set_table_for_first_display(
+      exporting
+*        i_buffer_active               = i_buffer_active
+*        i_bypassing_buffer            = i_bypassing_buffer
+*        i_consistency_check           = i_consistency_check
+*        i_structure_name              = i_structure_name
+        is_variant                    = go_opp_map-&gt;gs_variant
+        i_save                        = go_opp_map-&gt;g_save
+*        i_default                     = &apos;X&apos;
+        is_layout                     = go_opp_map-&gt;gs_layout
+*        is_print                      = is_print
+*        it_special_groups             = it_special_groups
+*        it_toolbar_excluding          = it_toolbar_excluding
+*        it_hyperlink                  = it_hyperlink
+*        it_alv_graphics               = it_alv_graphics
+*        it_except_qinfo               = it_except_qinfo
+*        ir_salv_adapter               = ir_salv_adapter
+      changing
+        it_outtab                     = go_opp_map-&gt;gt_map
+        it_fieldcatalog               = go_opp_map-&gt;gt_fcat
+*        it_sort                       = it_sort
+*        it_filter                     = it_filter
+      exceptions
+        invalid_parameter_combination = 1
+        program_error                 = 2
+        too_many_lines                = 3
+        others                        = 4
+        ).
+      if sy-subrc &lt;&gt; 0.
+*     Implement suitable error handling here
+      endif.
+
+
+    endif.
+
+
+
+  endmethod.                    &quot;CREATE_OPP_MAP
+
+
+* &lt;SIGNATURE&gt;---------------------------------------------------------------------------------------+
+* | Instance Public Method lcl_ships_CONTROLLER-&gt;CREATE_OWN_MAP
+* +-------------------------------------------------------------------------------------------------+
+* +--------------------------------------------------------------------------------------&lt;/SIGNATURE&gt;
+  method create_own_map.
+    if go_cc_own is initial.
+
+      create object go_cc_own
+      exporting
+*       parent                      = parent
+        container_name              = &apos;CC_MAP_OWN&apos;
+*       style                       = style
+*       lifetime                    = lifetime_default
+*       repid                       = repid
+*       dynnr                       = dynnr
+*       no_autodef_progid_dynnr     = no_autodef_progid_dynnr
+      exceptions
+        cntl_error                  = 1
+        cntl_system_error           = 2
+        create_error                = 3
+        lifetime_error              = 4
+        lifetime_dynpro_dynpro_link = 5
+        others                      = 6
+        .
+      if sy-subrc &lt;&gt; 0.
+*    MESSAGE ID SY-MSGID TYPE SY-MSGTY NUMBER SY-MSGNO
+*               WITH SY-MSGV1 SY-MSGV2 SY-MSGV3 SY-MSGV4.
+      endif.
+
+      create object go_own_map
+      exporting
+*      i_shellstyle      = 0
+*      i_lifetime        = i_lifetime
+        i_parent          = go_cc_own
+*      i_appl_events     = space
+*      i_parentdbg       = i_parentdbg
+*      i_applogparent    = i_applogparent
+*      i_graphicsparent  = i_graphicsparent
+*      i_name            = i_name
+*      i_fcat_complete   = SPACE
+        i_own_map         = space &quot;&apos;X&apos;
+        i_map_builder     = abap_true
+        io_controller     = me
+      exceptions
+        error_cntl_create = 1
+        error_cntl_init   = 2
+        error_cntl_link   = 3
+        error_dp_create   = 4
+        others            = 5
+        .
+      if sy-subrc &lt;&gt; 0.
+*   MESSAGE ID SY-MSGID TYPE SY-MSGTY NUMBER SY-MSGNO
+*              WITH SY-MSGV1 SY-MSGV2 SY-MSGV3 SY-MSGV4.
+      endif.
+
+      go_own_map-&gt;set_table_for_first_display(
+      exporting
+*        i_buffer_active               = i_buffer_active
+*        i_bypassing_buffer            = i_bypassing_buffer
+*        i_consistency_check           = i_consistency_check
+*        i_structure_name              = i_structure_name
+        is_variant                    = go_own_map-&gt;gs_variant
+        i_save                        = go_own_map-&gt;g_save
+*        i_default                     = &apos;X&apos;
+        is_layout                     = go_own_map-&gt;gs_layout
+*        is_print                      = is_print
+*        it_special_groups             = it_special_groups
+*        it_toolbar_excluding          = it_toolbar_excluding
+*        it_hyperlink                  = it_hyperlink
+*        it_alv_graphics               = it_alv_graphics
+*        it_except_qinfo               = it_except_qinfo
+*        ir_salv_adapter               = ir_salv_adapter
+      changing
+        it_outtab                     = go_own_map-&gt;gt_map
+        it_fieldcatalog               = go_own_map-&gt;gt_fcat
+*        it_sort                       = it_sort
+*        it_filter                     = it_filter
+      exceptions
+        invalid_parameter_combination = 1
+        program_error                 = 2
+        too_many_lines                = 3
+        others                        = 4
+        ).
+      if sy-subrc &lt;&gt; 0.
+*     Implement suitable error handling here
+      endif.
+    endif.
+  endmethod.                    &quot;create_own_map
+
+
+* &lt;SIGNATURE&gt;---------------------------------------------------------------------------------------+
+* | Instance Public Method lcl_ships_CONTROLLER-&gt;EVENT_FINISHED_GAME_START
+* +-------------------------------------------------------------------------------------------------+
+* +--------------------------------------------------------------------------------------&lt;/SIGNATURE&gt;
+  method event_finished_game_start.
+    me-&gt;read_from_indx( iv_type = &apos;P&apos; ).
+  endmethod.                    &quot;event_finished_game_start
+
+
+* &lt;SIGNATURE&gt;---------------------------------------------------------------------------------------+
+* | Instance Public Method lcl_ships_CONTROLLER-&gt;EVENT_FINISHED_TURN_CHECK
+* +-------------------------------------------------------------------------------------------------+
+* +--------------------------------------------------------------------------------------&lt;/SIGNATURE&gt;
+  method event_finished_turn_check.
+    me-&gt;read_from_indx( iv_type = &apos;C&apos; ).
+  endmethod.                    &quot;event_finished_turn_check
+
+
+* &lt;SIGNATURE&gt;---------------------------------------------------------------------------------------+
+* | Instance Public Method lcl_ships_CONTROLLER-&gt;FINISH_GAME
+* +-------------------------------------------------------------------------------------------------+
+* +--------------------------------------------------------------------------------------&lt;/SIGNATURE&gt;
+  method finish_game.
+
+    g_resign = abap_true.
+    me-&gt;set_turn( iv_my_turn = abap_false ).
+    me-&gt;save_to_indx(
+    iv_type        = &apos;C&apos;
+    iv_change_turn = abap_true
+    ).
+
+  endmethod.
+
+
+* &lt;SIGNATURE&gt;---------------------------------------------------------------------------------------+
+* | Instance Protected Method lcl_ships_CONTROLLER-&gt;READ_FROM_INDX
+* +-------------------------------------------------------------------------------------------------+
+* | [---&gt;] IV_TYPE                        TYPE        CHAR01
+* +--------------------------------------------------------------------------------------&lt;/SIGNATURE&gt;
+  method read_from_indx.
+    data: mt_players type tt_players.
+    data: ms_players like line of mt_players.
+    data: ms_game type t_games.
+    data: m_varkey type rstable-varkey.
+    data: m_varkey_player1 type rstable-varkey.
+    data: m_varkey_player2 type rstable-varkey.
+    data: m_locked1 type abap_bool.
+    data: m_locked2 type abap_bool.
+    field-symbols: &lt;player&gt; like line of mt_players.
+
+    case iv_type.
+      when &apos;P&apos;. &quot;players
+        concatenate sy-mandt &apos;AB&apos; c_indx_key_players &apos;*&apos; into m_varkey respecting blanks.
+        CALL FUNCTION &apos;ENQUEUE_E_TABLE&apos;
+          EXPORTING
+            mode_rstable   = &apos;X&apos;
+            tabname        = &apos;INDX&apos;
+            varkey         = m_varkey
+*           X_TABNAME      = &apos; &apos;
+*           X_VARKEY       = &apos; &apos;
+            _scope         = &apos;2&apos;
+            _wait          = &apos;X&apos;
+*           _COLLECT       = &apos; &apos;
+          EXCEPTIONS
+            foreign_lock   = 1
+            system_failure = 2
+            others         = 3.
+        if sy-subrc &lt;&gt; 0.
+          go_timer_game_start-&gt;run( ).
+          CALL FUNCTION &apos;DEQUEUE_E_TABLE&apos;
+            EXPORTING
+              mode_rstable = &apos;X&apos;
+              tabname      = &apos;INDX&apos;
+              varkey       = m_varkey
+*             X_TABNAME    = &apos; &apos;
+*             X_VARKEY     = &apos; &apos;
+              _scope       = &apos;3&apos;
+              _synchron    = &apos;X&apos;
+*             _COLLECT     = &apos; &apos;
+            .
+          exit.
+        endif.
+
+        import t_players to mt_players
+        from database indx(ab) id c_indx_key_players.
+
+        if g_indx_key_player is initial.
+          CALL FUNCTION &apos;GUID_CREATE&apos;
+            IMPORTING
+*             EV_GUID_16 = EV_GUID_16
+              ev_guid_22 = g_indx_key_player
+*             EV_GUID_32 =                                               EV_GUID_32
+            .
+          clear ms_players.
+          ms_players-player_guid = g_indx_key_player.
+          ms_players-date         = sy-datum.
+          ms_players-time         = sy-uzeit.
+          insert ms_players into table mt_players.
+
+          data: m_date type sy-datum.
+          m_date =  sy-datum - 1.
+          data: m_time type sy-uzeit.
+          m_time = sy-uzeit -  3600.
+
+          delete mt_players where date le m_date
+          or time le m_time.
+
+          export t_players from mt_players
+          to database indx(ab) id c_indx_key_players.
+          concatenate sy-mandt &apos;AB&apos; g_indx_key_player into m_varkey_player1 respecting blanks.
+          CALL FUNCTION &apos;ENQUEUE_E_TABLE&apos;
+            EXPORTING
+              mode_rstable   = &apos;X&apos;
+              tabname        = &apos;INDX&apos;
+              varkey         = m_varkey_player1
+*             X_TABNAME      = &apos; &apos;
+*             X_VARKEY       = &apos; &apos;
+              _scope         = &apos;2&apos;
+              _wait          = &apos;X&apos;
+*             _COLLECT       = &apos; &apos;
+            EXCEPTIONS
+              foreign_lock   = 1
+              system_failure = 2
+              others         = 3.
+          if sy-subrc eq 0.
+            m_locked1 = abap_true.
+          endif.
+
+        else.
+
+          read table mt_players assigning &lt;player&gt; with key player_guid = g_indx_key_player.
+          if sy-subrc eq 0. &quot;we were joined to sb else game
+            g_indx_player_nr = &lt;player&gt;-player_nr.
+            g_indx_key_game = &lt;player&gt;-game_guid.
+          endif.
+        endif.
+
+        data: m_tabix type i.
+        if g_indx_key_game is initial.
+          loop at mt_players assigning &lt;player&gt; where player_guid ne g_indx_key_player
+          and game_guid is initial.
+            m_tabix = sy-tabix.
+            concatenate sy-mandt &apos;AB&apos; &lt;player&gt;-player_guid into m_varkey_player2 respecting blanks.
+            CALL FUNCTION &apos;ENQUEUE_E_TABLE&apos;
+              EXPORTING
+                mode_rstable   = &apos;X&apos;
+                tabname        = &apos;INDX&apos;
+                varkey         = m_varkey_player2
+*               X_TABNAME      = &apos; &apos;
+*               X_VARKEY       = &apos; &apos;
+                _scope         = &apos;2&apos;
+                _wait          = &apos;X&apos;
+*               _COLLECT       = &apos; &apos;
+              EXCEPTIONS
+                foreign_lock   = 1
+                system_failure = 2
+                others         = 3.
+            if sy-subrc eq 0.
+              m_locked2 = abap_true.
+              CALL FUNCTION &apos;GUID_CREATE&apos;
+                IMPORTING
+*                 EV_GUID_16 = EV_GUID_16
+                  ev_guid_22 = g_indx_key_game
+*                 EV_GUID_32 =                                              EV_GUID_32.
+                .
+              &lt;player&gt;-game_guid = g_indx_key_game.
+              &lt;player&gt;-player_nr = 1.
+              export t_players from mt_players
+              to database indx(ab) id c_indx_key_players.
+
+
+              exit.
+            else.
+*            delete mt_players index m_tabix.
+*            export t_players from mt_players
+*                    to database indx(ab) id c_indx_key_players.
+            endif.
+            sy-subrc = 4.
+          endloop.
+          if sy-subrc eq 0 and g_indx_key_game is not initial.
+            read table mt_players with key player_guid = g_indx_key_player game_guid = space assigning &lt;player&gt;.
+            if sy-subrc eq 0.
+              &lt;player&gt;-game_guid = g_indx_key_game.
+              &lt;player&gt;-player_nr = 2.
+              g_indx_player_nr = 2.
+              &quot;g_turn_check_timer_interval = 1.
+              &quot;g_game_start_timer_interval = 1 .
+            endif.
+
+            export t_players from mt_players
+            to database indx(ab) id c_indx_key_players.
+
+
+            CALL FUNCTION &apos;DEQUEUE_E_TABLE&apos;
+              EXPORTING
+                mode_rstable = &apos;X&apos;
+                tabname      = &apos;INDX&apos;
+                varkey       = m_varkey
+*               X_TABNAME    = &apos; &apos;
+*               X_VARKEY     = &apos; &apos;
+                _scope       = &apos;3&apos;
+                _synchron    = &apos;X&apos;
+*               _COLLECT     = &apos; &apos;
+              .
+
+
+
+
+          else.
+            go_timer_game_start-&gt;run( ).
+            CALL FUNCTION &apos;DEQUEUE_E_TABLE&apos;
+              EXPORTING
+                mode_rstable = &apos;X&apos;
+                tabname      = &apos;INDX&apos;
+                varkey       = m_varkey
+*               X_TABNAME    = &apos; &apos;
+*               X_VARKEY     = &apos; &apos;
+                _scope       = &apos;3&apos;
+                _synchron    = &apos;X&apos;
+*               _COLLECT     = &apos; &apos;
+              .
+            if m_varkey_player1 is not initial and m_locked1 eq abap_true.
+              CALL FUNCTION &apos;DEQUEUE_E_TABLE&apos;
+                EXPORTING
+                  mode_rstable = &apos;X&apos;
+                  tabname      = &apos;INDX&apos;
+                  varkey       = m_varkey_player1
+*                 X_TABNAME    = &apos; &apos;
+*                 X_VARKEY     = &apos; &apos;
+                  _scope       = &apos;3&apos;
+                  _synchron    = &apos;X&apos;
+*                 _COLLECT     = &apos; &apos;
+                .
+
+            endif.
+            if m_varkey_player2 is not initial and m_locked2 eq abap_true.
+              CALL FUNCTION &apos;DEQUEUE_E_TABLE&apos;
+                EXPORTING
+                  mode_rstable = &apos;X&apos;
+                  tabname      = &apos;INDX&apos;
+                  varkey       = m_varkey_player2
+*                 X_TABNAME    = &apos; &apos;
+*                 X_VARKEY     = &apos; &apos;
+                  _scope       = &apos;3&apos;
+                  _synchron    = &apos;X&apos;
+*                 _COLLECT     = &apos; &apos;
+                .
+            endif.
+
+
+
+            exit.
+          endif.
+
+          g_game_started = abap_true.
+        endif.
+
+
+
+        if g_indx_key_game is not initial.
+          clear m_varkey.
+          concatenate sy-mandt &apos;AB&apos; g_indx_key_game &apos;*&apos; into m_varkey respecting blanks.
+          CALL FUNCTION &apos;ENQUEUE_E_TABLE&apos;
+            EXPORTING
+              mode_rstable   = &apos;X&apos;
+              tabname        = &apos;INDX&apos;
+              varkey         = m_varkey
+*             X_TABNAME      = &apos; &apos;
+*             X_VARKEY       = &apos; &apos;
+              _scope         = &apos;2&apos;
+*             _WAIT          = &apos; &apos;
+*             _COLLECT       = &apos; &apos;
+            EXCEPTIONS
+              foreign_lock   = 1
+              system_failure = 2
+              others         = 3.
+          if sy-subrc eq 0.
+
+            clear ms_game.
+            import game to ms_game from database indx(ab) id g_indx_key_game.
+            if sy-subrc eq 0.
+              ms_game-player1_fields = go_own_map-&gt;gt_fields. &quot;gt_own_fields.
+              gt_opp_fields = ms_game-player2_fields.
+              go_opp_map-&gt;gt_fields = gt_opp_fields.
+              go_opp_map-&gt;convert_fields_to_map( exporting it_fields = go_opp_map-&gt;gt_fields changing ct_map = go_opp_map-&gt;gt_map_opp  ).
+              export game from ms_game to database indx(ab) id g_indx_key_game.
+
+            else.
+              &quot;clear ms_game.
+              ms_game-game_guid = g_indx_key_game.
+              ms_game-player2_fields = go_own_map-&gt;gt_fields. &quot;gt_own_fields.
+              ms_game-player_turn = 1.
+              ms_game-date = sy-datum.
+              ms_game-time = sy-uzeit.
+              export game from ms_game to database indx(ab) id g_indx_key_game.
+            endif.
+            CALL FUNCTION &apos;DEQUEUE_E_TABLE&apos;
+              EXPORTING
+                mode_rstable = &apos;X&apos;
+                tabname      = &apos;INDX&apos;
+                varkey       = m_varkey
+*               X_TABNAME    = &apos; &apos;
+*               X_VARKEY     = &apos; &apos;
+                _scope       = &apos;3&apos;
+*               _SYNCHRON    = &apos; &apos;
+*               _COLLECT     = &apos; &apos;
+              .
+            go_timer_turn_check-&gt;run( ).
+          endif.
+        endif.
+
+        if m_varkey_player1 is not initial and m_locked1 eq abap_true.
+          CALL FUNCTION &apos;DEQUEUE_E_TABLE&apos;
+            EXPORTING
+              mode_rstable = &apos;X&apos;
+              tabname      = &apos;INDX&apos;
+              varkey       = m_varkey_player1
+*             X_TABNAME    = &apos; &apos;
+*             X_VARKEY     = &apos; &apos;
+              _scope       = &apos;3&apos;
+              _synchron    = &apos;X&apos;
+*             _COLLECT     = &apos; &apos;
+            .
+
+        endif.
+        if m_varkey_player2 is not initial and m_locked2 eq abap_true.
+          CALL FUNCTION &apos;DEQUEUE_E_TABLE&apos;
+            EXPORTING
+              mode_rstable = &apos;X&apos;
+              tabname      = &apos;INDX&apos;
+              varkey       = m_varkey_player2
+*             X_TABNAME    = &apos; &apos;
+*             X_VARKEY     = &apos; &apos;
+              _scope       = &apos;3&apos;
+              _synchron    = &apos;X&apos;
+*             _COLLECT     = &apos; &apos;
+            .
+        endif.
+
+      when &apos;C&apos;. &quot;current game data
+
+        clear m_varkey.
+        clear m_locked1.
+        concatenate sy-mandt &apos;AB&apos; g_indx_key_game &apos;*&apos; into m_varkey respecting blanks.
+        CALL FUNCTION &apos;ENQUEUE_E_TABLE&apos;
+          EXPORTING
+            mode_rstable   = &apos;X&apos;
+            tabname        = &apos;INDX&apos;
+            varkey         = m_varkey
+*           X_TABNAME      = &apos; &apos;
+*           X_VARKEY       = &apos; &apos;
+            _scope         = &apos;2&apos;
+*           _WAIT          = &apos; &apos;
+*           _COLLECT       = &apos; &apos;
+          EXCEPTIONS
+            foreign_lock   = 1
+            system_failure = 2
+            others         = 3.
+        if sy-subrc eq 0.
+          m_locked1 = abap_true.
+        endif.
+
+        clear ms_game.
+        import game to ms_game from database indx(ab) id g_indx_key_game.
+        if ms_game-player_won gt 0 and ms_game-player_won ne g_indx_player_nr .
+          me-&gt;show_text( iv_type =  &apos;LOST&apos; ).
+          delete from database indx(ab) id g_indx_key_game.
+          return.
+        elseif ms_game-player_won lt 0 and ms_game-player_won ne ( g_indx_player_nr * ( - 1 ) ).
+          me-&gt;show_text( iv_type =  &apos;WON&apos; ).
+          delete from database indx(ab) id g_indx_key_game.
+          return.
+        elseif ms_game-player_turn = g_indx_player_nr.
+          g_your_turn = abap_true.
+          case g_indx_player_nr.
+            when 1.
+              gt_opp_fields = ms_game-player2_fields.
+              gt_own_fields = ms_game-player1_fields.
+              go_opp_map-&gt;gt_fields[] = gt_opp_fields[].
+              go_own_map-&gt;gt_fields[] = gt_own_fields[].
+              go_own_map-&gt;convert_fields_to_map( exporting it_fields = go_own_map-&gt;gt_fields[] changing ct_map = go_own_map-&gt;gt_map ).
+              go_own_map-&gt;refresh_table_display(
+              exporting
+*                    is_stable      = is_stable    &quot; With Stable Rows/Columns
+                i_soft_refresh = abap_true    &quot; Without Sort, Filter, etc.
+              exceptions
+                finished       = 1
+                others         = 2
+                ).
+              if sy-subrc &lt;&gt; 0.
+*                 message id sy-msgid type sy-msgty number sy-msgno
+*                            with sy-msgv1 sy-msgv2 sy-msgv3 sy-msgv4.
+              endif.
+            when 2.
+              gt_opp_fields = ms_game-player1_fields.
+              gt_own_fields = ms_game-player2_fields.
+              go_opp_map-&gt;gt_fields[] = gt_opp_fields[].
+              go_own_map-&gt;gt_fields[] = gt_own_fields[].
+              go_own_map-&gt;convert_fields_to_map( exporting it_fields = go_own_map-&gt;gt_fields[] changing ct_map = go_own_map-&gt;gt_map ).
+              go_own_map-&gt;refresh_table_display(
+              exporting
+*                    is_stable      = is_stable    &quot; With Stable Rows/Columns
+                i_soft_refresh = abap_true    &quot; Without Sort, Filter, etc.
+              exceptions
+                finished       = 1
+                others         = 2
+                ).
+              if sy-subrc &lt;&gt; 0.
+*                 message id sy-msgid type sy-msgty number sy-msgno
+*                            with sy-msgv1 sy-msgv2 sy-msgv3 sy-msgv4.
+              endif.
+          endcase.
+          me-&gt;show_text( iv_type = &apos;TURN&apos; ).
+        else.
+          case g_indx_player_nr.
+            when 1.
+              gt_opp_fields = ms_game-player2_fields.
+              gt_own_fields = ms_game-player1_fields.
+              go_opp_map-&gt;gt_fields[] = gt_opp_fields[].
+              go_own_map-&gt;gt_fields[] = gt_own_fields[].
+              go_own_map-&gt;convert_fields_to_map( exporting it_fields = go_own_map-&gt;gt_fields[] changing ct_map = go_own_map-&gt;gt_map ).
+              go_own_map-&gt;refresh_table_display(
+              exporting
+*                    is_stable      = is_stable    &quot; With Stable Rows/Columns
+                i_soft_refresh = abap_true    &quot; Without Sort, Filter, etc.
+              exceptions
+                finished       = 1
+                others         = 2
+                ).
+              if sy-subrc &lt;&gt; 0.
+*                 message id sy-msgid type sy-msgty number sy-msgno
+*                            with sy-msgv1 sy-msgv2 sy-msgv3 sy-msgv4.
+              endif.
+            when 2.
+              gt_opp_fields = ms_game-player1_fields.
+              gt_own_fields = ms_game-player2_fields.
+              go_opp_map-&gt;gt_fields[] = gt_opp_fields[].
+              go_own_map-&gt;gt_fields[] = gt_own_fields[].
+              go_own_map-&gt;convert_fields_to_map( exporting it_fields = go_own_map-&gt;gt_fields[] changing ct_map = go_own_map-&gt;gt_map ).
+              go_own_map-&gt;refresh_table_display(
+              exporting
+*                    is_stable      = is_stable    &quot; With Stable Rows/Columns
+                i_soft_refresh = abap_true    &quot; Without Sort, Filter, etc.
+              exceptions
+                finished       = 1
+                others         = 2
+                ).
+              if sy-subrc &lt;&gt; 0.
+*                 message id sy-msgid type sy-msgty number sy-msgno
+*                            with sy-msgv1 sy-msgv2 sy-msgv3 sy-msgv4.
+              endif.
+          endcase.
+
+
+          go_timer_turn_check-&gt;run( ).
+        endif.
+        if m_locked1 eq abap_true.
+          CALL FUNCTION &apos;DEQUEUE_E_TABLE&apos;
+            EXPORTING
+              mode_rstable = &apos;X&apos;
+              tabname      = &apos;INDX&apos;
+              varkey       = m_varkey
+*             X_TABNAME    = &apos; &apos;
+*             X_VARKEY     = &apos; &apos;
+              _scope       = &apos;3&apos;
+*             _SYNCHRON    = &apos; &apos;
+*             _COLLECT     = &apos; &apos;
+            .
+        else.
+          go_timer_turn_check-&gt;run( ).
+        endif.
+        exit.
+
+
+
+    endcase.
+
+  endmethod.                    &quot;read_from_indx
+
+
+* &lt;SIGNATURE&gt;---------------------------------------------------------------------------------------+
+* | Instance Protected Method lcl_ships_CONTROLLER-&gt;SAVE_TO_INDX
+* +-------------------------------------------------------------------------------------------------+
+* | [---&gt;] IV_TYPE                        TYPE        CHAR01
+* | [---&gt;] IV_CHANGE_TURN                 TYPE        FLAG
+* +--------------------------------------------------------------------------------------&lt;/SIGNATURE&gt;
+  method save_to_indx.
+
+    data: mt_players type tt_players.
+    data: ms_players like line of mt_players.
+    data: ms_game type t_games.
+    data: m_varkey type rstable-varkey.
+    data: m_locked type abap_bool.
+    field-symbols: &lt;player&gt; like line of mt_players.
+
+    case iv_type.
+      when &apos;P&apos;. &quot;players
+
+      when &apos;C&apos;. &quot;current game data
+
+        clear m_varkey.
+        concatenate sy-mandt &apos;AB&apos; g_indx_key_game &apos;*&apos; into m_varkey respecting blanks.
+        CALL FUNCTION &apos;ENQUEUE_E_TABLE&apos;
+          EXPORTING
+            mode_rstable   = &apos;X&apos;
+            tabname        = &apos;INDX&apos;
+            varkey         = m_varkey
+*           X_TABNAME      = &apos; &apos;
+*           X_VARKEY       = &apos; &apos;
+            _scope         = &apos;2&apos;
+*           _WAIT          = &apos; &apos;
+*           _COLLECT       = &apos; &apos;
+          EXCEPTIONS
+            foreign_lock   = 1
+            system_failure = 2
+            others         = 3.
+        if sy-subrc eq 0.
+          m_locked = abap_true.
+        endif.
+
+
+        clear ms_game.
+        import game to ms_game from database indx(ab) id g_indx_key_game.
+        case g_indx_player_nr.
+          when 1.
+            ms_game-player2_fields = go_opp_map-&gt;gt_fields .&quot;gt_opp_fields.
+            &quot;ms_game-player1_fields = go_own_map-&gt;gt_fields.
+            if ms_game-player1_fields is not initial and m_locked eq abap_false.
+              go_own_map-&gt;gt_fields = ms_game-player1_fields.
+              go_own_map-&gt;convert_fields_to_map( exporting it_fields = go_own_map-&gt;gt_fields[] changing ct_map = go_own_map-&gt;gt_map ).
+              go_own_map-&gt;refresh_table_display(
+              exporting
+*                    is_stable      = is_stable    &quot; With Stable Rows/Columns
+                i_soft_refresh = abap_true    &quot; Without Sort, Filter, etc.
+              exceptions
+                finished       = 1
+                others         = 2
+                ).
+              if sy-subrc &lt;&gt; 0.
+              endif.
+            endif.
+            if iv_change_turn eq abap_true.
+              ms_game-player_turn = 2.
+            endif.
+            ms_game-date = sy-datum.
+            ms_game-time = sy-uzeit.
+
+          when 2.
+            ms_game-player1_fields = go_opp_map-&gt;gt_fields .&quot;gt_opp_fields.
+            &quot;ms_game-player2_fields = go_own_map-&gt;gt_fields.
+            if ms_game-player2_fields is not initial and m_locked eq abap_false.
+              go_own_map-&gt;gt_fields = ms_game-player2_fields.
+              go_own_map-&gt;convert_fields_to_map( exporting it_fields = go_own_map-&gt;gt_fields[] changing ct_map = go_own_map-&gt;gt_map ).
+              go_own_map-&gt;refresh_table_display(
+              exporting
+*                    is_stable      = is_stable    &quot; With Stable Rows/Columns
+                i_soft_refresh = abap_true    &quot; Without Sort, Filter, etc.
+              exceptions
+                finished       = 1
+                others         = 2
+                ).
+              if sy-subrc &lt;&gt; 0.
+*                 message id sy-msgid type sy-msgty number sy-msgno
+*                            with sy-msgv1 sy-msgv2 sy-msgv3 sy-msgv4.
+              endif.
+            endif.
+            if iv_change_turn eq abap_true.
+              ms_game-player_turn = 1.
+            endif.
+            ms_game-date = sy-datum.
+            ms_game-time = sy-uzeit.
+        endcase.
+        if ms_game-player_won gt 0 and ms_game-player_won ne g_indx_player_nr.
+          me-&gt;show_text( iv_type =  &apos;LOST&apos; ).
+        elseif ms_game-player_won lt 0 and ms_game-player_won ne ( g_indx_player_nr * ( - 1 ) ).
+          me-&gt;show_text( iv_type =  &apos;WON&apos; ).
+        endif.
+        if m_locked eq abap_true.
+          if g_won eq abap_true.
+            ms_game-player_won = g_indx_player_nr.
+          elseif g_resign eq abap_true and g_won eq abap_false.
+            ms_game-player_won = g_indx_player_nr * ( - 1 ).
+          endif.
+          if ms_game-player_won gt 0 and ms_game-player_won ne g_indx_player_nr.
+            delete from database indx(ab) id g_indx_key_game.
+            return.
+          elseif ms_game-player_won lt 0 and ms_game-player_won ne ( g_indx_player_nr * ( - 1 ) ).
+            delete from database indx(ab) id g_indx_key_game.
+            return.
+          elseif g_indx_key_game is not initial.
+            export game from ms_game to database indx(ab) id g_indx_key_game.
+          endif.
+        endif.
+        &quot; endif.
+
+
+        if m_locked eq abap_true.
+          CALL FUNCTION &apos;DEQUEUE_E_TABLE&apos;
+            EXPORTING
+              mode_rstable = &apos;X&apos;
+              tabname      = &apos;INDX&apos;
+              varkey       = m_varkey
+*             X_TABNAME    = &apos; &apos;
+*             X_VARKEY     = &apos; &apos;
+              _scope       = &apos;3&apos;
+*             _SYNCHRON    = &apos; &apos;
+*             _COLLECT     = &apos; &apos;
+            .
+
+        endif.
+
+        go_timer_turn_check-&gt;run( ).
+    endcase.
+
+
+  endmethod.                    &quot;save_to_indx
+
+
+* &lt;SIGNATURE&gt;---------------------------------------------------------------------------------------+
+* | Instance Public Method lcl_ships_CONTROLLER-&gt;SET_TURN
+* +-------------------------------------------------------------------------------------------------+
+* | [---&gt;] IV_MY_TURN                     TYPE        ABAP_BOOL
+* +--------------------------------------------------------------------------------------&lt;/SIGNATURE&gt;
+  method set_turn.
+    g_your_turn = iv_my_turn.
+  endmethod.                    &quot;set_turn
+
+
+* &lt;SIGNATURE&gt;---------------------------------------------------------------------------------------+
+* | Instance Public Method lcl_ships_CONTROLLER-&gt;SHOW_TEXT
+* +-------------------------------------------------------------------------------------------------+
+* | [---&gt;] IV_TYPE                        TYPE        CHAR20
+* +--------------------------------------------------------------------------------------&lt;/SIGNATURE&gt;
+  method show_text.
+    data: m_url type char255.
+    data: m_text type t_char1000.
+    constants: c_beg type t_char1000 value &apos;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p align=center&gt;&lt;font face=&quot;Arial&quot; size=&quot;20&quot;&gt;&apos;.
+    constants: c_end type t_char1000 value &apos;&lt;/font&gt;&lt;/p&gt;&apos;.
+    constants: c_ab type t_char1000 value &apos;&lt;p align=&quot;right&quot;&gt;&lt;br&gt;&lt;font face=&quot;Arial&quot; size=&quot;2&quot;&gt;&lt;a href=&quot;http://abapblog.com&quot; target=_blank&gt;powered by abapblog.com&lt;/a&gt;&lt;/font&gt;&lt;/p&gt;&lt;/body&gt;&apos;.
+    refresh me-&gt;gt_message[].
+
+    append c_beg to gt_message.
+
+    case iv_type.
+      when &apos;HIT&apos;.
+        m_text = &apos;You have hit opponent&apos;&apos;&apos;&apos;s ship.&lt;br&gt; Shoot once again!&apos;.
+      when &apos;HIT_FULL&apos;.
+        m_text = &apos;You have hit opponent&apos;&apos;&apos;&apos;s ship.&lt;br&gt;  Ship is gone!&apos;.
+      when &apos;WON&apos;.
+        m_text = &apos;You have won!&apos;.
+      when &apos;LOST&apos;.
+        m_text = &apos;You have lost!&apos;.
+      when &apos;MISS&apos;.
+        m_text = &apos;You have missed!&apos;.
+      when &apos;TURN&apos;.
+        m_text = &apos;Your turn&apos;.
+      when &apos;WAIT&apos;.
+        m_text = &apos;Please wait for second player...&apos;.
+    endcase.
+    append m_text to gt_message.
+
+    append c_end to gt_message.
+    append c_ab to gt_message.
+
+    CALL METHOD go_messages-&gt;load_data
+      EXPORTING
+        type                 = &apos;text&apos;
+        subtype              = &apos;html&apos;
+      IMPORTING
+        assigned_url         = m_url
+      CHANGING
+        data_table           = me-&gt;gt_message
+      EXCEPTIONS
+        dp_invalid_parameter = 1
+        dp_error_general     = 2.
+
+    if sy-subrc eq 0.
+      CALL METHOD go_messages-&gt;show_url
+        EXPORTING
+          url      = m_url
+          in_place = &apos;X&apos;.
+    endif.
+  endmethod.                    &quot;show_text
+
+
+* &lt;SIGNATURE&gt;---------------------------------------------------------------------------------------+
+* | Instance Public Method lcl_ships_CONTROLLER-&gt;START_GAME
+* +-------------------------------------------------------------------------------------------------+
+* +--------------------------------------------------------------------------------------&lt;/SIGNATURE&gt;
+  method start_game.
+    go_timer_game_start-&gt;run( ).
+  endmethod.                    &quot;START_GAME
+endclass.
+
+
+initialization.
+  call screen 100.
+
+
+
+*&amp;---------------------------------------------------------------------*
+*&amp;      Module  PBO_0200  OUTPUT
+*&amp;---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+module pbo_0100 output.
+  set pf-status &apos;STATUS_0200&apos;.
+  set titlebar &apos;TITLE_0200&apos;.
+  if go_game_control is initial.
+    CREATE OBJECT go_game_control.
+  endif.
+  &quot;delete from indx where RELID = &apos;AB&apos;.
+endmodule.                    &quot;pbo_0100 OUTPUT
+
+*----------------------------------------------------------------------*
+*  MODULE pbo_0200 OUTPUT
+*----------------------------------------------------------------------*
+*
+*----------------------------------------------------------------------*
+module pbo_0200 output.
+
+  go_game_control-&gt;create_own_map( ).
+
+endmodule.                 &quot; PBO_0200  OUTPUT
+
+*----------------------------------------------------------------------*
+***INCLUDE LZAB_SHIPSO01 .
+*----------------------------------------------------------------------*
+*&amp;---------------------------------------------------------------------*
+*&amp;      Module  PBO_0200  OUTPUT
+*&amp;---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+module pbo_0300 output.
+  set pf-status &apos;STATUS_0300&apos;.
+  set titlebar &apos;TITLE_0300&apos;.
+
+  go_game_control-&gt;create_opp_map( ).
+  go_game_control-&gt;create_message_window( ).
+  go_game_control-&gt;show_text( iv_type = &apos;WAIT&apos; ).
+
+
+endmodule.                 &quot; PBO_0200  OUTPUT
+
+*&amp;---------------------------------------------------------------------*
+*&amp;      Module  PAI_0200  INPUT
+*&amp;---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+module pai_0200 input.
+  data: m_answer type c.
+  case g_ok_code.
+    when &apos;ADD_SHIP1&apos;.
+      go_game_control-&gt;go_own_map-&gt;add_ship_start( iv_type = 1 ).
+    when &apos;ADD_SHIP2&apos;.
+      go_game_control-&gt;go_own_map-&gt;add_ship_start( iv_type = 2 ).
+    when &apos;ADD_SHIP3&apos;.
+      go_game_control-&gt;go_own_map-&gt;add_ship_start( iv_type = 3 ).
+    when &apos;ADD_SHIP4&apos;.
+      go_game_control-&gt;go_own_map-&gt;add_ship_start( iv_type = 4 ).
+    when &apos;ADD_SHIP5&apos;.
+      go_game_control-&gt;go_own_map-&gt;add_ship_start( iv_type = 5 ).
+    when &apos;JOIN_GAME&apos;.
+      if go_game_control-&gt;go_own_map-&gt;check_all_ships_entered( ) ne abap_true.
+        message s001(00) with &apos;Not all ships used!&apos; display like &apos;E&apos;.
+        return.
+      endif.
+* call progress indicator
+      CALL FUNCTION &apos;SAPGUI_PROGRESS_INDICATOR&apos;
+        EXPORTING
+          percentage = 99
+          text       = &apos;Waiting for game start&apos;.
+
+      go_game_control-&gt;start_game( ).
+
+*      do.
+*        wait up to 3 seconds.
+*        if go_game_control-&gt;g_game_started eq abap_true.
+*          exit.
+*        endif.
+*      enddo.
+
+      call screen 0300.
+    when &apos;CLEAR_DB&apos;.
+      call function &apos;POPUP_TO_CONFIRM&apos;
+      exporting
+*         TITLEBAR                    = &apos; &apos;
+*         DIAGNOSE_OBJECT             = &apos; &apos;
+        text_question               = &apos;This will delete all games. Do you want to continue ?&apos;
+*         TEXT_BUTTON_1               = &apos;Ja&apos;(001)
+*         ICON_BUTTON_1               = &apos; &apos;
+*         TEXT_BUTTON_2               = &apos;Nein&apos;(002)
+*         ICON_BUTTON_2               = &apos; &apos;
+*         DEFAULT_BUTTON              = &apos;1&apos;
+*         DISPLAY_CANCEL_BUTTON       = &apos;X&apos;
+*         USERDEFINED_F1_HELP         = &apos; &apos;
+*         START_COLUMN                = 25
+*         START_ROW                   = 6
+*         POPUP_TYPE                  = POPUP_TYPE
+*         IV_QUICKINFO_BUTTON_1       = &apos; &apos;
+*         IV_QUICKINFO_BUTTON_2       = &apos; &apos;
+      importing
+        answer                      = m_answer
+*       TABLES
+*         PARAMETER                   = PARAMETER
+      exceptions
+        text_not_found              = 1
+        others                      = 2
+        .
+      if sy-subrc eq 0 and m_answer = &apos;1&apos;.
+       perform clear_indx.
+      endif.
+
+    when &apos;BACK&apos; or &apos;UP&apos; or &apos;EXIT&apos;.
+      go_game_control-&gt;finish_game( ).
+      leave program.
+  endcase.
+
+endmodule.                 &quot; PAI_0200  INPUT
+
+*----------------------------------------------------------------------*
+*  MODULE pai_0300 INPUT
+*----------------------------------------------------------------------*
+*
+*----------------------------------------------------------------------*
+module pai_0300 input.
+
+  case g_ok_code.
+    when &apos;BACK&apos;.
+      go_game_control-&gt;finish_game( ).
+      leave program.
+    when &apos;UP&apos;.
+      go_game_control-&gt;finish_game( ).
+      leave program.
+    when &apos;EXIT&apos;.
+      go_game_control-&gt;finish_game( ).
+      leave program.
+  endcase.
+
+endmodule.                 &quot; PAI_0200  INPUT
+
+
+
+
+
+form clear_indx.
+  delete from indx where relid = &apos;AB&apos;.
+endform.</source>
+ </PROG>
+</nugget>

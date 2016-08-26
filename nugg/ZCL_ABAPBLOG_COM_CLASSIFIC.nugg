@@ -1,0 +1,1920 @@
+<?xml version="1.0" encoding="utf-16"?>
+<nugget name="ZCL_ABAPBLOG_COM_CLASSIFIC">
+ <CLAS CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" VERSION="1" LANGU="E" DESCRIPT="Abapblog.com - Classification methods" UUID="10BF48847F771ED381E7202780F5593F" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" CHGDANYON="00000000" CLSCCINCL="X" FIXPT="X" UNICODE="X" R3RELEASE="731" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 ">
+  <types CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="TT_CLOBJEKTE" VERSION="1" LANGU="E" EXPOSURE="2" STATE="1" EDITORDER="1 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" TYPTYPE="4" SRCROW1="27 " SRCCOLUMN1="4 " SRCROW2="27 " SRCCOLUMN2="48 " TYPESRC_LENG="47 " TYPESRC="tt_clobjekte type standard table of clobjekte
+"/>
+  <types CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="TT_OBJVALUESNUM" VERSION="1" LANGU="E" EXPOSURE="2" STATE="1" EDITORDER="2 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" TYPTYPE="4" SRCROW1="29 " SRCCOLUMN1="4 " SRCROW2="29 " SRCCOLUMN2="67 " TYPESRC_LENG="66 " TYPESRC="tt_objvaluesnum type standard table of bapi1003_alloc_values_num
+"/>
+  <types CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="TT_OBJVALUESCHAR" VERSION="1" LANGU="E" EXPOSURE="2" STATE="1" EDITORDER="3 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" TYPTYPE="4" SRCROW1="31 " SRCCOLUMN1="4 " SRCROW2="31 " SRCCOLUMN2="69 " TYPESRC_LENG="68 " TYPESRC="tt_objvalueschar type standard table of bapi1003_alloc_values_char
+"/>
+  <types CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="TT_OBJVALUESCURR" VERSION="1" LANGU="E" EXPOSURE="2" STATE="1" EDITORDER="4 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" TYPTYPE="4" SRCROW1="33 " SRCCOLUMN1="4 " SRCROW2="33 " SRCCOLUMN2="69 " TYPESRC_LENG="68 " TYPESRC="tt_objvaluescurr type standard table of bapi1003_alloc_values_curr
+"/>
+  <types CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="TT_API_CHAR" VERSION="1" LANGU="E" EXPOSURE="2" STATE="1" EDITORDER="5 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" TYPTYPE="4" SRCROW1="35 " SRCCOLUMN1="4 " SRCROW2="35 " SRCCOLUMN2="46 " TYPESRC_LENG="45 " TYPESRC="tt_api_char type standard table of api_char
+"/>
+  <publicSection>*----------------------------------------------------------------------*
+*       CLASS ZCL_ABAPBLOG_COM_CLASSIFIC DEFINITION
+*----------------------------------------------------------------------*
+*
+*----------------------------------------------------------------------*
+class ZCL_ABAPBLOG_COM_CLASSIFIC definition
+  public
+  create public .
+
+*&quot;* public components of class ZCL_ABAPBLOG_COM_CLASSIFIC
+*&quot;* do not include other source files here!!!
+*--------------------------------------------------------------------*
+* This program was prepared by #ukasz P#giel for presentation purpose
+* at http://abapblog.com .
+* You can use it in your SAP instance without any warranty
+* for non-commercial and commercial  use but you cannot sell it as
+* a full program or a part of it.
+*
+* If you&apos;d like to use it on your own site please contact me before to
+* get the agreement before.
+*
+*--------------------------------------------------------------------*
+public section.
+  type-pools ABAP .
+
+  types:
+    tt_clobjekte type standard table of clobjekte .
+  types:
+    tt_objvaluesnum type standard table of bapi1003_alloc_values_num .
+  types:
+    tt_objvalueschar type standard table of bapi1003_alloc_values_char .
+  types:
+    tt_objvaluescurr type standard table of bapi1003_alloc_values_curr .
+  types:
+    tt_api_char type standard table of api_char .
+
+  class-methods MOVE_REF_DATA_TO_BAPI_TABLES
+    importing
+      !I_DATA type ref to DATA
+    changing
+      !CT_OBJVALUESNUM type TT_OBJVALUESNUM
+      !CT_OBJVALUESCHAR type TT_OBJVALUESCHAR
+      !CT_OBJVALUESCURR type TT_OBJVALUESCURR
+    exceptions
+      NO_DATA_TO_PASS .
+  class-methods MOVE_REF_DATA_TO_SCREEN_VAL
+    importing
+      !I_ATNAM type API_VALI-ATNAM
+      !I_DATA type ref to DATA
+    changing
+      !CT_VALUES type TT_API_VALI
+    exceptions
+      NO_STRUCTURE_OR_TABLE_PASSED
+      ERROR_CREATING_STRUCTURE
+      NO_DATA_TO_CHANGE
+      STRUCTURE_ERROR .
+  class-methods MOVE_SCREEN_VAL_TO_REF_DATA
+    importing
+      !IT_VALUES type TT_API_VALI
+      !I_ATNAM type API_VALI-ATNAM
+    changing
+      !C_DATA type ref to DATA
+    exceptions
+      NO_STRUCTURE_OR_TABLE_PASSED
+      ERROR_CREATING_STRUCTURE
+      NO_DATA_TO_CHANGE
+      STRUCTURE_ERROR .
+  class-methods SAVE_CHARACT_FROM_REF_DATA
+    importing
+      !I_DATA type DATA optional
+      value(I_CHANGE_NUMBER) type BAPI1003_KEY-CHANGENUMBER optional
+    preferred parameter I_DATA
+    exceptions
+      NO_DATA .
+  class-methods GET_OBJECTS_OF_CLASS
+    importing
+      !I_CLASS type KLAH-CLASS
+      !I_CLASSTYPE type KLAH-KLART
+      !I_KEY_DATE type SY-DATUM default SY-DATUM
+    exporting
+      value(ET_OBJECTS) type TT_CLOBJEKTE
+      !ET_DATA type ref to DATA
+      !E_TABLESTR type ref to CL_ABAP_TABLEDESCR
+      !E_STRUCTURE type ref to CL_ABAP_STRUCTDESCR
+    exceptions
+      FETCH_VALUES_ERROR
+      STRUCTURE_ERROR .
+  class-methods GET_OBJECT_DETAILS
+    importing
+      !I_OBJECT type BAPI1003_KEY-OBJECT
+      !I_CLASS type KLAH-CLASS
+      !I_CLASSTYPE type KLAH-KLART
+      !I_OBJECTTABLE type BAPI1003_KEY-OBJECTTABLE optional
+      !I_KEY_DATE type SY-DATUM default SY-DATUM
+      !I_STRUCTURE type ref to CL_ABAP_STRUCTDESCR optional
+    exporting
+      !ET_OBJVALUESNUM type TT_OBJVALUESNUM
+      !ET_OBJVALUESCHAR type TT_OBJVALUESCHAR
+      !ET_OBJVALUESCURR type TT_OBJVALUESCURR
+      !E_DATA type ref to DATA
+    exceptions
+      FETCH_VALUES_ERROR
+      STRUCTURE_ERROR .
+  class-methods CREATE_STRUCTURE_FOR_CLASS
+    importing
+      !I_CLASS type KLAH-CLASS
+      !I_CLASSTYPE type KLAH-KLART
+      !I_KEY_DATE type SY-DATUM default SY-DATUM
+    exporting
+      !E_STRUCTURE type ref to CL_ABAP_STRUCTDESCR
+      !ET_DATA type ref to DATA
+      !E_TABLE type ref to CL_ABAP_TABLEDESCR
+    exceptions
+      CLASS_CLASSTYPE_FETCH_ERROR
+      ERROR_CREATING_TABLE
+      CHARACTERISTICS_ERROR .
+  class-methods SHOW_CHARACT_VALUES_SCREEN
+    importing
+      value(I_DISPLAY) type FLAG
+      value(I_CLASS) type KLAH-CLASS
+      value(I_KLART) type KLAH-KLART
+      value(I_ATNAM) type API_VALUE-ATNAM
+      value(IT_VALUES) type TT_API_VALI optional
+      value(I_SET_VAL_FROM_OBJECT) type FLAG
+      value(I_OBJECT) type AUSP-OBJEK
+      value(I_TABLE) type TCLA-OBTAB
+      value(I_DATE) type SY-DATUM default SY-DATUM
+      !I_STRUCTURE type ref to CL_ABAP_STRUCTDESCR optional
+    exporting
+      !ET_VALUES type TT_API_VALI
+    changing
+      !C_DATA type ref to DATA optional
+    exceptions
+      CHARACTERISTIC_UNKNOWN
+      ERROR_SETTING_CHAR_VALUES
+      NO_VALUES_FOUND
+      ERROR_CREATING_TABLE .</publicSection>
+  <protectedSection>protected section.
+*&quot;* private components of class ZCL_ABAPBLOG_COM_CLASSIFIC
+*&quot;* do not include other source files here!!!</protectedSection>
+  <privateSection>private section.
+
+    class-methods clear_initial_line_api_vari
+      importing
+        !it_api_char type tt_api_char .
+    class-methods convert_char_value
+      importing
+        value(i_atnam) type api_value-atnam
+        value(i_value_new) type any
+      returning
+        value(r_value_float) type atflv .</privateSection>
+  <localImplementation>*&quot;* local class implementation for public class
+*&quot;* use this source file for the implementation part of
+*&quot;* local helper classes</localImplementation>
+  <localTypes>*&quot;* use this source file for any type declarations (class
+*&quot;* definitions, interfaces or data types) you need for method
+*&quot;* implementation or private method&apos;s signature</localTypes>
+  <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+  <typeUsage CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" TYPEGROUP="ABAP" VERSION="1" TPUTYPE="0" EXPLICIT="X"/>
+  <forwardDeclaration>ABAP</forwardDeclaration>
+  <method CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="CLEAR_INITIAL_LINE_API_VARI" VERSION="1" LANGU="E" DESCRIPT="Clear initial line to not show it on popup" EXPOSURE="0" STATE="1" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="CLEAR_INITIAL_LINE_API_VARI" SCONAME="IT_API_CHAR" VERSION="1" LANGU="E" DESCRIPT="Table type for structure api_char_tab" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="TT_API_CHAR"/>
+   <source>method clear_initial_line_api_vari.
+
+    field-symbols: &lt;ws&gt; type any table.
+    data: mt_api_vali type  tt_api_vali.
+    data: f_name type string value &apos;(SAPLCTMS)WS[]&apos;.
+    call function &apos;CTMS_DDB_HAS_VALUES_INTERNAL&apos;
+      exporting
+        assigned_values      = &apos;X&apos;
+        allowed_values       = &apos; &apos;
+        valid_values         = &apos; &apos;
+        inconsistent_values  = &apos; &apos;
+        first_assigned_value = &apos; &apos;
+        default_values       = &apos;&apos;
+        language             = sy-langu
+        document_info        = &apos; &apos;
+        excl_knowledge       = &apos; &apos;
+        i_called_from_ddb    = &apos; &apos;
+      tables
+        imp_characteristics  = it_api_char[]
+        exp_values           = mt_api_vali[]
+      exceptions
+        not_found            = 1
+        others               = 2.
+    if sy-subrc eq 0.
+      assign (f_name) to &lt;ws&gt;.
+      if sy-subrc eq 0.
+        refresh &lt;ws&gt;.
+      endif.
+    endif.
+
+  endmethod.                    &quot;clear_initial_line_api_vari</source>
+  </method>
+  <method CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="CONVERT_CHAR_VALUE" VERSION="1" LANGU="E" DESCRIPT="convert characterisctic new value to float" EXPOSURE="0" STATE="1" EDITORDER="2 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="CONVERT_CHAR_VALUE" SCONAME="I_ATNAM" VERSION="1" LANGU="E" DESCRIPT="Characteristic Name" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="0" TYPTYPE="1" TYPE="API_VALUE-ATNAM"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="CONVERT_CHAR_VALUE" SCONAME="I_VALUE_NEW" VERSION="1" LANGU="E" DESCRIPT="Characteristic Value" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="0" TYPTYPE="1" TYPE="ANY"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="CONVERT_CHAR_VALUE" SCONAME="R_VALUE_FLOAT" VERSION="1" LANGU="E" DESCRIPT="Internal floating point from" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="ATFLV"/>
+   <source>method convert_char_value.
+    data: m_value_new type atwtb.
+
+    write i_value_new to m_value_new.
+
+    call function &apos;CHAR_VALUE_CHANGE2&apos;
+      exporting
+*       atinn                  = ft_values-atinn
+        atnam                  = i_atnam
+        new_value              = m_value_new
+*       FLAG_NO_DIALOG         = FLAG_NO_DIALOG
+      importing
+*       atwrt                  = r_value_float
+        atflv                  = r_value_float
+      exceptions
+        characteristic_unknown = 1
+        conversion_error       = 2
+        value_set_error        = 3
+        others                 = 4.
+    if sy-subrc eq 0.
+      return.
+    endif.
+
+  endmethod.                    &quot;convert_char_value</source>
+  </method>
+  <method CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="CREATE_STRUCTURE_FOR_CLASS" VERSION="1" LANGU="E" DESCRIPT="Creates structure for class to be able to create ref data" EXPOSURE="2" STATE="1" EDITORDER="7 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="CREATE_STRUCTURE_FOR_CLASS" SCONAME="I_CLASS" VERSION="1" LANGU="E" DESCRIPT="Class number" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="KLAH-CLASS"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="CREATE_STRUCTURE_FOR_CLASS" SCONAME="I_CLASSTYPE" VERSION="1" LANGU="E" DESCRIPT="Class Type" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="KLAH-KLART"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="CREATE_STRUCTURE_FOR_CLASS" SCONAME="I_KEY_DATE" VERSION="1" LANGU="E" DESCRIPT="Current Date of Application Server" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SY-DATUM" PARVALUE="SY-DATUM"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="CREATE_STRUCTURE_FOR_CLASS" SCONAME="E_STRUCTURE" VERSION="1" LANGU="E" DESCRIPT="Runtime Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="1" PARPASSTYP="1" TYPTYPE="3" TYPE="CL_ABAP_STRUCTDESCR"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="CREATE_STRUCTURE_FOR_CLASS" SCONAME="ET_DATA" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="5 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="1" PARPASSTYP="1" TYPTYPE="3" TYPE="DATA"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="CREATE_STRUCTURE_FOR_CLASS" SCONAME="E_TABLE" VERSION="1" LANGU="E" DESCRIPT="Runtime Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="6 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="1" PARPASSTYP="1" TYPTYPE="3" TYPE="CL_ABAP_TABLEDESCR"/>
+   <exception CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="CREATE_STRUCTURE_FOR_CLASS" SCONAME="CLASS_CLASSTYPE_FETCH_ERROR" VERSION="1" LANGU="E" MTDTYPE="0" EDITORDER="1 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818"/>
+   <exception CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="CREATE_STRUCTURE_FOR_CLASS" SCONAME="ERROR_CREATING_TABLE" VERSION="1" LANGU="E" MTDTYPE="0" EDITORDER="2 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818"/>
+   <exception CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="CREATE_STRUCTURE_FOR_CLASS" SCONAME="CHARACTERISTICS_ERROR" VERSION="1" LANGU="E" MTDTYPE="0" EDITORDER="3 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818"/>
+   <source>method create_structure_for_class.
+    field-symbols: &lt;char&gt; type bapi1003_charact_r.
+    data: mt_classdescriptions type standard table of  bapi1003_catch_r.
+    data: mt_classlongtexts type standard table of  bapi1003_longtext_r.
+    data: mt_classcharacteristics type standard table of  bapi1003_charact_r.
+    data: mt_classcharactvalues type standard table of  bapi1003_char_val_r.
+    data: mt_return type standard table of bapiret2.
+    data: ms_charact_detail type bapicharactdetail.
+    data: m_lenght type i.
+    data: m_decimals type i.
+    data: mt_comp type cl_abap_structdescr=&gt;component_table.
+    data: mt_comp_final type cl_abap_structdescr=&gt;component_table.
+    data: mo_str  type ref to cl_abap_structdescr.
+    data: mo_tab type ref to cl_abap_tabledescr.
+    data: mt_data type ref to data.
+    data: ms_comp like line of mt_comp.
+    data: ms_return type bapiret2.
+
+
+    call function &apos;BAPI_CLASS_READ&apos;
+      exporting
+        classtype            = i_classtype
+        classnum             = i_class
+*       LANGUISO             = LANGUISO
+*       LANGUINT             = SY-LANGU
+        keydate              = i_key_date
+      importing
+*       CLASSBASICDATA       = CLASSBASICDATA
+*       CLASSDOCUMENT        = CLASSDOCUMENT
+*       CLASSADDITIONAL      = CLASSADDITIONAL
+*       CLASSSTANDARD        = CLASSSTANDARD
+        return               = ms_return
+      tables
+        classdescriptions    = mt_classdescriptions
+        classlongtexts       = mt_classlongtexts
+        classcharacteristics = mt_classcharacteristics
+        classcharactvalues   = mt_classcharactvalues.
+
+    if ms_return-type cn &apos;AE&apos;.
+      ms_comp-name = &apos;OBJECT_NUMBER&apos;.
+      ms_comp-type ?= cl_abap_elemdescr=&gt;describe_by_name( p_name = &apos;OBJNUM&apos; ).
+      append ms_comp to mt_comp_final.
+      ms_comp-name = &apos;CLASS&apos;.
+      ms_comp-type ?= cl_abap_elemdescr=&gt;describe_by_data( p_data = i_class ).
+      append ms_comp to mt_comp_final.
+      ms_comp-name = &apos;CLASSTYPE&apos;.
+      ms_comp-type ?= cl_abap_elemdescr=&gt;describe_by_data( p_data = i_classtype ).
+      append ms_comp to mt_comp_final.
+      ms_comp-name = &apos;OBJECT_TABLE&apos;.
+      ms_comp-type ?= cl_abap_elemdescr=&gt;describe_by_name( p_name = &apos;TABELLE&apos; ).
+      append ms_comp to mt_comp_final.
+
+      loop at mt_classcharacteristics assigning &lt;char&gt;.
+        clear ms_charact_detail.
+
+        call function &apos;BAPI_CHARACT_GETDETAIL&apos;
+          exporting
+            charactname         = &lt;char&gt;-name_char
+            keydate             = i_key_date
+*           LANGUAGE            = LANGUAGE
+          importing
+            charactdetail       = ms_charact_detail
+          tables
+*           CHARACTDESCR        = CHARACTDESCR
+*           CHARACTVALUESNUM    = CHARACTVALUESNUM
+*           CHARACTVALUESCHAR   = CHARACTVALUESCHAR
+*           CHARACTVALUESCURR   = CHARACTVALUESCURR
+*           CHARACTVALUESDESCR  = CHARACTVALUESDESCR
+*           CHARACTREFERENCES   = CHARACTREFERENCES
+*           CHARACTRESTRICTIONS = CHARACTRESTRICTIONS
+            return              = mt_return.
+
+        loop at mt_return into ms_return where type ca &apos;AE&apos;.
+          raise characteristics_error.
+        endloop.
+        refresh mt_comp[].
+        clear: ms_comp.
+
+        m_lenght = ms_charact_detail-length.
+        m_decimals = ms_charact_detail-decimals.
+
+
+
+
+        clear: ms_comp.
+        ms_comp-name = &apos;LOW&apos;.
+        case ms_charact_detail-data_type.
+          when &apos;NUM&apos;.
+            ms_comp-type = cl_abap_elemdescr=&gt;get_p(
+                                                     p_length   = m_lenght
+                                                     p_decimals = m_decimals
+                                                     ).
+          when &apos;DATE&apos;.
+            ms_comp-type = cl_abap_elemdescr=&gt;get_d( ).
+          when &apos;TIME&apos;.
+            ms_comp-type = cl_abap_elemdescr=&gt;get_t( ).
+          when &apos;CHAR&apos;.
+            ms_comp-type = cl_abap_elemdescr=&gt;get_c( p_length = m_lenght ).
+          when &apos;CURR&apos;.
+            ms_comp-type = cl_abap_elemdescr=&gt;get_p(
+                                                  p_length   = m_lenght
+                                                  p_decimals = m_decimals
+                                                   ).
+          when others.
+            ms_comp-type = cl_abap_elemdescr=&gt;get_c( p_length = m_lenght ).
+        endcase.
+        append ms_comp to mt_comp.
+        ms_comp-name = &apos;HIGH&apos;.
+        append ms_comp to mt_comp.
+        clear: ms_comp.
+        ms_comp-name = &apos;OPTLOW&apos;.
+        ms_comp-type = cl_abap_elemdescr=&gt;get_c( p_length = 2 ).
+        append ms_comp to mt_comp.
+        clear: ms_comp.
+        ms_comp-name = &apos;OPTHIGH&apos;.
+        ms_comp-type = cl_abap_elemdescr=&gt;get_c( p_length = 2 ).
+        append ms_comp to mt_comp.
+        clear: ms_comp.
+        ms_comp-name = &apos;UNIT_FROM&apos;.
+        ms_comp-type ?= cl_abap_elemdescr=&gt;describe_by_data( p_data = ms_charact_detail-unit_of_measurement  ).
+        append ms_comp to mt_comp.
+        clear: ms_comp.
+        ms_comp-name = &apos;UNIT_TO&apos;.
+        ms_comp-type ?= cl_abap_elemdescr=&gt;describe_by_data( p_data = ms_charact_detail-unit_of_measurement  ).
+        append ms_comp to mt_comp.
+        clear: ms_comp.
+        ms_comp-name = &apos;CURRENCY_FROM&apos;.
+        ms_comp-type ?= cl_abap_elemdescr=&gt;describe_by_data( p_data = ms_charact_detail-currency  ).
+        append ms_comp to mt_comp.
+        clear: ms_comp.
+        ms_comp-name = &apos;CURRENCY_TO&apos;.
+        ms_comp-type ?= cl_abap_elemdescr=&gt;describe_by_data( p_data = ms_charact_detail-currency  ).
+        append ms_comp to mt_comp.
+
+        mo_str =  cl_abap_structdescr=&gt;create( mt_comp ).
+        mo_tab = cl_abap_tabledescr=&gt;create( p_line_type  = mo_str
+                                             p_table_kind = cl_abap_tabledescr=&gt;tablekind_std
+                                             p_unique     = abap_false ).
+
+        clear ms_comp.
+        ms_comp-name = &lt;char&gt;-name_char.
+        ms_comp-type ?= mo_tab.
+        append ms_comp to mt_comp_final.
+        free mo_tab.
+        free mo_str.
+      endloop.
+
+      if mt_comp_final[] is not initial.
+        e_structure =  cl_abap_structdescr=&gt;create( mt_comp_final ).
+        e_table      = cl_abap_tabledescr=&gt;create(  p_line_type  = e_structure
+                                                    p_table_kind = cl_abap_tabledescr=&gt;tablekind_std
+                                                    p_unique     = abap_false ).
+        try.
+            create data et_data  type handle e_table.
+          catch cx_sy_create_data_error.
+            raise error_creating_table.
+        endtry.
+
+      endif.
+
+    else.
+      raise class_classtype_fetch_error.
+    endif.
+
+
+  endmethod.                    &quot;create_structure_for_class</source>
+  </method>
+  <method CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="GET_OBJECTS_OF_CLASS" VERSION="1" LANGU="E" DESCRIPT="Gets objects of class and its characteristics" EXPOSURE="2" STATE="1" EDITORDER="5 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="GET_OBJECTS_OF_CLASS" SCONAME="I_CLASS" VERSION="1" LANGU="E" DESCRIPT="Class number" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="KLAH-CLASS"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="GET_OBJECTS_OF_CLASS" SCONAME="I_CLASSTYPE" VERSION="1" LANGU="E" DESCRIPT="Class Type" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="KLAH-KLART"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="GET_OBJECTS_OF_CLASS" SCONAME="I_KEY_DATE" VERSION="1" LANGU="E" DESCRIPT="Current Date of Application Server" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SY-DATUM" PARVALUE="SY-DATUM"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="GET_OBJECTS_OF_CLASS" SCONAME="ET_OBJECTS" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="1" PARPASSTYP="0" TYPTYPE="1" TYPE="TT_CLOBJEKTE"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="GET_OBJECTS_OF_CLASS" SCONAME="ET_DATA" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="5 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="1" PARPASSTYP="1" TYPTYPE="3" TYPE="DATA"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="GET_OBJECTS_OF_CLASS" SCONAME="E_TABLESTR" VERSION="1" LANGU="E" DESCRIPT="Runtime Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="6 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="1" PARPASSTYP="1" TYPTYPE="3" TYPE="CL_ABAP_TABLEDESCR"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="GET_OBJECTS_OF_CLASS" SCONAME="E_STRUCTURE" VERSION="1" LANGU="E" DESCRIPT="Runtime Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="7 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="1" PARPASSTYP="1" TYPTYPE="3" TYPE="CL_ABAP_STRUCTDESCR"/>
+   <exception CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="GET_OBJECTS_OF_CLASS" SCONAME="FETCH_VALUES_ERROR" VERSION="1" LANGU="E" MTDTYPE="0" EDITORDER="1 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818"/>
+   <exception CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="GET_OBJECTS_OF_CLASS" SCONAME="STRUCTURE_ERROR" VERSION="1" LANGU="E" MTDTYPE="0" EDITORDER="2 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818"/>
+   <source>method get_objects_of_class.
+    field-symbols: &lt;table&gt; type standard table,
+                   &lt;line&gt; type any,
+                   &lt;obj&gt; type clobjekte.
+    data: mt_class type standard table of sclass.
+    data: ms_data type ref to data.
+
+
+    call function &apos;CLAF_OBJECTS_OF_CLASS&apos;
+      exporting
+        class                = i_class
+*       CLASSES              = &apos; &apos;
+        classtext            = abap_true
+        classtype            = i_classtype
+*       FEATURES             = &apos;X&apos;
+        language             = sy-langu
+*       OBJECT_HIGH          = &apos; &apos;
+*       OBJECT_LOW           = &apos; &apos;
+*       UPDATE_MODE          = &apos; &apos;
+        key_date             = i_key_date
+        initial_charact      = abap_true
+        no_value_descript    = abap_true
+*       CHANGE_SERVICE_CLF   = &apos;X&apos;
+*       INHERITED_CHAR       = &apos; &apos;
+*       OBJECTTABLE          = &apos; &apos;
+*       CHANGE_NUMBER        = &apos; &apos;
+      tables
+        t_class              = mt_class
+*       T_OBJECTDATA         = T_OBJECTDATA
+        t_objects            = et_objects
+*       I_SEL_CHARACTERISTIC = I_SEL_CHARACTERISTIC
+*       T_NO_AUTH_CHARACT    = T_NO_AUTH_CHARACT
+      exceptions
+        no_classification    = 1
+        invalid_class_type   = 2
+        others               = 3.
+    if sy-subrc eq 0.
+
+      if et_data is requested.
+
+        zcl_abapblog_com_classific=&gt;create_structure_for_class(
+          exporting
+            i_class     = i_class
+            i_classtype = i_classtype
+            i_key_date  = i_key_date
+          importing
+            e_structure = e_structure
+            et_data      = et_data
+            e_table     = e_tablestr
+            exceptions
+              others    = 1
+               ).
+
+        if sy-subrc eq 0.
+
+          assign et_data-&gt;* to &lt;table&gt;.
+          if sy-subrc eq 0.
+            loop at et_objects assigning &lt;obj&gt;.
+              data: m_object type bapi1003_key-object.
+              data: m_objecttable type bapi1003_key-objecttable.
+              m_object = &lt;obj&gt;-objekt.
+              m_objecttable = &lt;obj&gt;-obtab.
+
+              zcl_abapblog_com_classific=&gt;get_object_details(
+                exporting
+                  i_object         = m_object
+                  i_class          = i_class
+                  i_classtype      = i_classtype
+                  i_objecttable    = m_objecttable
+                  i_key_date       = i_key_date
+                  i_structure      = e_structure
+                importing
+*              et_objvaluesnum  = et_objvaluesnum
+*              et_objvalueschar = et_objvalueschar
+*              et_objvaluescurr = et_objvaluescurr
+                 e_data           = ms_data
+                 exceptions
+                   others         = 1
+                     ).
+              if sy-subrc eq 0.
+                assign ms_data-&gt;* to &lt;line&gt;.
+                if sy-subrc eq 0.
+                  if &lt;line&gt; is not initial.
+                    insert &lt;line&gt; into table &lt;table&gt;.
+                    clear &lt;line&gt;.
+                  endif.
+                endif.
+              else.
+                raise fetch_values_error.
+              endif.
+            endloop.
+
+          endif.
+        else.
+          raise structure_error.
+        endif.
+      elseif e_structure is requested or e_tablestr is requested.
+        zcl_abapblog_com_classific=&gt;create_structure_for_class(
+        exporting
+          i_class     = i_class
+          i_classtype = i_classtype
+          i_key_date  = i_key_date
+        importing
+          e_structure = e_structure
+*      et_data      = et_data
+          e_table     = e_tablestr
+        exceptions
+          others    = 1
+          ).
+
+        if sy-subrc ne 0.
+          raise structure_error.
+        endif.
+
+      endif.
+    else.
+      raise fetch_values_error.
+    endif.
+  endmethod.                    &quot;get_objects_of_class</source>
+  </method>
+  <method CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="GET_OBJECT_DETAILS" VERSION="1" LANGU="E" DESCRIPT="Gets characteristics values from BAPI to ref data or tables" EXPOSURE="2" STATE="1" EDITORDER="6 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="GET_OBJECT_DETAILS" SCONAME="I_OBJECT" VERSION="1" LANGU="E" DESCRIPT="Key of object to be classified" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="BAPI1003_KEY-OBJECT"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="GET_OBJECT_DETAILS" SCONAME="I_CLASS" VERSION="1" LANGU="E" DESCRIPT="Class number" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="KLAH-CLASS"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="GET_OBJECT_DETAILS" SCONAME="I_CLASSTYPE" VERSION="1" LANGU="E" DESCRIPT="Class Type" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="KLAH-KLART"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="GET_OBJECT_DETAILS" SCONAME="I_OBJECTTABLE" VERSION="1" LANGU="E" DESCRIPT="Name of database table for object" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="BAPI1003_KEY-OBJECTTABLE" PAROPTIONL="X"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="GET_OBJECT_DETAILS" SCONAME="I_KEY_DATE" VERSION="1" LANGU="E" DESCRIPT="Current Date of Application Server" CMPTYPE="1" MTDTYPE="0" EDITORDER="5 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SY-DATUM" PARVALUE="SY-DATUM"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="GET_OBJECT_DETAILS" SCONAME="I_STRUCTURE" VERSION="1" LANGU="E" DESCRIPT="Runtime Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="6 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="CL_ABAP_STRUCTDESCR" PAROPTIONL="X"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="GET_OBJECT_DETAILS" SCONAME="ET_OBJVALUESNUM" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="7 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="1" PARPASSTYP="1" TYPTYPE="1" TYPE="TT_OBJVALUESNUM"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="GET_OBJECT_DETAILS" SCONAME="ET_OBJVALUESCHAR" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="8 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="1" PARPASSTYP="1" TYPTYPE="1" TYPE="TT_OBJVALUESCHAR"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="GET_OBJECT_DETAILS" SCONAME="ET_OBJVALUESCURR" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="9 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="1" PARPASSTYP="1" TYPTYPE="1" TYPE="TT_OBJVALUESCURR"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="GET_OBJECT_DETAILS" SCONAME="E_DATA" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="10 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="1" PARPASSTYP="1" TYPTYPE="3" TYPE="DATA"/>
+   <exception CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="GET_OBJECT_DETAILS" SCONAME="FETCH_VALUES_ERROR" VERSION="1" LANGU="E" DESCRIPT="Error while trying to receive object characteristics value" MTDTYPE="0" EDITORDER="1 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818"/>
+   <exception CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="GET_OBJECT_DETAILS" SCONAME="STRUCTURE_ERROR" VERSION="1" LANGU="E" DESCRIPT="Structure has wrong fields" MTDTYPE="0" EDITORDER="2 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818"/>
+   <source>method get_object_details.
+    field-symbols: &lt;mt&gt; type standard table,
+                   &lt;ms&gt; type any,
+                   &lt;any&gt; type any,
+                   &lt;p&gt; type any,
+                   &lt;line&gt; type any,
+                   &lt;bapiret&gt; type bapiret2,
+                   &lt;table&gt; type standard table,
+                   &lt;num&gt; type line of tt_objvaluesnum,
+                   &lt;char&gt; type line of tt_objvalueschar,
+                   &lt;curr&gt; type line of tt_objvaluescurr.
+
+    data: ms_data type ref to data.
+    data: m_objecttable type bapi1003_key-objecttable.
+    data: mt_return type standard table of bapiret2.
+    data: mo_str type ref to cl_abap_structdescr.
+    data: mo_type type ref to cl_abap_elemdescr.
+    data: m_p(16) type p.
+    data: m_date type sy-datum.
+    data: m_time type sy-uzeit.
+
+    if i_objecttable is initial.
+
+      select single obtab into m_objecttable from tcla where klart eq i_classtype.
+
+    else.
+      m_objecttable = i_objecttable.
+    endif.
+
+
+    call function &apos;BAPI_OBJCL_GETDETAIL&apos;
+      exporting
+        objectkey              = i_object
+        objecttable            = m_objecttable
+        classnum               = i_class
+        classtype              = i_classtype
+        keydate                = i_key_date
+*     UNVALUATED_CHARS       = &apos; &apos;
+*     LANGUAGE               = SY-LANGU
+*   IMPORTING
+*     STATUS                 = STATUS
+*     STANDARDCLASS          = STANDARDCLASS
+      tables
+        allocvaluesnum         = et_objvaluesnum
+        allocvalueschar        = et_objvalueschar
+        allocvaluescurr        = et_objvaluescurr
+        return                 = mt_return
+              .
+    loop at mt_return assigning &lt;bapiret&gt; where type ca &apos;EA&apos;.
+      raise fetch_values_error.
+    endloop.
+
+    if e_data is requested.
+
+      if i_structure is not bound.
+        zcl_abapblog_com_classific=&gt;create_structure_for_class(
+          exporting
+            i_class     = i_class
+            i_classtype = i_classtype
+            i_key_date  = i_key_date
+          importing
+            e_structure = mo_str
+*        e_data      = e_data
+*        e_table     = e_table
+               ).
+      else.
+        mo_str = i_structure.
+      endif.
+      create data ms_data type handle mo_str.
+      assign ms_data-&gt;* to &lt;ms&gt;.
+      if sy-subrc eq 0.
+        assign component &apos;OBJECT_NUMBER&apos; of structure &lt;ms&gt; to &lt;any&gt;.
+        if sy-subrc eq 0.
+          &lt;any&gt; = i_object.
+        else.
+          raise structure_error.
+          exit.
+        endif.
+        assign component &apos;CLASS&apos; of structure &lt;ms&gt; to &lt;any&gt;.
+        if sy-subrc eq 0.
+          &lt;any&gt; = i_class.
+        endif.
+        assign component &apos;CLASSTYPE&apos; of structure &lt;ms&gt; to &lt;any&gt;.
+        if sy-subrc eq 0.
+          &lt;any&gt; = i_classtype.
+        endif.
+        assign component &apos;OBJECT_TABLE&apos; of structure &lt;ms&gt; to &lt;any&gt;.
+        if sy-subrc eq 0.
+          &lt;any&gt; = m_objecttable.
+        endif.
+
+        assign m_p to &lt;p&gt;.
+
+        loop at et_objvaluesnum assigning &lt;num&gt;.
+          assign component &lt;num&gt;-charact of structure &lt;ms&gt; to &lt;table&gt;.
+          if sy-subrc eq 0.
+            insert initial line into table &lt;table&gt; assigning &lt;line&gt;.
+            if sy-subrc eq 0.
+*          loop at &lt;table&gt; assigning &lt;line&gt;.
+              assign component &apos;LOW&apos; of structure &lt;line&gt; to &lt;any&gt;.
+              if sy-subrc eq 0.
+                free mo_type.
+                mo_type ?= cl_abap_typedescr=&gt;describe_by_data( p_data = &lt;any&gt; ).
+
+                case mo_type-&gt;type_kind.
+                  when &apos;D&apos; or &apos;T&apos;.
+                    &lt;p&gt; = &lt;num&gt;-value_from.
+                    unpack &lt;p&gt; to &lt;any&gt;.
+                  when others.
+                    &lt;any&gt; = &lt;num&gt;-value_from.
+                endcase.
+
+*              &lt;any&gt; = &lt;num&gt;-value_from.
+              endif.
+              assign component &apos;HIGH&apos; of structure &lt;line&gt; to &lt;any&gt;.
+              if sy-subrc eq 0.
+                free mo_type.
+                mo_type ?= cl_abap_typedescr=&gt;describe_by_data( p_data = &lt;any&gt; ).
+                case mo_type-&gt;type_kind.
+                  when &apos;D&apos; or &apos;T&apos;.
+                    &lt;p&gt; = &lt;num&gt;-value_to.
+                    unpack &lt;p&gt; to &lt;any&gt;.
+                  when others.
+                    &lt;any&gt; = &lt;num&gt;-value_to.
+                endcase.
+              endif.
+              assign component &apos;OPTLOW&apos; of structure &lt;line&gt; to &lt;any&gt;.
+              if sy-subrc eq 0.
+                case &lt;num&gt;-value_relation.
+                  when 0 or 1 or space.
+                    &lt;any&gt; = &apos;EQ&apos;.
+                  when 2 or 3 or 9.
+                    &lt;any&gt; = &apos;GE&apos;.
+                  when 4 or 5 or 8.
+                    &lt;any&gt; = &apos;GT&apos;.
+                  when 6.
+                    &lt;any&gt; = &apos;LT&apos;.
+                  when 7.
+                    &lt;any&gt; = &apos;LE&apos;.
+                  when others.
+                    &lt;any&gt; = &apos;EQ&apos;.
+                endcase.
+              endif.
+              assign component &apos;OPTHIGH&apos; of structure &lt;line&gt; to &lt;any&gt;.
+              if sy-subrc eq 0.
+                case &lt;num&gt;-value_relation.
+                  when 2 or 4 .
+                    &lt;any&gt; = &apos;LT&apos;.
+                  when 3 or 5.
+                    &lt;any&gt; = &apos;LE&apos;.
+                endcase.
+              endif.
+              assign component &apos;UNIT_FROM&apos; of structure &lt;line&gt; to &lt;any&gt;.
+              if sy-subrc eq 0.
+                &lt;any&gt; = &lt;num&gt;-unit_from.
+              endif.
+              assign component &apos;UNIT_TO&apos; of structure &lt;line&gt; to &lt;any&gt;.
+              if sy-subrc eq 0.
+                &lt;any&gt; = &lt;num&gt;-unit_to.
+              endif.
+*          endloop.
+            endif.
+          endif.
+        endloop.
+
+
+        loop at et_objvalueschar assigning &lt;char&gt;.
+          assign component &lt;char&gt;-charact of structure &lt;ms&gt; to &lt;table&gt;.
+          if sy-subrc eq 0.
+            insert initial line into table &lt;table&gt; assigning &lt;line&gt;.
+            if sy-subrc eq 0.
+              assign component &apos;LOW&apos; of structure &lt;line&gt; to &lt;any&gt;.
+              if sy-subrc eq 0.
+                &lt;any&gt; = &lt;char&gt;-value_neutral.
+              endif.
+              assign component &apos;OPTLOW&apos; of structure &lt;line&gt; to &lt;any&gt;.
+              if sy-subrc eq 0.
+                &lt;any&gt; = &apos;EQ&apos;.
+              endif.
+            endif.
+          endif.
+        endloop.
+
+
+        loop at et_objvaluescurr assigning &lt;curr&gt;.
+          assign component &lt;curr&gt;-charact of structure &lt;ms&gt; to &lt;table&gt;.
+          if sy-subrc eq 0.
+            insert initial line into table &lt;table&gt; assigning &lt;line&gt;.
+            if sy-subrc eq 0.
+              assign component &apos;LOW&apos; of structure &lt;line&gt; to &lt;any&gt;.
+              if sy-subrc eq 0.
+                call function &apos;KKEK_CONVERT_FLOAT_TO_CURR&apos;
+                  exporting
+                    float_imp      = &lt;curr&gt;-value_from
+                    curr_imp       = &lt;curr&gt;-currency_from
+                  importing
+                    curr_field_exp = &lt;any&gt;
+                  exceptions
+                    overflow       = 1
+                    others         = 2.
+                if sy-subrc &lt;&gt; 0.
+* MESSAGE ID SY-MSGID TYPE SY-MSGTY NUMBER SY-MSGNO
+*         WITH SY-MSGV1 SY-MSGV2 SY-MSGV3 SY-MSGV4.
+                endif.
+
+              endif.
+              assign component &apos;HIGH&apos; of structure &lt;line&gt; to &lt;any&gt;.
+              if sy-subrc eq 0.
+                call function &apos;KKEK_CONVERT_FLOAT_TO_CURR&apos;
+                  exporting
+                    float_imp      = &lt;curr&gt;-value_to
+                    curr_imp       = &lt;curr&gt;-currency_to
+                  importing
+                    curr_field_exp = &lt;any&gt;
+                  exceptions
+                    overflow       = 1
+                    others         = 2.
+                if sy-subrc &lt;&gt; 0.
+* MESSAGE ID SY-MSGID TYPE SY-MSGTY NUMBER SY-MSGNO
+*         WITH SY-MSGV1 SY-MSGV2 SY-MSGV3 SY-MSGV4.
+                endif.
+
+              endif.
+              assign component &apos;OPTLOW&apos; of structure &lt;line&gt; to &lt;any&gt;.
+              if sy-subrc eq 0.
+                case &lt;curr&gt;-value_relation.
+                  when 0 or 1 or space.
+                    &lt;any&gt; = &apos;EQ&apos;.
+                  when 2 or 3 or 9.
+                    &lt;any&gt; = &apos;GE&apos;.
+                  when 4 or 5 or 8.
+                    &lt;any&gt; = &apos;GT&apos;.
+                  when 6.
+                    &lt;any&gt; = &apos;LT&apos;.
+                  when 7.
+                    &lt;any&gt; = &apos;LE&apos;.
+                  when others.
+                    &lt;any&gt; = &apos;EQ&apos;.
+                endcase.
+              endif.
+              assign component &apos;OPTHIGH&apos; of structure &lt;line&gt; to &lt;any&gt;.
+              if sy-subrc eq 0.
+                case &lt;curr&gt;-value_relation.
+                  when 2 or 4 .
+                    &lt;any&gt; = &apos;LT&apos;.
+                  when 3 or 5.
+                    &lt;any&gt; = &apos;LE&apos;.
+                endcase.
+              endif.
+              assign component &apos;CURRENCY_FROM&apos; of structure &lt;line&gt; to &lt;any&gt;.
+              if sy-subrc eq 0.
+                &lt;any&gt; = &lt;curr&gt;-currency_from.
+              endif.
+              assign component &apos;CURRENCY_TO&apos; of structure &lt;line&gt; to &lt;any&gt;.
+              if sy-subrc eq 0.
+                &lt;any&gt; = &lt;curr&gt;-currency_to.
+              endif.
+            endif.
+          endif.
+        endloop.
+
+      endif.
+
+      e_data = ms_data.
+    endif.
+
+  endmethod.                    &quot;get_object_details</source>
+  </method>
+  <method CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="MOVE_REF_DATA_TO_BAPI_TABLES" VERSION="1" LANGU="E" DESCRIPT="Moves values of charact. from ref data to bapi strurcture" EXPOSURE="2" STATE="1" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="MOVE_REF_DATA_TO_BAPI_TABLES" SCONAME="I_DATA" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="DATA"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="MOVE_REF_DATA_TO_BAPI_TABLES" SCONAME="CT_OBJVALUESNUM" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="2" PARPASSTYP="1" TYPTYPE="1" TYPE="TT_OBJVALUESNUM"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="MOVE_REF_DATA_TO_BAPI_TABLES" SCONAME="CT_OBJVALUESCHAR" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="2" PARPASSTYP="1" TYPTYPE="1" TYPE="TT_OBJVALUESCHAR"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="MOVE_REF_DATA_TO_BAPI_TABLES" SCONAME="CT_OBJVALUESCURR" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="2" PARPASSTYP="1" TYPTYPE="1" TYPE="TT_OBJVALUESCURR"/>
+   <exception CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="MOVE_REF_DATA_TO_BAPI_TABLES" SCONAME="NO_DATA_TO_PASS" VERSION="1" LANGU="E" MTDTYPE="0" EDITORDER="1 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818"/>
+   <source>method move_ref_data_to_bapi_tables.
+    field-symbols: &lt;ms&gt; type any,
+                   &lt;any&gt; type any,
+                   &lt;any2&gt; type any,
+                   &lt;table&gt; type any table,
+                   &lt;line&gt; type any,
+                   &lt;p&gt; type any,
+                   &lt;val&gt; type api_vali,
+                   &lt;charact&gt; type bapi1003_charact_r,
+                   &lt;char&gt; type bapi1003_alloc_values_char,
+                   &lt;curr&gt; type bapi1003_alloc_values_curr,
+                   &lt;num&gt;  type  bapi1003_alloc_values_num.
+    data: m_p(16) type p.
+    data: mo_type type ref to cl_abap_elemdescr.
+    data: m_format type cabn-atfor.
+    data: m_currency type rctmv-waers.
+    data: m_atinn type api_vali-atinn.
+    data: m_objectkey type bapi1003_key-object.
+    data: m_objecttable type bapi1003_key-objecttable.
+    data: m_classnum type bapi1003_key-classnum.
+    data: m_classtype type bapi1003_key-classtype.
+    data: mt_classcharacteristics type standard table of bapi1003_charact_r.
+    data: ms_return type bapiret2.
+
+    if i_data is initial.
+      raise no_data_to_pass.
+    endif.
+
+    refresh: ct_objvalueschar[], ct_objvaluescurr[], ct_objvaluesnum[].
+
+    assign i_data-&gt;* to &lt;ms&gt;.
+    if sy-subrc eq 0.
+
+      assign component &apos;CLASSTYPE&apos; of structure &lt;ms&gt; to &lt;any&gt;.
+      if sy-subrc eq 0.
+        m_classtype = &lt;any&gt;.
+      endif.
+
+      assign component &apos;CLASS&apos; of structure &lt;ms&gt; to &lt;any&gt;.
+      if sy-subrc eq 0.
+        m_classnum = &lt;any&gt;.
+      endif.
+
+
+
+      call function &apos;BAPI_CLASS_READ&apos;
+        exporting
+          classtype            = m_classtype
+          classnum             = m_classnum
+*         LANGUISO             = LANGUISO
+*         LANGUINT             = SY-LANGU
+          keydate              = sy-datum
+        importing
+*         CLASSBASICDATA       = CLASSBASICDATA
+*         CLASSDOCUMENT        = CLASSDOCUMENT
+*         CLASSADDITIONAL      = CLASSADDITIONAL
+*         CLASSSTANDARD        = CLASSSTANDARD
+          return               = ms_return
+        tables
+*         classdescriptions    = mt_classdescriptions
+*         classlongtexts       = mt_classlongtexts
+          classcharacteristics = mt_classcharacteristics
+*         classcharactvalues   =   mt_classcharactvalues
+        .
+
+      loop at mt_classcharacteristics assigning &lt;charact&gt;.
+        &quot;get characteristic ID
+        call function &apos;COC1_FEATURE_CHECK&apos;
+          exporting
+*           feature_id                  = atinn
+            feature_neutral_name        = &lt;charact&gt;-name_char
+          importing
+            format                      = m_format
+            feature_id                  = m_atinn
+*           feature_neutral_name        = atnam
+*           conversion_exit             = l_atkon
+*           number_of_positions         = l_anzst
+*           set_get_parameter           = l_atpid
+          exceptions
+            invalid_class_type          = 1
+            missing_feature_information = 2
+            no_feature_found            = 3
+            no_feature_valid            = 4
+            no_language                 = 5
+            others                      = 6.
+
+        if sy-subrc &lt;&gt; 0.
+*   Error
+*    raise characteristic_unknown.
+        endif.
+
+        assign component &lt;charact&gt;-name_char of structure &lt;ms&gt; to &lt;table&gt;.
+        if sy-subrc eq 0.
+
+          loop at &lt;table&gt; assigning &lt;line&gt;.
+            case m_format.
+              when &apos;NUM&apos; or &apos;DATE&apos; or &apos;TIME&apos;.
+                insert initial line into table ct_objvaluesnum assigning &lt;num&gt;.
+                if sy-subrc eq 0.
+                  &lt;num&gt;-charact = &lt;charact&gt;-name_char.
+                  assign component &apos;LOW&apos; of structure &lt;line&gt; to &lt;any&gt;.
+                  if sy-subrc eq 0.
+                    &lt;num&gt;-value_from = zcl_abapblog_com_classific=&gt;convert_char_value(
+                                                     i_atnam       = &lt;charact&gt;-name_char
+                                                     i_value_new   = &lt;any&gt;
+                                                        ).
+                  endif.
+                  assign component &apos;HIGH&apos; of structure &lt;line&gt; to &lt;any&gt;.
+                  if sy-subrc eq 0.
+                    &lt;num&gt;-value_to = zcl_abapblog_com_classific=&gt;convert_char_value(
+                                                      i_atnam       = &lt;charact&gt;-name_char
+                                                      i_value_new   = &lt;any&gt;
+                                                      ).
+                  endif.
+                  assign component &apos;UNIT_FROM&apos; of structure &lt;line&gt; to &lt;any&gt;.
+                  if sy-subrc eq 0.
+                    &lt;num&gt;-unit_from = &lt;any&gt;.
+                  endif.
+                  assign component &apos;UNIT_TO&apos; of structure &lt;line&gt; to &lt;any&gt;.
+                  if sy-subrc eq 0.
+                    &lt;num&gt;-unit_to = &lt;any&gt;.
+                  endif.
+
+                  unassign: &lt;any&gt;, &lt;any2&gt;.
+                  assign component &apos;OPTLOW&apos; of structure &lt;line&gt; to &lt;any&gt;.
+                  if sy-subrc eq 0.
+                    case &lt;any&gt;.
+                      when &apos;EQ&apos;.
+                        &lt;num&gt;-value_relation = 1.
+                      when &apos;GE&apos;.
+                        assign component &apos;OPTHIGH&apos; of structure &lt;line&gt; to &lt;any2&gt;.
+                        if sy-subrc eq 0.
+                          case &lt;any2&gt;.
+                            when &apos;LT&apos;.
+                              &lt;num&gt;-value_relation = 2.
+                            when &apos;LE&apos;.
+                              &lt;num&gt;-value_relation = 3.
+                            when space.
+                              &lt;num&gt;-value_relation = 9.
+                          endcase.
+                        else.
+                          &lt;num&gt;-value_relation = 9.
+                        endif.
+                      when &apos;GT&apos;.
+                        assign component &apos;OPTHIGH&apos; of structure &lt;line&gt; to &lt;any2&gt;.
+                        if sy-subrc eq 0.
+                          case &lt;any2&gt;.
+                            when &apos;LT&apos;.
+                              &lt;num&gt;-value_relation = 4.
+                            when &apos;LE&apos;.
+                              &lt;num&gt;-value_relation = 5.
+                            when space.
+                              &lt;num&gt;-value_relation = 8.
+                          endcase.
+                        else.
+                          &lt;num&gt;-value_relation = 8.
+                        endif.
+                      when &apos;LT&apos;.
+                        &lt;num&gt;-value_relation = 6.
+                      when &apos;LE&apos;.
+                        &lt;num&gt;-value_relation = 7.
+                    endcase.
+                  endif.
+                endif.
+              when &apos;CURR&apos;.
+                insert initial line into table ct_objvaluescurr assigning &lt;curr&gt;.
+                if sy-subrc eq 0.
+                  &lt;curr&gt;-charact = &lt;charact&gt;-name_char.
+                  assign component &apos;LOW&apos; of structure &lt;line&gt; to &lt;any&gt;.
+                  if sy-subrc eq 0.
+                    &lt;curr&gt;-value_from = zcl_abapblog_com_classific=&gt;convert_char_value(
+                                                                          i_atnam       = &lt;charact&gt;-name_char
+                                                                          i_value_new   = &lt;any&gt;
+                                                                          ).
+
+                  endif.
+                  assign component &apos;HIGH&apos; of structure &lt;line&gt; to &lt;any&gt;.
+                  if sy-subrc eq 0.
+                    &lt;curr&gt;-value_to = zcl_abapblog_com_classific=&gt;convert_char_value(
+                                                                               i_atnam       = &lt;charact&gt;-name_char
+                                                                               i_value_new   = &lt;any&gt;
+                                                                               ).
+
+                  endif.
+                  assign component &apos;CURRENCY_FROM&apos; of structure &lt;line&gt; to &lt;any&gt;.
+                  if sy-subrc eq 0.
+                    &lt;curr&gt;-currency_from = &lt;any&gt;.
+                  endif.
+                  assign component &apos;CURRENCY_TO&apos; of structure &lt;line&gt; to &lt;any&gt;.
+                  if sy-subrc eq 0.
+                    &lt;curr&gt;-currency_to = &lt;any&gt;.
+                  endif.
+
+
+                  unassign: &lt;any&gt;, &lt;any2&gt;.
+                  assign component &apos;OPTLOW&apos; of structure &lt;line&gt; to &lt;any&gt;.
+                  if sy-subrc eq 0.
+                    case &lt;any&gt;.
+                      when &apos;EQ&apos;.
+                        &lt;curr&gt;-value_relation = 1.
+                      when &apos;GE&apos;.
+                        assign component &apos;OPTHIGH&apos; of structure &lt;line&gt; to &lt;any2&gt;.
+                        if sy-subrc eq 0.
+                          case &lt;any2&gt;.
+                            when &apos;LT&apos;.
+                              &lt;curr&gt;-value_relation = 2.
+                            when &apos;LE&apos;.
+                              &lt;curr&gt;-value_relation = 3.
+                            when space.
+                              &lt;curr&gt;-value_relation = 9.
+                          endcase.
+                        else.
+                          &lt;curr&gt;-value_relation = 9.
+                        endif.
+                      when &apos;GT&apos;.
+                        assign component &apos;OPTHIGH&apos; of structure &lt;line&gt; to &lt;any2&gt;.
+                        if sy-subrc eq 0.
+                          case &lt;any2&gt;.
+                            when &apos;LT&apos;.
+                              &lt;curr&gt;-value_relation = 4.
+                            when &apos;LE&apos;.
+                              &lt;curr&gt;-value_relation = 5.
+                            when space.
+                              &lt;curr&gt;-value_relation = 8.
+                          endcase.
+                        else.
+                          &lt;curr&gt;-value_relation = 8.
+                        endif.
+                      when &apos;LT&apos;.
+                        &lt;curr&gt;-value_relation = 6.
+                      when &apos;LE&apos;.
+                        &lt;curr&gt;-value_relation = 7.
+                    endcase.
+                  endif.
+                endif.
+              when &apos;CHAR&apos;.
+                insert initial line into table ct_objvalueschar assigning &lt;char&gt;.
+                if sy-subrc eq 0.
+                  &lt;char&gt;-charact = &lt;charact&gt;-name_char.
+                  assign component &apos;LOW&apos; of structure &lt;line&gt; to &lt;any&gt;.
+                  if sy-subrc eq 0.
+                    &lt;char&gt;-value_char = &lt;any&gt;.
+                    &lt;char&gt;-value_neutral = &lt;any&gt;.
+                  endif.
+                endif.
+            endcase.
+          endloop.
+        endif.
+      endloop.
+    endif.
+
+  endmethod.                    &quot;move_ref_data_to_bapi_tables</source>
+  </method>
+  <method CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="MOVE_REF_DATA_TO_SCREEN_VAL" VERSION="1" LANGU="E" DESCRIPT="Moves values of charact. from ref data to screen values" EXPOSURE="2" STATE="1" EDITORDER="2 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="MOVE_REF_DATA_TO_SCREEN_VAL" SCONAME="I_ATNAM" VERSION="1" LANGU="E" DESCRIPT="Characteristic Name" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="API_VALI-ATNAM"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="MOVE_REF_DATA_TO_SCREEN_VAL" SCONAME="I_DATA" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="DATA"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="MOVE_REF_DATA_TO_SCREEN_VAL" SCONAME="CT_VALUES" VERSION="1" LANGU="E" DESCRIPT="Table Type for API_VALI" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="2" PARPASSTYP="1" TYPTYPE="1" TYPE="TT_API_VALI"/>
+   <exception CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="MOVE_REF_DATA_TO_SCREEN_VAL" SCONAME="NO_STRUCTURE_OR_TABLE_PASSED" VERSION="1" LANGU="E" MTDTYPE="0" EDITORDER="1 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818"/>
+   <exception CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="MOVE_REF_DATA_TO_SCREEN_VAL" SCONAME="ERROR_CREATING_STRUCTURE" VERSION="1" LANGU="E" MTDTYPE="0" EDITORDER="2 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818"/>
+   <exception CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="MOVE_REF_DATA_TO_SCREEN_VAL" SCONAME="NO_DATA_TO_CHANGE" VERSION="1" LANGU="E" MTDTYPE="0" EDITORDER="3 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818"/>
+   <exception CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="MOVE_REF_DATA_TO_SCREEN_VAL" SCONAME="STRUCTURE_ERROR" VERSION="1" LANGU="E" MTDTYPE="0" EDITORDER="4 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818"/>
+   <source>method move_ref_data_to_screen_val.
+    field-symbols: &lt;ms&gt; type any,
+                   &lt;any&gt; type any,
+                   &lt;any2&gt; type any,
+                   &lt;table&gt; type any table,
+                   &lt;line&gt; type any,
+                   &lt;p&gt; type any,
+                   &lt;val&gt; type api_vali.
+    data: m_p(16) type p.
+    data: mo_type type ref to cl_abap_elemdescr.
+    data: m_format type cabn-atfor.
+    data: m_currency type rctmv-waers.
+    data: m_atinn type api_vali-atinn.
+
+    if i_data is initial.
+      raise no_data_to_change.
+    endif.
+
+
+    &quot;get characteristic ID
+    call function &apos;COC1_FEATURE_CHECK&apos;
+      exporting
+*       feature_id                  = atinn
+        feature_neutral_name        = i_atnam
+      importing
+        format                      = m_format
+        feature_id                  = m_atinn
+*       feature_neutral_name        = atnam
+*       conversion_exit             = l_atkon
+*       number_of_positions         = l_anzst
+*       set_get_parameter           = l_atpid
+      exceptions
+        invalid_class_type          = 1
+        missing_feature_information = 2
+        no_feature_found            = 3
+        no_feature_valid            = 4
+        no_language                 = 5
+        others                      = 6.
+
+    if sy-subrc &lt;&gt; 0.
+*   Error
+*    raise characteristic_unknown.
+    endif.
+
+    refresh ct_values[].
+    assign i_data-&gt;* to &lt;ms&gt;.
+    if sy-subrc eq 0.
+
+      assign component i_atnam of structure &lt;ms&gt; to &lt;table&gt;.
+      if sy-subrc eq 0.
+
+        loop at &lt;table&gt; assigning &lt;line&gt;.
+          insert initial line into table ct_values assigning &lt;val&gt;.
+          if sy-subrc eq 0.
+            &lt;val&gt;-atnam = i_atnam.
+            &lt;val&gt;-atinn = m_atinn.
+            &lt;val&gt;-atzhl = &apos;000&apos;.
+            case m_format.
+              when &apos;NUM&apos; or &apos;DATE&apos; or &apos;TIME&apos;.
+                assign component &apos;LOW&apos; of structure &lt;line&gt; to &lt;any&gt;.
+                if sy-subrc eq 0.
+                  &lt;val&gt;-atflv = zcl_abapblog_com_classific=&gt;convert_char_value(
+                                                   i_atnam       = i_atnam
+                                                   i_value_new   = &lt;any&gt;
+                                                      ).
+                endif.
+                assign component &apos;HIGH&apos; of structure &lt;line&gt; to &lt;any&gt;.
+                if sy-subrc eq 0.
+                  &lt;val&gt;-atflb = zcl_abapblog_com_classific=&gt;convert_char_value(
+                                                    i_atnam       = i_atnam
+                                                    i_value_new   = &lt;any&gt;
+                                                    ).
+                endif.
+                assign component &apos;UNIT_FROM&apos; of structure &lt;line&gt; to &lt;any&gt;.
+                if sy-subrc eq 0.
+                  &lt;val&gt;-atawe = &lt;any&gt;.
+                endif.
+                assign component &apos;UNIT_TO&apos; of structure &lt;line&gt; to &lt;any&gt;.
+                if sy-subrc eq 0.
+                  &lt;val&gt;-ataw1  = &lt;any&gt;.
+                endif.
+              when &apos;CURR&apos;.
+
+                assign component &apos;LOW&apos; of structure &lt;line&gt; to &lt;any&gt;.
+                if sy-subrc eq 0.
+                  &lt;val&gt;-atflv = zcl_abapblog_com_classific=&gt;convert_char_value(
+                                                                        i_atnam       = i_atnam
+                                                                        i_value_new   = &lt;any&gt;
+                                                                        ).
+
+                endif.
+                assign component &apos;HIGH&apos; of structure &lt;line&gt; to &lt;any&gt;.
+                if sy-subrc eq 0.
+                  &lt;val&gt;-atflb = zcl_abapblog_com_classific=&gt;convert_char_value(
+                                                                             i_atnam       = i_atnam
+                                                                             i_value_new   = &lt;any&gt;
+                                                                             ).
+
+                endif.
+                assign component &apos;CURRENCY_FROM&apos; of structure &lt;line&gt; to &lt;any&gt;.
+                if sy-subrc eq 0.
+                  &lt;val&gt;-atawe = &lt;any&gt;.
+                endif.
+                assign component &apos;CURRENCY_TO&apos; of structure &lt;line&gt; to &lt;any&gt;.
+                if sy-subrc eq 0.
+                  &lt;val&gt;-ataw1 = &lt;any&gt;.
+                endif.
+              when &apos;CHAR&apos;.
+                assign component &apos;LOW&apos; of structure &lt;line&gt; to &lt;any&gt;.
+                if sy-subrc eq 0.
+                  &lt;val&gt;-atwrt = &lt;any&gt;.
+                endif.
+
+            endcase.
+
+            unassign: &lt;any&gt;, &lt;any2&gt;.
+            assign component &apos;OPTLOW&apos; of structure &lt;line&gt; to &lt;any&gt;.
+            if sy-subrc eq 0.
+              case &lt;any&gt;.
+                when &apos;EQ&apos;.
+                  &lt;val&gt;-atcod = 1.
+                when &apos;GE&apos;.
+                  assign component &apos;OPTHIGH&apos; of structure &lt;line&gt; to &lt;any2&gt;.
+                  if sy-subrc eq 0.
+                    case &lt;any2&gt;.
+                      when &apos;LT&apos;.
+                        &lt;val&gt;-atcod = 2.
+                      when &apos;LE&apos;.
+                        &lt;val&gt;-atcod = 3.
+                      when space.
+                        &lt;val&gt;-atcod = 9.
+                    endcase.
+                  else.
+                    &lt;val&gt;-atcod = 9.
+                  endif.
+                when &apos;GT&apos;.
+                  assign component &apos;OPTHIGH&apos; of structure &lt;line&gt; to &lt;any2&gt;.
+                  if sy-subrc eq 0.
+                    case &lt;any2&gt;.
+                      when &apos;LT&apos;.
+                        &lt;val&gt;-atcod = 4.
+                      when &apos;LE&apos;.
+                        &lt;val&gt;-atcod = 5.
+                      when space.
+                        &lt;val&gt;-atcod = 8.
+                    endcase.
+                  else.
+                    &lt;val&gt;-atcod = 8.
+                  endif.
+                when &apos;LT&apos;.
+                  &lt;val&gt;-atcod = 6.
+                when &apos;LE&apos;.
+                  &lt;val&gt;-atcod = 7.
+              endcase.
+            endif.
+          endif.
+        endloop.
+      endif.
+    endif.
+  endmethod.                    &quot;move_ref_data_to_screen_val</source>
+  </method>
+  <method CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="MOVE_SCREEN_VAL_TO_REF_DATA" VERSION="1" LANGU="E" DESCRIPT="Moves values of charact. from screen valu to ref data" EXPOSURE="2" STATE="1" EDITORDER="3 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="MOVE_SCREEN_VAL_TO_REF_DATA" SCONAME="IT_VALUES" VERSION="1" LANGU="E" DESCRIPT="Table Type for API_VALI" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="TT_API_VALI"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="MOVE_SCREEN_VAL_TO_REF_DATA" SCONAME="I_ATNAM" VERSION="1" LANGU="E" DESCRIPT="Characteristic Name" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="API_VALI-ATNAM"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="MOVE_SCREEN_VAL_TO_REF_DATA" SCONAME="C_DATA" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="2" PARPASSTYP="1" TYPTYPE="3" TYPE="DATA"/>
+   <exception CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="MOVE_SCREEN_VAL_TO_REF_DATA" SCONAME="NO_STRUCTURE_OR_TABLE_PASSED" VERSION="1" LANGU="E" MTDTYPE="0" EDITORDER="1 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818"/>
+   <exception CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="MOVE_SCREEN_VAL_TO_REF_DATA" SCONAME="ERROR_CREATING_STRUCTURE" VERSION="1" LANGU="E" MTDTYPE="0" EDITORDER="2 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818"/>
+   <exception CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="MOVE_SCREEN_VAL_TO_REF_DATA" SCONAME="NO_DATA_TO_CHANGE" VERSION="1" LANGU="E" MTDTYPE="0" EDITORDER="3 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818"/>
+   <exception CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="MOVE_SCREEN_VAL_TO_REF_DATA" SCONAME="STRUCTURE_ERROR" VERSION="1" LANGU="E" MTDTYPE="0" EDITORDER="4 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818"/>
+   <source>method move_screen_val_to_ref_data.
+    field-symbols: &lt;ms&gt; type any,
+                   &lt;any&gt; type any,
+                   &lt;table&gt; type any table,
+                   &lt;line&gt; type any,
+                   &lt;p&gt; type any,
+                   &lt;val&gt; type api_vali.
+    data: m_p(16) type p.
+    data: mo_type type ref to cl_abap_elemdescr.
+    data: m_format type cabn-atfor.
+    data: m_currency type rctmv-waers.
+
+    if c_data is initial.
+      raise no_data_to_change.
+    endif.
+
+
+    &quot;get characteristic ID
+    call function &apos;COC1_FEATURE_CHECK&apos;
+      exporting
+*       feature_id                  = atinn
+        feature_neutral_name        = i_atnam
+      importing
+        format                      = m_format
+*       feature_id                  = m_atinn
+*       feature_neutral_name        = atnam
+*       conversion_exit             = l_atkon
+*       number_of_positions         = l_anzst
+*       set_get_parameter           = l_atpid
+      exceptions
+        invalid_class_type          = 1
+        missing_feature_information = 2
+        no_feature_found            = 3
+        no_feature_valid            = 4
+        no_language                 = 5
+        others                      = 6.
+
+    if sy-subrc &lt;&gt; 0.
+*   Error
+*    raise characteristic_unknown.
+    endif.
+
+    assign m_p to &lt;p&gt;.
+
+    assign c_data-&gt;* to &lt;ms&gt;.
+    if sy-subrc eq 0.
+
+      assign component i_atnam of structure &lt;ms&gt; to &lt;table&gt;.
+      if sy-subrc eq 0.
+        refresh &lt;table&gt;.
+        loop at it_values assigning &lt;val&gt;.
+          insert initial line into table &lt;table&gt; assigning &lt;line&gt;.
+          if sy-subrc eq 0.
+
+            case m_format.
+              when &apos;NUM&apos; or &apos;DATE&apos; or &apos;TIME&apos;.
+                assign component &apos;LOW&apos; of structure &lt;line&gt; to &lt;any&gt;.
+                if sy-subrc eq 0.
+                  free mo_type.
+                  mo_type ?= cl_abap_typedescr=&gt;describe_by_data( p_data = &lt;any&gt; ).
+                  case mo_type-&gt;type_kind.
+                    when &apos;D&apos; or &apos;T&apos;.
+                      &lt;p&gt; = &lt;val&gt;-atflv.
+                      unpack &lt;p&gt; to &lt;any&gt;.
+                    when others.
+                      &lt;any&gt; = &lt;val&gt;-atflv.
+                  endcase.
+                endif.
+
+                assign component &apos;HIGH&apos; of structure &lt;line&gt; to &lt;any&gt;.
+                if sy-subrc eq 0.
+                  free mo_type.
+                  mo_type ?= cl_abap_typedescr=&gt;describe_by_data( p_data = &lt;any&gt; ).
+                  case mo_type-&gt;type_kind.
+                    when &apos;D&apos; or &apos;T&apos;.
+                      &lt;p&gt; = &lt;val&gt;-atflb.
+                      unpack &lt;p&gt; to &lt;any&gt;.
+                    when others.
+                      &lt;any&gt; =  &lt;val&gt;-atflb.
+                  endcase.
+                endif.
+                assign component &apos;UNIT_FROM&apos; of structure &lt;line&gt; to &lt;any&gt;.
+                if sy-subrc eq 0.
+                  &lt;any&gt; = &lt;val&gt;-atawe.
+                endif.
+                assign component &apos;UNIT_TO&apos; of structure &lt;line&gt; to &lt;any&gt;.
+                if sy-subrc eq 0.
+                  &lt;any&gt; =  &lt;val&gt;-ataw1.
+                endif.
+              when &apos;CURR&apos;.
+
+                assign component &apos;LOW&apos; of structure &lt;line&gt; to &lt;any&gt;.
+                if sy-subrc eq 0.
+                  if &lt;val&gt;-atawe is initial.
+                    select single msehi into m_currency from cabn where atnam eq i_atnam.
+                  else.
+                    m_currency = &lt;val&gt;-atawe.
+                  endif.
+                  call function &apos;KKEK_CONVERT_FLOAT_TO_CURR&apos;
+                    exporting
+                      float_imp      = &lt;val&gt;-atflv
+                      curr_imp       = m_currency
+                    importing
+                      curr_field_exp = &lt;any&gt;
+                    exceptions
+                      overflow       = 1
+                      others         = 2.
+                  if sy-subrc &lt;&gt; 0.
+* MESSAGE ID SY-MSGID TYPE SY-MSGTY NUMBER SY-MSGNO
+*         WITH SY-MSGV1 SY-MSGV2 SY-MSGV3 SY-MSGV4.
+                  endif.
+
+                endif.
+                assign component &apos;HIGH&apos; of structure &lt;line&gt; to &lt;any&gt;.
+                if sy-subrc eq 0.
+                  if &lt;val&gt;-ataw1 is initial.
+                    select single msehi into m_currency from cabn where atnam eq i_atnam.
+                  else.
+                    m_currency = &lt;val&gt;-ataw1.
+                  endif.
+                  call function &apos;KKEK_CONVERT_FLOAT_TO_CURR&apos;
+                    exporting
+                      float_imp      = &lt;val&gt;-atflb
+                      curr_imp       = m_currency
+                    importing
+                      curr_field_exp = &lt;any&gt;
+                    exceptions
+                      overflow       = 1
+                      others         = 2.
+                  if sy-subrc &lt;&gt; 0.
+* MESSAGE ID SY-MSGID TYPE SY-MSGTY NUMBER SY-MSGNO
+*         WITH SY-MSGV1 SY-MSGV2 SY-MSGV3 SY-MSGV4.
+                  endif.
+
+                endif.
+                assign component &apos;CURRENCY_FROM&apos; of structure &lt;line&gt; to &lt;any&gt;.
+                if sy-subrc eq 0.
+                  &lt;any&gt; = m_currency.
+                endif.
+                assign component &apos;CURRENCY_TO&apos; of structure &lt;line&gt; to &lt;any&gt;.
+                if sy-subrc eq 0.
+                  &lt;any&gt; = m_currency.
+                endif.
+              when &apos;CHAR&apos;.
+                assign component &apos;LOW&apos; of structure &lt;line&gt; to &lt;any&gt;.
+                if sy-subrc eq 0.
+                  &lt;any&gt; = &lt;val&gt;-atwrt.
+                endif.
+                assign component &apos;OPTLOW&apos; of structure &lt;line&gt; to &lt;any&gt;.
+                if sy-subrc eq 0.
+                  &lt;any&gt; = &apos;EQ&apos;.
+                endif.
+
+            endcase.
+
+            assign component &apos;OPTLOW&apos; of structure &lt;line&gt; to &lt;any&gt;.
+            if sy-subrc eq 0.
+              case &lt;val&gt;-atcod.
+                when 0 or 1 or space.
+                  &lt;any&gt; = &apos;EQ&apos;.
+                when 2 or 3 or 9.
+                  &lt;any&gt; = &apos;GE&apos;.
+                when 4 or 5 or 8.
+                  &lt;any&gt; = &apos;GT&apos;.
+                when 6.
+                  &lt;any&gt; = &apos;LT&apos;.
+                when 7.
+                  &lt;any&gt; = &apos;LE&apos;.
+                when others.
+                  &lt;any&gt; = &apos;EQ&apos;.
+              endcase.
+            endif.
+            assign component &apos;OPTHIGH&apos; of structure &lt;line&gt; to &lt;any&gt;.
+            if sy-subrc eq 0.
+              case &lt;val&gt;-atcod.
+                when 2 or 4 .
+                  &lt;any&gt; = &apos;LT&apos;.
+                when 3 or 5.
+                  &lt;any&gt; = &apos;LE&apos;.
+              endcase.
+            endif.
+
+          endif.
+        endloop.
+      endif.
+    endif.
+  endmethod.                    &quot;move_screen_val_to_ref_data</source>
+  </method>
+  <method CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="SAVE_CHARACT_FROM_REF_DATA" VERSION="1" LANGU="E" DESCRIPT="Mapp and save characteristics from ref data" EXPOSURE="2" STATE="1" EDITORDER="4 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="SAVE_CHARACT_FROM_REF_DATA" SCONAME="I_DATA" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="DATA" PAROPTIONL="X" PARPREFERD="X"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="SAVE_CHARACT_FROM_REF_DATA" SCONAME="I_CHANGE_NUMBER" VERSION="1" LANGU="E" DESCRIPT="Change Number" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="0" TYPTYPE="1" TYPE="BAPI1003_KEY-CHANGENUMBER" PAROPTIONL="X"/>
+   <exception CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="SAVE_CHARACT_FROM_REF_DATA" SCONAME="NO_DATA" VERSION="1" LANGU="E" MTDTYPE="0" EDITORDER="1 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818"/>
+   <source>method save_charact_from_ref_data.
+    field-symbols:
+                   &lt;char&gt; type bapi1003_alloc_values_char,
+                   &lt;curr&gt; type bapi1003_alloc_values_curr,
+                   &lt;num&gt;  type  bapi1003_alloc_values_num,
+                   &lt;charnew&gt; type bapi1003_alloc_values_char,
+                   &lt;currnew&gt; type bapi1003_alloc_values_curr,
+                   &lt;numnew&gt;  type  bapi1003_alloc_values_num.
+    data: f_objectkey type bapi1003_key-object.
+    data: f_objecttable type bapi1003_key-objecttable.
+    data: f_classnum type bapi1003_key-classnum.
+    data: f_classtype type bapi1003_key-classtype.
+    data: f_different type c.
+    data: ft_allocvaluesnum type standard table of  bapi1003_alloc_values_num.
+    data: ft_allocvalueschar type standard table of bapi1003_alloc_values_char.
+    data: ft_allocvaluescurr type standard table of bapi1003_alloc_values_curr.
+    data: ft_allocvaluesnumnew type standard table of  bapi1003_alloc_values_num.
+    data: ft_allocvaluescharnew type standard table of bapi1003_alloc_values_char.
+    data: ft_allocvaluescurrnew type standard table of bapi1003_alloc_values_curr.
+    data: ft_return type standard table of bapiret2.
+
+
+    check i_data is not initial .
+
+    zcl_abapblog_com_classific=&gt;move_ref_data_to_bapi_tables(
+      exporting
+        i_data           = i_data
+      changing
+        ct_objvaluesnum  = ft_allocvaluesnumnew
+        ct_objvalueschar = ft_allocvaluescharnew
+        ct_objvaluescurr = ft_allocvaluescurrnew
+    exceptions
+      no_data_to_pass  = 1
+      others           = 2
+        ).
+    if sy-subrc &lt;&gt; 0.
+      raise no_data.
+    endif.
+
+    call function &apos;BAPI_OBJCL_GETDETAIL&apos;
+      exporting
+        objectkey              = f_objectkey
+        objecttable            = f_objecttable
+        classnum               = f_classnum
+        classtype              = f_classtype
+*   KEYDATE                = SY-DATUM
+*   UNVALUATED_CHARS       = &apos; &apos;
+*   LANGUAGE               = SY-LANGU
+* IMPORTING
+*   STATUS                 = STATUS
+*   STANDARDCLASS          = STANDARDCLASS
+      tables
+        allocvaluesnum         = ft_allocvaluesnum
+        allocvalueschar        = ft_allocvalueschar
+        allocvaluescurr        = ft_allocvaluescurr
+        return                 = ft_return
+              .
+
+    &quot;compare old and current entries
+    sort ft_allocvalueschar by charact value_neutral.
+    sort ft_allocvaluescharnew by charact value_neutral.
+    sort ft_allocvaluesnum by charact value_from value_to value_relation  unit_from unit_to.
+    sort ft_allocvaluesnumnew by charact value_from value_to value_relation  unit_from unit_to.
+    sort ft_allocvaluescurr by charact value_from value_to value_relation currency_from currency_to.
+    sort ft_allocvaluescurrnew by charact value_from value_to value_relation currency_from currency_to.
+
+    loop at ft_allocvalueschar assigning &lt;char&gt;.
+      if f_different is not initial.
+        exit.
+      endif.
+      read table ft_allocvaluescharnew  with key charact = &lt;char&gt;-charact
+                                                                    value_neutral = &lt;char&gt;-value_neutral
+                                                                    transporting no fields
+                                                                    binary search.
+      if sy-subrc ne 0.
+        f_different = &apos;X&apos;.
+      endif.
+    endloop.
+
+    loop at ft_allocvaluescharnew assigning &lt;char&gt;.
+      if f_different is not initial.
+        exit.
+      endif.
+      read table ft_allocvalueschar  with key charact = &lt;char&gt;-charact
+                                                 value_neutral = &lt;char&gt;-value_neutral
+                                                  transporting no fields
+                                                  binary search.
+      if sy-subrc ne 0.
+        f_different = &apos;X&apos;.
+      endif.
+    endloop.
+
+    loop at ft_allocvaluesnum assigning &lt;num&gt;.
+      if f_different is not initial.
+        exit.
+      endif.
+      read table ft_allocvaluesnumnew  with key charact = &lt;num&gt;-charact
+                                                value_from = &lt;num&gt;-value_from
+                                                value_to = &lt;num&gt;-value_to
+                                                value_relation = &lt;num&gt;-value_relation
+                                                unit_from = &lt;num&gt;-unit_from
+                                                unit_to = &lt;num&gt;-unit_to
+                                                transporting no fields
+                                                binary search.
+      if sy-subrc ne 0.
+        f_different = &apos;X&apos;.
+      endif.
+    endloop.
+
+    loop at ft_allocvaluesnumnew assigning &lt;num&gt;.
+      if f_different is not initial.
+        exit.
+      endif.
+      read table ft_allocvaluesnum  with key charact = &lt;num&gt;-charact
+                                            value_from = &lt;num&gt;-value_from
+                                            value_to = &lt;num&gt;-value_to
+                                            value_relation = &lt;num&gt;-value_relation
+                                            unit_from = &lt;num&gt;-unit_from
+                                            unit_to = &lt;num&gt;-unit_to
+                                            transporting no fields
+                                            binary search.
+      if sy-subrc ne 0.
+        f_different = &apos;X&apos;.
+      endif.
+    endloop.
+
+    loop at ft_allocvaluescurr assigning &lt;curr&gt;.
+      if f_different is not initial.
+        exit.
+      endif.
+      read table ft_allocvaluescurrnew  with key charact = &lt;curr&gt;-charact
+                                                  value_from = &lt;curr&gt;-value_from
+                                                  value_to = &lt;curr&gt;-value_to
+                                                  value_relation = &lt;curr&gt;-value_relation
+                                                  currency_from = &lt;curr&gt;-currency_from
+                                                  currency_to = &lt;curr&gt;-currency_to
+                                                  transporting no fields
+                                                  binary search.
+      if sy-subrc ne 0.
+        f_different = &apos;X&apos;.
+      endif.
+    endloop.
+
+    loop at ft_allocvaluescurrnew assigning &lt;curr&gt;.
+      if f_different is not initial.
+        exit.
+      endif.
+      read table ft_allocvaluescurr  with key charact = &lt;curr&gt;-charact
+                                              value_from = &lt;curr&gt;-value_from
+                                              value_to = &lt;curr&gt;-value_to
+                                              value_relation = &lt;curr&gt;-value_relation
+                                              currency_from = &lt;curr&gt;-currency_from
+                                              currency_to = &lt;curr&gt;-currency_to
+                                              transporting no fields
+                                              binary search.
+      if sy-subrc ne 0.
+        f_different = &apos;X&apos;.
+      endif.
+    endloop.
+
+    check f_different is not initial.
+
+    call function &apos;BAPI_OBJCL_CHANGE&apos;
+      exporting
+        objectkey                = f_objectkey
+        objecttable              = f_objecttable
+        classnum                 = f_classnum
+        classtype                = f_classtype
+*   STATUS                   = &apos;1&apos;
+*   STANDARDCLASS            = STANDARDCLASS
+       changenumber             = i_change_number
+*   KEYDATE                  = SY-DATUM
+*   NO_DEFAULT_VALUES        = &apos; &apos;
+* IMPORTING
+*   CLASSIF_STATUS           = CLASSIF_STATUS
+      tables
+        allocvaluesnumnew        = ft_allocvaluesnumnew
+        allocvaluescharnew       = ft_allocvaluescharnew
+        allocvaluescurrnew       = ft_allocvaluescurrnew
+        return                   = ft_return
+              .
+
+
+  endmethod.                    &quot;save_charact_from_ref_data</source>
+  </method>
+  <method CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="SHOW_CHARACT_VALUES_SCREEN" VERSION="1" LANGU="E" DESCRIPT="Input/Display screen for characteristics values" EXPOSURE="2" STATE="1" EDITORDER="8 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="SHOW_CHARACT_VALUES_SCREEN" SCONAME="I_DISPLAY" VERSION="1" LANGU="E" DESCRIPT="General Flag" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="0" TYPTYPE="1" TYPE="FLAG"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="SHOW_CHARACT_VALUES_SCREEN" SCONAME="I_CLASS" VERSION="1" LANGU="E" DESCRIPT="Class number" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="0" TYPTYPE="1" TYPE="KLAH-CLASS"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="SHOW_CHARACT_VALUES_SCREEN" SCONAME="I_KLART" VERSION="1" LANGU="E" DESCRIPT="Class Type" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="0" TYPTYPE="1" TYPE="KLAH-KLART"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="SHOW_CHARACT_VALUES_SCREEN" SCONAME="I_ATNAM" VERSION="1" LANGU="E" DESCRIPT="Characteristic Name" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="0" TYPTYPE="1" TYPE="API_VALUE-ATNAM"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="SHOW_CHARACT_VALUES_SCREEN" SCONAME="IT_VALUES" VERSION="1" LANGU="E" DESCRIPT="Table Type for API_VALI" CMPTYPE="1" MTDTYPE="0" EDITORDER="5 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="0" TYPTYPE="1" TYPE="TT_API_VALI" PAROPTIONL="X"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="SHOW_CHARACT_VALUES_SCREEN" SCONAME="I_SET_VAL_FROM_OBJECT" VERSION="1" LANGU="E" DESCRIPT="General Flag" CMPTYPE="1" MTDTYPE="0" EDITORDER="6 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="0" TYPTYPE="1" TYPE="FLAG"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="SHOW_CHARACT_VALUES_SCREEN" SCONAME="I_OBJECT" VERSION="1" LANGU="E" DESCRIPT="Key of object to be classified" CMPTYPE="1" MTDTYPE="0" EDITORDER="7 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="0" TYPTYPE="1" TYPE="AUSP-OBJEK"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="SHOW_CHARACT_VALUES_SCREEN" SCONAME="I_TABLE" VERSION="1" LANGU="E" DESCRIPT="Name of database table for object" CMPTYPE="1" MTDTYPE="0" EDITORDER="8 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="0" TYPTYPE="1" TYPE="TCLA-OBTAB"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="SHOW_CHARACT_VALUES_SCREEN" SCONAME="I_DATE" VERSION="1" LANGU="E" DESCRIPT="Date" CMPTYPE="1" MTDTYPE="0" EDITORDER="9 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="0" TYPTYPE="1" TYPE="SY-DATUM" PARVALUE="SY-DATUM"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="SHOW_CHARACT_VALUES_SCREEN" SCONAME="I_STRUCTURE" VERSION="1" LANGU="E" DESCRIPT="Runtime Type Services" CMPTYPE="1" MTDTYPE="0" EDITORDER="10 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="3" TYPE="CL_ABAP_STRUCTDESCR" PAROPTIONL="X"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="SHOW_CHARACT_VALUES_SCREEN" SCONAME="ET_VALUES" VERSION="1" LANGU="E" DESCRIPT="Table Type for API_VALI" CMPTYPE="1" MTDTYPE="0" EDITORDER="11 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="1" PARPASSTYP="1" TYPTYPE="1" TYPE="TT_API_VALI"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="SHOW_CHARACT_VALUES_SCREEN" SCONAME="C_DATA" VERSION="1" LANGU="E" DESCRIPT="Classification details with reference data" CMPTYPE="1" MTDTYPE="0" EDITORDER="12 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="2" PARPASSTYP="1" TYPTYPE="3" TYPE="DATA" PAROPTIONL="X"/>
+   <exception CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="SHOW_CHARACT_VALUES_SCREEN" SCONAME="CHARACTERISTIC_UNKNOWN" VERSION="1" LANGU="E" MTDTYPE="0" EDITORDER="1 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818"/>
+   <exception CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="SHOW_CHARACT_VALUES_SCREEN" SCONAME="ERROR_SETTING_CHAR_VALUES" VERSION="1" LANGU="E" MTDTYPE="0" EDITORDER="2 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818"/>
+   <exception CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="SHOW_CHARACT_VALUES_SCREEN" SCONAME="NO_VALUES_FOUND" VERSION="1" LANGU="E" MTDTYPE="0" EDITORDER="3 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818"/>
+   <exception CLSNAME="ZCL_ABAPBLOG_COM_CLASSIFIC" CMPNAME="SHOW_CHARACT_VALUES_SCREEN" SCONAME="ERROR_CREATING_TABLE" VERSION="1" LANGU="E" MTDTYPE="0" EDITORDER="4 " AUTHOR="BCUSER" CREATEDON="20130817" CHANGEDBY="BCUSER" CHANGEDON="20130818"/>
+   <source>method show_charact_values_screen.
+
+    data: m_ucomm like sy-ucomm.
+    data: ms_api_char type api_char.
+    data: mt_api_char like standard table of ms_api_char.
+    data: m_atinn type api_value-atinn.
+    data: mt_error_val type standard table of api_vali.
+    data: mt_vali type standard table of api_vali.
+    data: mt_vali2 type standard table of api_vali.
+    data: ms_data type ref to data.
+    data: mo_structure type ref to cl_abap_structdescr.
+    data: mo_table     type ref to cl_abap_tabledescr.
+
+    refresh et_values[].
+
+    &quot;get characteristic ID
+    call function &apos;COC1_FEATURE_CHECK&apos;
+      exporting
+*       feature_id                  = atinn
+        feature_neutral_name        = i_atnam
+      importing
+        feature_id                  = m_atinn
+*       feature_neutral_name        = atnam
+*       conversion_exit             = l_atkon
+*       number_of_positions         = l_anzst
+*       set_get_parameter           = l_atpid
+      exceptions
+        invalid_class_type          = 1
+        missing_feature_information = 2
+        no_feature_found            = 3
+        no_feature_valid            = 4
+        no_language                 = 5
+        others                      = 6.
+
+    if sy-subrc &lt;&gt; 0.
+*   Error
+      raise characteristic_unknown.
+    endif.
+
+    ms_api_char-atinn = m_atinn.
+    append ms_api_char to mt_api_char.
+
+    call function &apos;CTMS_DDB_INIT&apos;.
+
+
+    call function &apos;CTMS_CLASS_DDB&apos;
+      exporting
+        class             = i_class
+        classtype         = i_klart
+        mode              = &apos;S&apos;
+*       LANGUAGE          = SY-LANGU
+        key_date          = i_date
+        objectid          = i_table
+        object            = i_object
+*       I_ADD_ON_CHAR     = &apos; &apos;
+*       I_TABS_ACTIVE     = &apos; &apos;
+*       INIT_CONF         = &apos; &apos;
+*       READONLY          = &apos; &apos;
+*       I_CALLED_FROM_DDB = &apos; &apos;
+      exceptions
+        not_found         = 1
+        others            = 2.
+    if sy-subrc &lt;&gt; 0.
+* MESSAGE ID SY-MSGID TYPE SY-MSGTY NUMBER SY-MSGNO
+*         WITH SY-MSGV1 SY-MSGV2 SY-MSGV3 SY-MSGV4.
+    endif.
+
+    if i_set_val_from_object is not initial and
+       i_object is not initial              and
+       i_table  is not initial.
+      call function &apos;CTMS_DDB_SET_VAL_FROM_OBJECT&apos;
+        exporting
+          object                             = i_object
+          objectid                           = i_table
+          date                               = i_date
+*   TABLES
+*     OBJECTS                            = OBJECTS
+       exceptions
+         not_found                          = 1
+         no_objectid                        = 2
+         no_object                          = 3
+         fb_ctms_class_ddb_not_called       = 4
+         others                             = 5
+                .
+      if sy-subrc &lt;&gt; 0.
+* MESSAGE ID SY-MSGID TYPE SY-MSGTY NUMBER SY-MSGNO
+*         WITH SY-MSGV1 SY-MSGV2 SY-MSGV3 SY-MSGV4.
+      endif.
+
+    elseif it_values[] is supplied.
+      zcl_abapblog_com_classific=&gt;clear_initial_line_api_vari( it_api_char = mt_api_char   ).
+
+      call function &apos;CTMS_DDB_SET_VALUE_INTERNAL&apos;
+        tables
+          imp_values                    = it_values[]
+          exp_values_error              = mt_error_val[]
+        exceptions
+          currency_check                = 1
+          date_check                    = 2
+          format_check                  = 3
+          illegal_internal_baseunit     = 4
+          interval_check                = 5
+          pattern_check                 = 6
+          time_check                    = 7
+          unit_check                    = 8
+          value_not_found               = 9
+          no_valid_dimension            = 10
+          interval_not_allowed          = 11
+          display_mode                  = 12
+          characteristic_not_found      = 13
+          value_not_possible            = 14
+          characteristic_enqueue        = 15
+          objectcharacteristic          = 16
+          only_one_value_allowed        = 17
+          characteristic_not_selectable = 18
+          input_to_long                 = 19
+          value_contradiction           = 20
+          others                        = 21.
+      if sy-subrc &lt;&gt; 0.
+        raise error_setting_char_values.
+      endif.
+    elseif c_data is not initial.
+
+
+      zcl_abapblog_com_classific=&gt;move_ref_data_to_screen_val(
+        exporting
+          i_atnam                      = i_atnam
+          i_data                       = c_data
+        changing
+          ct_values                    = mt_vali
+        exceptions
+          no_structure_or_table_passed = 1
+          error_creating_structure     = 2
+          no_data_to_change            = 3
+          structure_error              = 4
+          others                       = 5
+             ).
+      if sy-subrc eq 0.
+        zcl_abapblog_com_classific=&gt;clear_initial_line_api_vari( it_api_char = mt_api_char   ).
+
+        call function &apos;CTMS_DDB_SET_VALUE_INTERNAL&apos;
+          tables
+            imp_values                    = mt_vali[]
+            exp_values_error              = mt_error_val[]
+          exceptions
+            currency_check                = 1
+            date_check                    = 2
+            format_check                  = 3
+            illegal_internal_baseunit     = 4
+            interval_check                = 5
+            pattern_check                 = 6
+            time_check                    = 7
+            unit_check                    = 8
+            value_not_found               = 9
+            no_valid_dimension            = 10
+            interval_not_allowed          = 11
+            display_mode                  = 12
+            characteristic_not_found      = 13
+            value_not_possible            = 14
+            characteristic_enqueue        = 15
+            objectcharacteristic          = 16
+            only_one_value_allowed        = 17
+            characteristic_not_selectable = 18
+            input_to_long                 = 19
+            value_contradiction           = 20
+            others                        = 21.
+        if sy-subrc &lt;&gt; 0.
+          raise error_setting_char_values.
+        endif.
+
+      endif.
+    endif.
+
+    call function &apos;CTMS_DDB_SET_VALUE_ONLINE&apos;
+      exporting
+        characteristic       = m_atinn
+        display              = i_display
+*       udef_instance        = &apos;999&apos;
+      importing
+        return_with_function = m_ucomm.
+
+
+    call function &apos;CTMS_DDB_HAS_VALUES_INTERNAL&apos;
+      exporting
+        assigned_values      = &apos;X&apos;
+        allowed_values       = &apos; &apos;
+        valid_values         = &apos; &apos;
+        inconsistent_values  = &apos; &apos;
+        first_assigned_value = &apos; &apos;
+        default_values       = &apos; &apos;
+        language             = sy-langu
+        document_info        = &apos; &apos;
+        excl_knowledge       = &apos; &apos;
+        i_called_from_ddb    = &apos; &apos;
+      tables
+        imp_characteristics  = mt_api_char[]
+        exp_values           = et_values[]
+      exceptions
+        not_found            = 1
+        others               = 2.
+
+    if sy-subrc &lt;&gt; 0.
+      raise no_values_found.
+    endif.
+*  endif.
+
+
+    if c_data is requested.
+
+      if c_data is initial.
+        if i_structure is bound.
+          mo_structure = i_structure.
+        else.
+          zcl_abapblog_com_classific=&gt;create_structure_for_class(
+            exporting
+              i_class                     = i_class
+              i_classtype                 = i_klart
+              i_key_date                  = i_date
+            importing
+              e_structure                 = mo_structure
+*          et_data                     = es_classif_details-data
+*          e_table                     = mo_table
+            exceptions
+              class_classtype_fetch_error = 1
+              error_creating_table        = 2
+              characteristics_error       = 3
+              others                      = 4
+                 ).
+          if sy-subrc eq 0.
+          endif.
+
+        endif.
+
+        try.
+            create data c_data type handle mo_structure.
+          catch cx_sy_create_data_error.
+            raise error_creating_table.
+        endtry.
+      endif.
+
+      zcl_abapblog_com_classific=&gt;move_screen_val_to_ref_data(
+      exporting
+        it_values                    = et_values[]
+        i_atnam                      = i_atnam
+      changing
+        c_data                       = c_data
+      exceptions
+        no_structure_or_table_passed = 1
+        error_creating_structure     = 2
+        no_data_to_change            = 3
+        structure_error              = 4
+        others                       = 5
+        ).
+      if sy-subrc &lt;&gt; 0.
+* MESSAGE ID SY-MSGID TYPE SY-MSGTY NUMBER SY-MSGNO
+*            WITH SY-MSGV1 SY-MSGV2 SY-MSGV3 SY-MSGV4.
+      endif.
+
+
+
+    endif.
+  endmethod.                    &quot;show_charact_values_screen</source>
+  </method>
+ </CLAS>
+</nugget>

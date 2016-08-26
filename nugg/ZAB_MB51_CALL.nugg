@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-16"?>
+<nugget name="Z">
+ <CLAS CLSNAME="ZAB_MB51_CALL" VERSION="1" LANGU="E" DESCRIPT="MB51 for external call" UUID="10BF48847F771ED3ACF33E646B8AD3A4" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" AUTHOR="BCUSER" CREATEDON="20140324" CHANGEDON="00000000" CHGDANYON="00000000" CLSFINAL="X" CLSCCINCL="X" FIXPT="X" UNICODE="X" R3RELEASE="731" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 ">
+  <types CLSNAME="ZAB_MB51_CALL" CMPNAME="T_LIST" VERSION="1" LANGU="E" EXPOSURE="2" STATE="1" EDITORDER="1 " AUTHOR="BCUSER" CREATEDON="20140324" CHANGEDBY="BCUSER" CHANGEDON="20140328" TYPTYPE="4" SRCROW1="20 " SRCCOLUMN1="4 " SRCROW2="24 " SRCCOLUMN2="18 " TYPESRC_LENG="116 " TYPESRC="begin of t_list,
+         anln1 type  anln1,         anln2 type  anln2,
+         aplzl type  cim_count,
+         aufnr type  aufnr,
+         aufpl type  co_aufpl,
+         bktxt type  bktxt,
+         bpmng type  bpmng,
+         bprme type  bbprm,
+         bstme type  bstme,
+         bstmg type  mb_bstmg,
+         budat type  budat,
+         budat_mkpf  type  budat,
+         bukrs type  bukrs,
+         bwart type  bwart,
+         bwtar type  bwtar_d,
+         charg type  charg_d,
+         cpudt type  cpudt,
+         cpudt_mkpf  type  cpudt,
+         cputm type  cputm,
+         cputm_mkpf  type  cputm,
+         dmbtr type  dmbtr,
+         ebeln type  bstnr,
+         ebelp type  ebelp,
+         erfme type  erfme,
+         erfmg type  erfmg,
+         exbwr type  exbwr,
+         exvkw type  exvkw,
+         grund type  mb_grbew,
+         insmk type  mb_insmk,
+         kdauf type  kdauf,
+         kdein type  kdein,
+         kdpos type  kdpos,
+         kostl type  kostl,
+         kunnr type  ekunn,
+         kzbew type  kzbew,
+         kzvbr type  kzvbr,
+         kzzug type  kzzug,
+         lgort type  lgort_d,
+         lifnr type  elifn,
+         matnr type  matnr,
+         mblnr type  mblnr,
+         meins type  meins,
+         menge type  menge_d,
+         mjahr type  mjahr,
+         nplnr type  nplnr,
+         ps_psp_pnr  type  ps_psp_pnr,
+         rsnum type  rsnum,
+         rspos type  rspos,
+         sakto type  saknr,
+         sgtxt type  sgtxt,
+         shkzg type  shkzg,
+         sobkz type  sobkz,
+         umlgo type  umlgo,
+         umwrk type  umwrk,
+         usnam type  usnam,
+         usnam_mkpf  type  usnam,
+         vgart type  vgart,
+         vgart_mkpf  type  vgart,
+         vkwrt type  vkwrt,
+         waers type  waers,
+         wempf type  wempf,
+         werks type  werks_d,
+         xauto type  mb_xauto,
+         xblnr type  xblnr,
+         xblnr_mkpf  type  xblnr,
+         zeile type  mblpo,
+         maktx type  maktx,
+         name1 type  name1,
+         btext type  bwtxt,
+         pspid type  ps_posid,
+         vornr type  vornr,
+         longnum type  /sappspro/longnum,
+         matnr_ext type  matnr_ext,
+         color type  slis_t_specialcol_alv ,
+      end of t_list
+"/>
+  <types CLSNAME="ZAB_MB51_CALL" CMPNAME="TT_LIST" VERSION="1" LANGU="E" EXPOSURE="2" STATE="1" EDITORDER="2 " AUTHOR="BCUSER" CREATEDON="20140324" CHANGEDBY="BCUSER" CHANGEDON="20140328" TYPTYPE="4" SRCROW1="26 " SRCCOLUMN1="4 " SRCROW2="26 " SRCCOLUMN2="31 " TYPESRC_LENG="30 " TYPESRC="tt_list type table of t_list
+"/>
+  <publicSection>*----------------------------------------------------------------------*
+*       CLASS ZAB_MB51_CALL DEFINITION
+*----------------------------------------------------------------------*
+*
+*----------------------------------------------------------------------*
+class ZAB_MB51_CALL definition
+  public
+  final
+  create public .
+
+*&quot;* public components of class ZAB_MB51_CALL
+*&quot;* do not include other source files here!!!
+public section.
+
+  types:
+*--------------------------------------------------------------------*
+* type which is equal or at least have most fields from structure list
+* in program RM07DOCS
+*--------------------------------------------------------------------*
+    begin of t_list,
+         anln1 type  anln1,
+         anln2 type  anln2,
+         aplzl type  cim_count,
+         aufnr type  aufnr,
+         aufpl type  co_aufpl,
+         bktxt type  bktxt,
+         bpmng type  bpmng,
+         bprme type  bbprm,
+         bstme type  bstme,
+         bstmg type  mb_bstmg,
+         budat type  budat,
+         budat_mkpf  type  budat,
+         bukrs type  bukrs,
+         bwart type  bwart,
+         bwtar type  bwtar_d,
+         charg type  charg_d,
+         cpudt type  cpudt,
+         cpudt_mkpf  type  cpudt,
+         cputm type  cputm,
+         cputm_mkpf  type  cputm,
+         dmbtr type  dmbtr,
+         ebeln type  bstnr,
+         ebelp type  ebelp,
+         erfme type  erfme,
+         erfmg type  erfmg,
+         exbwr type  exbwr,
+         exvkw type  exvkw,
+         grund type  mb_grbew,
+         insmk type  mb_insmk,
+         kdauf type  kdauf,
+         kdein type  kdein,
+         kdpos type  kdpos,
+         kostl type  kostl,
+         kunnr type  ekunn,
+         kzbew type  kzbew,
+         kzvbr type  kzvbr,
+         kzzug type  kzzug,
+         lgort type  lgort_d,
+         lifnr type  elifn,
+         matnr type  matnr,
+         mblnr type  mblnr,
+         meins type  meins,
+         menge type  menge_d,
+         mjahr type  mjahr,
+         nplnr type  nplnr,
+         ps_psp_pnr  type  ps_psp_pnr,
+         rsnum type  rsnum,
+         rspos type  rspos,
+         sakto type  saknr,
+         sgtxt type  sgtxt,
+         shkzg type  shkzg,
+         sobkz type  sobkz,
+         umlgo type  umlgo,
+         umwrk type  umwrk,
+         usnam type  usnam,
+         usnam_mkpf  type  usnam,
+         vgart type  vgart,
+         vgart_mkpf  type  vgart,
+         vkwrt type  vkwrt,
+         waers type  waers,
+         wempf type  wempf,
+         werks type  werks_d,
+         xauto type  mb_xauto,
+         xblnr type  xblnr,
+         xblnr_mkpf  type  xblnr,
+         zeile type  mblpo,
+         maktx type  maktx,
+         name1 type  name1,
+         btext type  bwtxt,
+         pspid type  ps_posid,
+         vornr type  vornr,
+         longnum type  /sappspro/longnum,
+         matnr_ext type  matnr_ext,
+         color type  slis_t_specialcol_alv ,
+      end of t_list .
+  types:
+    tt_list type table of t_list .
+
+  methods CALL_MB51
+    changing
+      !CT_LIST type STANDARD TABLE .
+  methods CONSTRUCTOR
+    importing
+      !I_PROGNAME type SY-REPID
+      !I_SELTAB type RSPARAMS_TT optional
+      !I_SELECTION_FROM_PROGRAM type C default SPACE .
+  class-methods EXPORT_LIST_TO_MEMORY
+    changing
+      !IT_LIST type ANY TABLE .
+  class-methods CALL_MB51_STATIC
+    importing
+      !I_SELECTION_FROM_PROGRAM type C default SPACE
+      !I_PROGNAME type SY-REPID default SPACE
+    changing
+      !IT_SELTAB type RSPARAMS_TT optional
+      !CT_LIST type STANDARD TABLE .</publicSection>
+  <protectedSection>*&quot;* protected components of class ZAB_MB51_CALL
+*&quot;* do not include other source files here!!!
+protected section.</protectedSection>
+  <privateSection>*&quot;* private components of class ZAB_MB51_CALL
+*&quot;* do not include other source files here!!!
+private section.
+
+  data G_PROGNAME type SY-REPID .
+  data GT_SELTAB type RSPARAMS_TT .
+
+  class-methods GET_SELECTION_SCREEN_CRITERIA
+    importing
+      !I_PROGNAME type SY-REPID
+    changing
+      !IT_SELTAB type RSPARAMS_TT .</privateSection>
+  <localImplementation>*&quot;* local class implementation for public class
+*&quot;* use this source file for the implementation part of
+*&quot;* local helper classes</localImplementation>
+  <localTypes>*&quot;* use this source file for any type declarations (class
+*&quot;* definitions, interfaces or data types) you need for method
+*&quot;* implementation or private method&apos;s signature</localTypes>
+  <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+  <attribute CLSNAME="ZAB_MB51_CALL" CMPNAME="GT_SELTAB" VERSION="1" LANGU="E" DESCRIPT="ABAP: General Structure for PARAMETERS and SELECT-OPTIONS" EXPOSURE="0" STATE="1" EDITORDER="2 " AUTHOR="BCUSER" CREATEDON="20140324" CHANGEDBY="BCUSER" CHANGEDON="20140324" ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="RSPARAMS_TT" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="ZAB_MB51_CALL" CMPNAME="G_PROGNAME" VERSION="1" LANGU="E" EXPOSURE="0" STATE="1" EDITORDER="1 " AUTHOR="BCUSER" CREATEDON="20140324" CHANGEDBY="BCUSER" CHANGEDON="20140324" ATTDECLTYP="0" ATTEXPVIRT="0" TYPTYPE="1" TYPE="SY-REPID" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " TYPESRC_LENG="0 "/>
+  <method CLSNAME="ZAB_MB51_CALL" CMPNAME="CALL_MB51" VERSION="1" LANGU="E" DESCRIPT="Calls MB51 with selection parameters &amp; returns results" EXPOSURE="2" STATE="1" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20140324" CHANGEDBY="BCUSER" CHANGEDON="20140328" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZAB_MB51_CALL" CMPNAME="CALL_MB51" SCONAME="CT_LIST" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20140324" CHANGEDBY="BCUSER" CHANGEDON="20140328" PARDECLTYP="2" PARPASSTYP="1" TYPTYPE="1" TYPE="STANDARD TABLE"/>
+   <source>method CALL_MB51.
+  field-symbols: &lt;list&gt; type any,
+                 &lt;expt&gt; type standard table,
+                 &lt;expl&gt; type any.
+  data: m_flag type c value &apos;X&apos;.
+  data: mt_list type tt_list.
+  data: mt_exlist type ref to data.
+  data: ms_exlist type ref to data.
+
+  export no_list from m_flag to memory id &apos;MB51_NOLIST&apos;.
+  export flag from m_flag to memory id  &apos;MB51_FLAG&apos;.
+  export flag from m_flag to memory id &apos;ZMB51_FULLLIST_EXPORT&apos;.
+  submit rm07docs with selection-table gt_seltab and return .
+  import export to mt_list from memory id &apos;ZMB51_FULLLIST_EXPORT&apos;.
+  free memory id &apos;ZMB51_FULLLIST_EXPORT&apos;.
+
+  create data mt_exlist like ct_list.
+  create data ms_exlist like line of ct_list.
+  assign mt_exlist-&gt;* to &lt;expt&gt;.
+  assign ms_exlist-&gt;* to &lt;expl&gt;.
+
+  loop at mt_list assigning &lt;list&gt;.
+    move-corresponding &lt;list&gt; to &lt;expl&gt;.
+    append &lt;expl&gt; to ct_list.&quot;&lt;expt&gt;.
+    clear &lt;expl&gt;.
+    delete table mt_list from &lt;list&gt;.
+  endloop.
+
+&quot;  ct_list[] = &lt;expt&gt;.
+  free: mt_list[], m_flag.
+
+endmethod.</source>
+  </method>
+  <method CLSNAME="ZAB_MB51_CALL" CMPNAME="CALL_MB51_STATIC" VERSION="1" LANGU="E" DESCRIPT="static call of MB51 in one shot" EXPOSURE="2" STATE="1" EDITORDER="4 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20140324" CHANGEDBY="BCUSER" CHANGEDON="20140328" MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZAB_MB51_CALL" CMPNAME="CALL_MB51_STATIC" SCONAME="I_SELECTION_FROM_PROGRAM" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20140324" CHANGEDBY="BCUSER" CHANGEDON="20140328" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="C" PARVALUE="SPACE"/>
+   <parameter CLSNAME="ZAB_MB51_CALL" CMPNAME="CALL_MB51_STATIC" SCONAME="I_PROGNAME" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20140324" CHANGEDBY="BCUSER" CHANGEDON="20140328" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SY-REPID" PARVALUE="SPACE"/>
+   <parameter CLSNAME="ZAB_MB51_CALL" CMPNAME="CALL_MB51_STATIC" SCONAME="IT_SELTAB" VERSION="1" LANGU="E" DESCRIPT="rsparams Table" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20140324" CHANGEDBY="BCUSER" CHANGEDON="20140328" PARDECLTYP="2" PARPASSTYP="1" TYPTYPE="1" TYPE="RSPARAMS_TT" PAROPTIONL="X"/>
+   <parameter CLSNAME="ZAB_MB51_CALL" CMPNAME="CALL_MB51_STATIC" SCONAME="CT_LIST" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20140324" CHANGEDBY="BCUSER" CHANGEDON="20140328" PARDECLTYP="2" PARPASSTYP="1" TYPTYPE="1" TYPE="STANDARD TABLE"/>
+   <source>method call_mb51_static.
+  field-symbols: &lt;list&gt; type any,
+  &lt;expt&gt; type standard table,
+  &lt;expl&gt; type any.
+  data: m_flag type c value &apos;X&apos;.
+  data: mt_list type tt_list.
+  data: mt_exlist type ref to data.
+  data: ms_exlist type ref to data.
+
+  if i_selection_from_program ne space and i_progname ne space.
+    call method zab_mb51_call=&gt;get_selection_screen_criteria(
+      exporting
+        i_progname = i_progname
+      changing
+        it_seltab  = it_seltab[]
+                     ).
+  endif.
+
+
+  export no_list from m_flag to memory id &apos;MB51_NOLIST&apos;.
+  export flag from m_flag to memory id  &apos;MB51_FLAG&apos;.
+  export flag from m_flag to memory id &apos;ZMB51_FULLLIST_EXPORT&apos;.
+  submit rm07docs with selection-table it_seltab and return .
+  import export to mt_list from memory id &apos;ZMB51_FULLLIST_EXPORT&apos;.
+  free memory id &apos;ZMB51_FULLLIST_EXPORT&apos;.
+
+  create data mt_exlist like ct_list.
+  create data ms_exlist like line of ct_list.
+  assign mt_exlist-&gt;* to &lt;expt&gt;.
+  assign ms_exlist-&gt;* to &lt;expl&gt;.
+
+  loop at mt_list assigning &lt;list&gt;.
+    move-corresponding &lt;list&gt; to &lt;expl&gt;.
+    append &lt;expl&gt; to ct_list.&quot;&lt;expt&gt;.
+    clear &lt;expl&gt;.
+    delete table mt_list from &lt;list&gt;.
+  endloop.
+
+  &quot;  ct_list[] = &lt;expt&gt;.
+  free: mt_list[], m_flag.
+endmethod.</source>
+  </method>
+  <method CLSNAME="ZAB_MB51_CALL" CMPNAME="CONSTRUCTOR" VERSION="1" LANGU="E" DESCRIPT="CONSTRUCTOR" EXPOSURE="2" STATE="1" EDITORDER="2 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20140324" CHANGEDBY="BCUSER" CHANGEDON="20140328" MTDTYPE="2" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZAB_MB51_CALL" CMPNAME="CONSTRUCTOR" SCONAME="I_PROGNAME" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="2" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20140324" CHANGEDBY="BCUSER" CHANGEDON="20140328" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SY-REPID"/>
+   <parameter CLSNAME="ZAB_MB51_CALL" CMPNAME="CONSTRUCTOR" SCONAME="I_SELTAB" VERSION="1" LANGU="E" DESCRIPT="ABAP: General Structure for PARAMETERS and SELECT-OPTIONS" CMPTYPE="1" MTDTYPE="2" EDITORDER="2 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20140324" CHANGEDBY="BCUSER" CHANGEDON="20140328" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="RSPARAMS_TT" PAROPTIONL="X"/>
+   <parameter CLSNAME="ZAB_MB51_CALL" CMPNAME="CONSTRUCTOR" SCONAME="I_SELECTION_FROM_PROGRAM" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="2" EDITORDER="3 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20140324" CHANGEDBY="BCUSER" CHANGEDON="20140328" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="C" PARVALUE="SPACE"/>
+   <source>method CONSTRUCTOR.
+  g_progname = i_progname.
+  if i_selection_from_program ne space.
+
+    me-&gt;get_selection_screen_criteria(
+      exporting
+        i_progname = g_progname
+      changing
+        it_seltab  = gt_seltab[]
+           ).
+  else.
+    gt_seltab[] = i_seltab[].
+  endif.
+
+endmethod.</source>
+  </method>
+  <method CLSNAME="ZAB_MB51_CALL" CMPNAME="EXPORT_LIST_TO_MEMORY" VERSION="1" LANGU="E" DESCRIPT="Exports MB51 list to memory" EXPOSURE="2" STATE="1" EDITORDER="3 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20140324" CHANGEDBY="BCUSER" CHANGEDON="20140328" MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZAB_MB51_CALL" CMPNAME="EXPORT_LIST_TO_MEMORY" SCONAME="IT_LIST" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20140324" CHANGEDBY="BCUSER" CHANGEDON="20140328" PARDECLTYP="2" PARPASSTYP="1" TYPTYPE="1" TYPE="ANY TABLE"/>
+   <source>method EXPORT_LIST_TO_MEMORY.
+  field-symbols: &lt;list&gt; type any,
+                 &lt;comp&gt; type any.
+  data: ms_list type t_list.
+  data: mt_list type tt_list.
+  data: m_flag type c.
+  import flag to m_flag from memory id &apos;ZMB51_FULLLIST_EXPORT&apos;.
+  if m_flag is not initial.
+    check it_list[] is not initial.
+    loop at it_list assigning &lt;list&gt;.
+      move-corresponding &lt;list&gt; to ms_list.
+      delete table it_list from &lt;list&gt;.
+      append ms_list to mt_list.
+    endloop.
+    refresh: it_list[].
+
+    export export from mt_list to memory id &apos;ZMB51_FULLLIST_EXPORT&apos;.
+    refresh: mt_list[].
+    leave program.
+  endif.
+endmethod.</source>
+  </method>
+  <method CLSNAME="ZAB_MB51_CALL" CMPNAME="GET_SELECTION_SCREEN_CRITERIA" VERSION="1" LANGU="E" DESCRIPT="Get selection screen criteria" EXPOSURE="0" STATE="1" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20140324" CHANGEDBY="BCUSER" CHANGEDON="20140324" MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZAB_MB51_CALL" CMPNAME="GET_SELECTION_SCREEN_CRITERIA" SCONAME="I_PROGNAME" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20140324" CHANGEDBY="BCUSER" CHANGEDON="20140324" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SY-REPID"/>
+   <parameter CLSNAME="ZAB_MB51_CALL" CMPNAME="GET_SELECTION_SCREEN_CRITERIA" SCONAME="IT_SELTAB" VERSION="1" LANGU="E" DESCRIPT="rsparams Table" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20140324" CHANGEDBY="BCUSER" CHANGEDON="20140324" PARDECLTYP="2" PARPASSTYP="1" TYPTYPE="1" TYPE="RSPARAMS_TT"/>
+   <source>method GET_SELECTION_SCREEN_CRITERIA.
+
+
+    call function &apos;RS_REFRESH_FROM_SELECTOPTIONS&apos;
+    exporting
+      curr_report     = i_progname
+    tables
+      selection_table = it_seltab
+    exceptions
+      not_found       = 1
+      no_report       = 2
+      others          = 3.
+    case sy-subrc.
+    when 0.
+    when 1.
+      &quot;raise not_found.
+    when 2.
+      &quot;raise no_report.
+    when others.
+      &quot;raise other_error.
+    endcase.
+
+
+
+endmethod.</source>
+  </method>
+ </CLAS>
+</nugget>

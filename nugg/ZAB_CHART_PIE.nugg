@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-16"?>
+<nugget name="ZAB_CHART_PIE">
+ <PROG NAME="ZAB_CHART_PIE" VARCL="X" SUBC="1" APPL="*" CNAM="BCUSER" CDAT="20130506" UNAM="BCUSER" UDAT="20130817" VERN="000014" RSTAT="K" RMAND="001" RLOAD="E" FIXPT="X" SDATE="20130818" STIME="105029" IDATE="20130817" ITIME="153255" UCCHECK="X">
+  <textPool>
+   <language SPRAS="E">
+    <textElement ID="R" ENTRY="Program ZAB_CHART_PIE" LENGTH="21 "/>
+   </language>
+  </textPool>
+  <dynpros>
+   <dynpro PROG="ZAB_CHART_PIE" DNUM="0100" FNUM="0100" BZMX="0 " BZBR="0 " MILI="192 " MICO="37 " MALI="0 " MACO="0 " NOLI="39 " NOCO="229 " VALP="0 " CUAN="G" SPRA="E" DGEN="20130506" TGEN="230552" DTEXT="chart">
+    <dynprofield FNAM="CHART_SAMPLE" DIDX="0027" FLG1="00" FLG2="30" FLG3="00" FILL="U" FMB1="30" FMB2="00" LENG="E5" LINE="01" COLN="02" LANF="00" LBLK="00" LREP="00" AUTH="101" AGLT="14" ADEZ="14"/>
+    <dynprofield FNAM="G_OKCODE" DIDX="0000" FLG1="80" FLG2="10" FLG3="00" FMB1="00" FMB2="00" LENG="14" LINE="FF" COLN="01" LTYP="O" LANF="00" LBLK="00" LREP="00" TYPE="CHAR" AGLT="00" ADEZ="00" STXT="____________________"/>
+    <dynproflowsource>process before output.
+  module pbo.
+*
+process after input.
+  module pai.</dynproflowsource>
+   </dynpro>
+  </dynpros>
+  <pfstatus>
+   <pfstatus_sta CODE="STATUS_0100" MODAL="D" ACTCODE="000001" PFKCODE="000001" BUTCODE="0001" INT_NOTE="sample"/>
+   <pfstatus_fun CODE="END" TEXTNO="001" TEXT_TYPE="S" FUN_TEXT="Back"/>
+   <pfstatus_fun CODE="END" TEXTNO="002" TEXT_TYPE="S" FUN_TEXT="Exit"/>
+   <pfstatus_fun CODE="END" TEXTNO="003" TEXT_TYPE="S" TEXT_NAME="ICON_CANCEL" ICON_ID="@0W@" FUN_TEXT="Cancel"/>
+   <pfstatus_pfk CODE="000001" PFNO="03" FUNCODE="END" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="12" FUNCODE="END" FUNNO="003"/>
+   <pfstatus_pfk CODE="000001" PFNO="15" FUNCODE="END" FUNNO="002"/>
+   <pfstatus_set STATUS="STATUS_0100" FUNCTION="END"/>
+   <pfstatus_doc OBJ_TYPE="A" OBJ_CODE="000001" MODAL="D" INT_NOTE="sample"/>
+   <pfstatus_doc OBJ_TYPE="P" OBJ_CODE="000001" MODAL="D" INT_NOTE="sample"/>
+   <pfstatus_doc OBJ_TYPE="B" OBJ_CODE="000001" SUB_CODE="0001" MODAL="D" INT_NOTE="sample"/>
+  </pfstatus>
+  <source>report  zab_chart_pie.
+*--------------------------------------------------------------------*
+* This program was prepared by #ukasz P#giel for presentation purpose
+* at http://abapblog.com .
+* You can use it in your SAP instance without any warranty
+* for non-commercial and commercial  use but you cannot sell it as
+* a full program or a part of it.
+*
+* If you&apos;d like to use it on your own site please contact me before to
+* get the agreement before.
+*
+*--------------------------------------------------------------------*
+
+data: g_okcode type sy-ucomm.
+data: go_abapblog type ref to zcl_abapblog_com.
+data: go_chart type ref to cl_gui_chart_engine.
+data: go_container type ref to cl_gui_custom_container.
+
+
+call screen 0100.
+
+*----------------------------------------------------------------------*
+*  MODULE pbo OUTPUT
+*----------------------------------------------------------------------*
+*
+*----------------------------------------------------------------------*
+module pbo output.
+  set pf-status &apos;STATUS_0100&apos;.
+
+  if go_abapblog is initial.
+    create object go_abapblog.
+
+    go_abapblog-&gt;create_and_init_chart(
+      exporting
+        i_container_name = &apos;CHART_SAMPLE&apos;
+      changing
+        co_chart_engine  =  go_chart
+        co_container     =  go_container
+    ).
+
+  endif.
+endmodule.                    &quot;pbo OUTPUT
+
+
+*----------------------------------------------------------------------*
+*  MODULE pai INPUT
+*----------------------------------------------------------------------*
+*
+*----------------------------------------------------------------------*
+module pai input.
+  if g_okcode eq &apos;END&apos;.
+    leave to screen 0.
+  endif.
+
+endmodule.                    &quot;pai INPUT</source>
+ </PROG>
+</nugget>

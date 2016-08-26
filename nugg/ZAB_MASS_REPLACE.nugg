@@ -1,0 +1,965 @@
+<?xml version="1.0" encoding="utf-8"?>
+<nugget name="ZAB_MASS_REPLACE">
+ <FUGR AREA="ZAB_MASS_REPLACE" SPRAS="E" AREAT="Abapblog.com Mass replace">
+  <functionGroupDocumentation/>
+  <mainprogram NAME="SAPLZAB_MASS_REPLACE" VARCL="X" DBAPL="S" DBNA="D$" SUBC="F" APPL="S" RMAND="100" RLOAD="E" FIXPT="X" LDBNAME="D$S" UCCHECK="X">
+   <textPool>
+    <language SPRAS="E">
+     <textElement ID="I" KEY="L01" ENTRY="Do not save mapping" LENGTH="35 "/>
+     <textElement ID="I" KEY="L02" ENTRY="Save as notification rule" LENGTH="35 "/>
+     <textElement ID="I" KEY="L03" ENTRY="Save as customer rule" LENGTH="35 "/>
+     <textElement ID="I" KEY="L04" ENTRY="Save as global rule" LENGTH="35 "/>
+     <textElement ID="I" KEY="L05" ENTRY="Save as customer hierarchy rule" LENGTH="35 "/>
+     <textElement ID="I" KEY="S01" ENTRY="Replace" LENGTH="50 "/>
+     <textElement ID="I" KEY="S02" ENTRY="with:" LENGTH="15 "/>
+     <textElement ID="I" KEY="S03" ENTRY="Fill" LENGTH="20 "/>
+     <textElement ID="S" KEY="P_PARF01" ENTRY="        From" LENGTH="12 "/>
+     <textElement ID="S" KEY="P_PARF02" ENTRY="        From" LENGTH="12 "/>
+     <textElement ID="S" KEY="P_PARF03" ENTRY="        From" LENGTH="12 "/>
+     <textElement ID="S" KEY="P_PARF04" ENTRY="        From" LENGTH="12 "/>
+     <textElement ID="S" KEY="P_PARF05" ENTRY="        From" LENGTH="12 "/>
+     <textElement ID="S" KEY="P_PARF06" ENTRY="        From" LENGTH="12 "/>
+     <textElement ID="S" KEY="P_PARF07" ENTRY="        From" LENGTH="12 "/>
+     <textElement ID="S" KEY="P_PARF08" ENTRY="        From" LENGTH="12 "/>
+     <textElement ID="S" KEY="P_PARF09" ENTRY="        From" LENGTH="12 "/>
+     <textElement ID="S" KEY="P_PARF10" ENTRY="        From" LENGTH="12 "/>
+     <textElement ID="S" KEY="P_PART01" ENTRY="        To" LENGTH="10 "/>
+     <textElement ID="S" KEY="P_PART02" ENTRY="        To" LENGTH="10 "/>
+     <textElement ID="S" KEY="P_PART03" ENTRY="        To" LENGTH="10 "/>
+     <textElement ID="S" KEY="P_PART04" ENTRY="        To" LENGTH="10 "/>
+     <textElement ID="S" KEY="P_PART05" ENTRY="        To" LENGTH="10 "/>
+     <textElement ID="S" KEY="P_PART06" ENTRY="        To" LENGTH="10 "/>
+     <textElement ID="S" KEY="P_PART07" ENTRY="        To" LENGTH="10 "/>
+     <textElement ID="S" KEY="P_PART08" ENTRY="        To" LENGTH="10 "/>
+     <textElement ID="S" KEY="P_PART09" ENTRY="        To" LENGTH="10 "/>
+     <textElement ID="S" KEY="P_PART10" ENTRY="        To" LENGTH="10 "/>
+    </language>
+   </textPool>
+   <dynpros>
+    <dynpro PROG="SAPLZAB_MASS_REPLACE" DNUM="0501" TYPE="M" FNUM="0000" BZMX="0 " BZBR="0 " MILI="192 " MICO="37 " MALI="0 " MACO="0 " NOLI="19 " NOCO="70 " VALP="0 " CUAN="G" SPRA="E" DTEXT="Popup with ALV GRID and multiple selections">
+     <dynprofield FNAM="G_POPUP_QUESTION" DIDX="0000" FLG1="80" FLG2="00" FLG3="80" FMB1="33" FMB2="00" LENG="46" LINE="01" COLN="02" LANF="00" LBLK="00" LREP="00" TYPE="CHAR" ITYP="C" AGLT="00" ADEZ="00" STXT="______________________________________________________________________"/>
+     <dynprofield FNAM="CC_GRID_POPUP" DIDX="0012" FLG1="00" FLG2="30" FLG3="00" FILL="U" FMB1="30" FMB2="00" LENG="46" LINE="02" COLN="02" LANF="00" LBLK="00" LREP="00" AUTH="101" AGLT="05" ADEZ="05"/>
+     <dynprofield FNAM="G_OKCODE" DIDX="0000" FLG1="80" FLG2="10" FLG3="00" FMB1="00" FMB2="00" LENG="14" LINE="FF" COLN="01" LTYP="O" LANF="00" LBLK="00" LREP="00" TYPE="CHAR" AGLT="00" ADEZ="00" STXT="____________________"/>
+     <dynproflowsource>process before output.
+  module pbo_0501.
+*
+process after input.
+  module pai_0501.</dynproflowsource>
+    </dynpro>
+   </dynpros>
+   <pfstatus>
+    <pfstatus_sta CODE="STATUS_0501" MODAL="P" PFKCODE="000002" BUTCODE="0001" INT_NOTE="Status 0501"/>
+    <pfstatus_fun CODE="CANCEL" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_CANCEL" ICON_ID="@0W@" FUN_TEXT="Cancel" PATH="A"/>
+    <pfstatus_fun CODE="ENTER" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_OKAY" ICON_ID="@0V@" FUN_TEXT="Continue"/>
+    <pfstatus_but PFK_CODE="000001" CODE="0001" NO="01" PFNO="00"/>
+    <pfstatus_but PFK_CODE="000001" CODE="0001" NO="02" PFNO="12"/>
+    <pfstatus_but PFK_CODE="000002" CODE="0001" NO="01" PFNO="00"/>
+    <pfstatus_but PFK_CODE="000002" CODE="0001" NO="02" PFNO="12"/>
+    <pfstatus_pfk CODE="000001" PFNO="00" FUNCODE="ENTER" FUNNO="001"/>
+    <pfstatus_pfk CODE="000001" PFNO="12" FUNCODE="CANCEL" FUNNO="001"/>
+    <pfstatus_pfk CODE="000002" PFNO="00" FUNCODE="ENTER" FUNNO="001"/>
+    <pfstatus_pfk CODE="000002" PFNO="12" FUNCODE="CANCEL" FUNNO="001"/>
+    <pfstatus_set STATUS="STATUS_0501" FUNCTION="CANCEL"/>
+    <pfstatus_set STATUS="STATUS_0501" FUNCTION="ENTER"/>
+    <pfstatus_doc OBJ_TYPE="P" OBJ_CODE="000001" MODAL="P" INT_NOTE="Selection Screen 1001 status"/>
+    <pfstatus_doc OBJ_TYPE="B" OBJ_CODE="000001" SUB_CODE="0001" MODAL="P" INT_NOTE="Selection Screen 1001 status"/>
+    <pfstatus_doc OBJ_TYPE="P" OBJ_CODE="000002" MODAL="P" INT_NOTE="Status 0501"/>
+    <pfstatus_doc OBJ_TYPE="B" OBJ_CODE="000002" SUB_CODE="0001" MODAL="P" INT_NOTE="Status 0501"/>
+    <pfstatus_tit CODE="TITLE_0501" TEXT="Popup Window"/>
+   </pfstatus>
+   <source>*******************************************************************
+*   System-defined Include-files.                                 *
+*******************************************************************
+  INCLUDE LZAB_MASS_REPLACETOP.                      &quot; Global Data
+  INCLUDE LZAB_MASS_REPLACEUXX.                      &quot; Function Modules
+
+*******************************************************************
+*   User-defined Include-files (if necessary).                    *
+*******************************************************************
+* INCLUDE LZSDF_ADVF...                      &quot; Subprograms
+* INCLUDE LZSDF_ADVO...                      &quot; PBO-Modules
+* INCLUDE LZSDF_ADVI...                      &quot; PAI-Modules
+
+INCLUDE LZAB_MASS_REPLACEF01.
+*INCLUDE LZSDF_ADVF01.
+
+INCLUDE LZAB_MASS_REPLACEF02.
+*INCLUDE LZSDF_ADVF02.</source>
+  </mainprogram>
+  <includeprograms>
+   <include NAME="LZAB_MASS_REPLACEF01" VARCL="X" SUBC="I" APPL="S" LEVL="731" RMAND="100" RLOAD="E" UCCHECK="X">
+    <include_source>*&amp;---------------------------------------------------------------------*
+*&amp;      Form  set_ss_status
+*&amp;---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+form set_ss_status.
+  data: ft_exclude type standard table of rsexfcode.
+  data: fs_exclude like line of ft_exclude.
+  if sy-dynnr eq 1001.
+
+    &quot;Exclude functions which are not used from modal SS
+    fs_exclude-fcode = &apos;GET&apos;.
+    append fs_exclude to ft_exclude.
+    fs_exclude-fcode = &apos;SPOS&apos;.
+    append fs_exclude to ft_exclude.
+    fs_exclude-fcode = &apos;NONE&apos;.
+    append fs_exclude to ft_exclude.
+
+
+    call function &apos;RS_SET_SELSCREEN_STATUS&apos;
+      exporting
+        p_status  = space
+        p_program = sy-repid
+      tables
+        p_exclude = ft_exclude.
+
+
+  endif.
+
+endform.                    &quot;set_ss_status
+
+*&amp;---------------------------------------------------------------------*
+*&amp;      Form  ss1001_call_end
+*&amp;---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+*      --&gt;TASKNAME   text
+*----------------------------------------------------------------------*
+form ss1001_call_end using taskname.
+
+  receive results from function &apos;Z_AB_CALL_SS_1001&apos;
+  importing
+    et_rsparams       = gt_rsparams.
+
+  g_wait = space.
+
+endform.                    &quot;ss1001_call_end</include_source>
+   </include>
+   <include NAME="LZAB_MASS_REPLACEF02" VARCL="X" SUBC="I" APPL="S" LEVL="731" RMAND="100" RLOAD="E" UCCHECK="X">
+    <include_source>*&amp;---------------------------------------------------------------------*
+*&amp;  Include           LZSDF_ADVF02
+*&amp;---------------------------------------------------------------------*
+
+module pbo_0501 output.
+  set pf-status &apos;STATUS_0501&apos;.
+  set titlebar  &apos;TITLE_0501&apos;.
+
+  create object go_popup_custom_cont
+  exporting
+*    parent                      = i_parent_container
+    container_name              = c_ccname_grid_popup
+*    style                       = style
+*    lifetime                    = lifetime_default
+*    repid                       = repid
+*    dynnr                       = dynnr
+*    no_autodef_progid_dynnr     = no_autodef_progid_dynnr
+  exceptions
+    cntl_error                  = 1
+    cntl_system_error           = 2
+    create_error                = 3
+    lifetime_error              = 4
+    lifetime_dynpro_dynpro_link = 5
+    others                      = 6
+    .
+  if sy-subrc eq 0.
+  endif.
+
+  gs_popup_variant-report         = sy-repid.
+  gs_popup_layout-zebra           = abap_true.
+  gs_popup_layout-no_toolbar      = abap_true.
+  gs_popup_layout-cwidth_opt      = abap_true.
+  gs_popup_layout-sel_mode        = &apos;C&apos;.
+
+  create object go_popup_grid
+  exporting
+*      i_shellstyle      = 0
+*      i_lifetime        = i_lifetime
+    i_parent          = go_popup_custom_cont
+*      i_appl_events     = space
+*      i_parentdbg       = i_parentdbg
+*    i_applogparent    = i_applog_container
+*      i_graphicsparent  = i_graphicsparent
+*      i_name            = i_name
+*      i_fcat_complete   = SPACE
+  exceptions
+    error_cntl_create = 1
+    error_cntl_init   = 2
+    error_cntl_link   = 3
+    error_dp_create   = 4
+    others            = 5
+    .
+  if sy-subrc eq 0.
+
+    go_popup_grid-&gt;set_table_for_first_display(
+    exporting
+*      i_buffer_active               = i_buffer_active
+*      i_bypassing_buffer            = i_bypassing_buffer
+*      i_consistency_check           = i_consistency_check
+*      i_structure_name              = i_structure_name
+      is_variant                    = gs_popup_variant
+      i_save                        = space
+*      i_default                     = &apos;X&apos;
+      is_layout                     = gs_popup_layout
+*      is_print                      = is_print
+*      it_special_groups             = it_special_groups
+*      it_toolbar_excluding          = gt_toolbar_excluding
+*      it_hyperlink                  = it_hyperlink
+*      it_alv_graphics               = it_alv_graphics
+*      it_except_qinfo               = it_except_qinfo
+*      ir_salv_adapter               = ir_salv_adapter
+    changing
+      it_outtab                     = &lt;gt_popup_outtab&gt;
+      it_fieldcatalog               = gt_popup_fcat
+*        it_sort                       = gt_sort
+*        it_filter                     = gt_filter
+    exceptions
+      invalid_parameter_combination = 1
+      program_error                 = 2
+      too_many_lines                = 3
+      others                        = 4
+      ).
+    if sy-subrc &lt;&gt; 0.
+      message id sy-msgid type sy-msgty number sy-msgno
+      with sy-msgv1 sy-msgv2 sy-msgv3 sy-msgv4.
+    else.
+      call method go_popup_grid-&gt;set_ready_for_input
+        exporting
+          i_ready_for_input = 1.
+    endif.
+
+  endif.
+endmodule.                    &quot;pbo_0501 OUTPUT
+
+*----------------------------------------------------------------------*
+*  MODULE pai_0501 INPUT
+*----------------------------------------------------------------------*
+*
+*----------------------------------------------------------------------*
+module pai_0501 input.
+  case g_okcode.
+    when &apos;ENTER&apos;.
+      leave screen.
+    when &apos;CANCEL&apos;.
+      leave screen.
+  endcase.
+endmodule.                    &quot;pai_0501 INPUT
+
+*----------------------------------------------------------------------*</include_source>
+   </include>
+   <include NAME="LZAB_MASS_REPLACETOP" VARCL="X" DBAPL="S" DBNA="D$" SUBC="I" APPL="S" RMAND="001" FIXPT="X" LDBNAME="D$S" UCCHECK="X">
+    <include_source>function-pool zab_mass_replace.
+
+data: g_par01_type type char255.
+data: g_par02_type type char255.
+data: g_par03_type type char255.
+data: g_par04_type type char255.
+data: g_par05_type type char255.
+data: g_par06_type type char255.
+data: g_par07_type type char255.
+data: g_par08_type type char255.
+data: g_par09_type type char255.
+data: g_par10_type type char255.
+data: g_wait type c.
+data: gt_rsparams type rsparams_tt.
+data: gt_fcat_mass type lvc_t_fcat.
+data: gt_mass_sel_columns type lvc_t_col.
+data: g_fieldname type string.
+data: g_okcode type sy-ucomm.
+field-symbols: &lt;fcat&gt; type lvc_s_fcat.
+field-symbols: &lt;any&gt; type any.
+
+
+
+constants: c_ccname_grid_popup type scrfname value &apos;CC_GRID_POPUP&apos;.
+data: go_popup_custom_cont      type ref to cl_gui_custom_container.
+data: go_popup_grid             type ref to cl_gui_alv_grid.
+data: gs_popup_layout           type lvc_s_layo.
+data: gs_popup_variant          type disvariant.
+data: gt_popup_fcat             type lvc_t_fcat.
+data: g_popup_question          type char70.
+field-symbols: &lt;gt_popup_outtab&gt; type standard table.
+
+
+
+define add_param_descr.
+  concatenate &apos;P_DESC&apos; &amp;1 into g_fieldname.
+  assign (g_fieldname) to &lt;any&gt;.
+  if sy-subrc eq 0.
+    &lt;any&gt; = &amp;2.
+  endif.
+  concatenate &apos;P_WITH&apos; &amp;1 into g_fieldname.
+  assign (g_fieldname) to &lt;any&gt;.
+  if sy-subrc eq 0.
+    &lt;any&gt; = text-s02.
+  endif.
+  concatenate &apos;P_CLEA&apos; &amp;1 into g_fieldname.
+  assign (g_fieldname) to &lt;any&gt;.
+  if sy-subrc eq 0.
+    &lt;any&gt; = text-s03.
+  endif.
+end-of-definition.
+
+define change_parametr_type.
+  data: f_type type string.
+  concatenate &apos;G_PAR&apos; &amp;1 &apos;_TYPE&apos; into g_fieldname.
+  concatenate &amp;2 &apos;-&apos; &amp;3 into f_type.
+  assign (g_fieldname) to &lt;any&gt;.
+  if sy-subrc eq 0.
+    &lt;any&gt; = f_type.
+  endif.
+end-of-definition.
+
+
+*--------------------------------------------------------------------*
+* begin of selection screens
+*--
+define add_ss_line.
+  selection-screen begin of line.
+  selection-screen comment 1(14) p_clea&amp;1.
+  parameters: p_parc&amp;1 as checkbox user-command p_parc&amp;1.
+  selection-screen comment 18(10) p_desc&amp;1.
+  parameters: p_parf&amp;1 like (g_par&amp;1_type) lower case.
+  selection-screen comment 77(6) p_with&amp;1.
+  parameters: p_part&amp;1 like (g_par&amp;1_type) lower case.
+
+  &quot;selection-screen comment 51(10) p_with&amp;1.
+  selection-screen end of line.
+end-of-definition.
+
+
+
+&quot;mass replace ss
+selection-screen begin of screen 1001.
+add_ss_line: 01, 02, 03, 04, 05, 06, 07, 08, 09, 10.
+selection-screen end of screen 1001.
+
+
+
+at selection-screen output.
+  if sy-dynnr eq 1001.
+    perform set_ss_status.
+    loop at screen.
+      if screen-name cp &apos;*P_*01*&apos; and g_par01_type is initial.
+        clear: p_parf01, p_part01.
+        screen-active = 0.
+        modify screen.
+      endif.
+      if screen-name cp &apos;*P_*02*&apos; and g_par02_type is initial.
+        clear: p_parf02, p_part02.
+        screen-active = 0.
+        modify screen.
+      endif.
+      if screen-name cp &apos;*P_*03*&apos; and g_par03_type is initial.
+        clear: p_parf03, p_part03.
+        screen-active = 0.
+        modify screen.
+      endif.
+      if screen-name cp &apos;*P_*04*&apos; and g_par04_type is initial.
+        clear: p_parf04, p_part04.
+        screen-active = 0.
+        modify screen.
+      endif.
+      if screen-name cp &apos;*P_*05*&apos; and g_par05_type is initial.
+        clear: p_parf05, p_part05.
+        screen-active = 0.
+        modify screen.
+      endif.
+      if screen-name cp &apos;*P_*06*&apos; and g_par06_type is initial.
+        clear: p_parf06, p_part06.
+        screen-active = 0.
+        modify screen.
+      endif.
+      if screen-name cp &apos;*P_*07*&apos; and g_par07_type is initial.
+        clear: p_parf07, p_part07.
+        screen-active = 0.
+        modify screen.
+      endif.
+      if screen-name cp &apos;*P_*08*&apos; and g_par08_type is initial.
+        clear: p_parf08, p_part08.
+        screen-active = 0.
+        modify screen.
+      endif.
+      if screen-name cp &apos;*P_*09*&apos; and g_par09_type is initial.
+        clear: p_parf09, p_part09.
+        screen-active = 0.
+        modify screen.
+      endif.
+      if screen-name cp &apos;*P_*10*&apos; and g_par10_type is initial.
+        clear: p_parf10, p_part10.
+        screen-active = 0.
+        modify screen.
+      endif.
+      if screen-name+0(6) eq &apos;P_PARF&apos;. &quot; and screen-name+6(2) eq g_okcode+6(2) and g_okcode+6(2).
+        concatenate &apos;P_PARC&apos; screen-name+6(2) into g_fieldname.
+        assign (g_fieldname) to &lt;any&gt;.
+        if sy-subrc eq 0 and &lt;any&gt; is not initial.
+          assign (screen-name) to &lt;any&gt;.
+          if sy-subrc eq 0.
+            clear &lt;any&gt;.
+          endif.
+          screen-input = 0.
+          modify screen.
+        elseif sy-subrc eq 0.
+          screen-input = 1.
+          modify screen.
+        endif.
+      endif.
+    endloop.
+  endif.
+
+
+  if sy-dynnr eq 1001.
+    g_okcode = sy-ucomm.
+    clear sy-ucomm.
+    case g_okcode.
+      when &apos;ENTER&apos;.
+        &quot; return.
+
+      when &apos;CANCEL&apos;.
+        clear: p_parf01, p_parf02, p_parf03, p_parf04, p_parf05, p_parf06, p_parf07, p_parf08, p_parf09, p_parf10,
+        p_part01, p_part02, p_part03, p_part04, p_part05, p_part06, p_part07, p_part08, p_part09, p_part10
+        &quot;p_save
+        .
+        &quot;return.
+      when &apos;P_PARC01&apos; or &apos;P_PARC02&apos; or &apos;P_PARC03&apos; or &apos;P_PARC04&apos; or &apos;P_PARC05&apos; or &apos;P_PARC06&apos; or &apos;P_PARC07&apos; or &apos;P_PARC08&apos; or
+      &apos;P_PARC09&apos; or &apos;P_PARC10&apos;.
+
+    endcase.
+  endif.
+
+
+
+*--
+* end of selection screens
+*--------------------------------------------------------------------*</include_source>
+   </include>
+  </includeprograms>
+  <functionmodules>
+   <functionmodule NAME="Z_AB_MASS_REPLACE_ALV" STEXT="ALV Mass replace function">
+    <importing PARAMETER="IO_GRID" REFERENCE="X" TYP="REF TO CL_GUI_ALV_GRID" REF_CLASS="X"/>
+    <changing PARAMETER="CT_OUTTAB" REFERENCE="X" TYP="STANDARD TABLE"/>
+    <documentation PARAMETER="IO_GRID" KIND="P" STEXT="ALV List Viewer" INDEX=" 001"/>
+    <documentation PARAMETER="CT_OUTTAB" KIND="P" INDEX=" 002"/>
+    <fm_source_new>data: ft_rsparams type rsparams_tt.
+  data: f_lines type i.
+  data: f_num(2) type n.
+  data: f_index type i.
+  data: f_field type string.
+  data: f_changed type flag.
+  data: f_tabix type i.
+  data: ft_filtered type lvc_t_fidx.
+  data: ft_selected_rows type lvc_t_roid.
+  data: fs_layout type lvc_s_layo.
+  data: f_space like line of ft_rsparams.
+  field-symbols: &lt;paramsf&gt; like line of ft_rsparams.
+  field-symbols: &lt;paramst&gt; like line of ft_rsparams.
+  field-symbols: &lt;paramsc&gt; like line of ft_rsparams.
+  field-symbols: &lt;params_save&gt; like line of ft_rsparams.
+  field-symbols: &lt;outtab&gt; type any table.
+  field-symbols: &lt;outtab_ref&gt; type any table.
+  field-symbols: &lt;out&gt; type any.
+  field-symbols: &lt;col&gt; like line of gt_mass_sel_columns.
+  field-symbols: &lt;value&gt; type lvc_s_modi-value.
+  field-symbols: &lt;stylet&gt; type lvc_t_styl.
+  field-symbols: &lt;style&gt; type lvc_s_styl.
+
+
+  if io_grid-&gt;is_ready_for_input( ) eq 0.
+    message s001(00) display like &apos;W&apos; with &apos;Grid should be in edit mode in order to use this function!&apos;.
+    return.
+  endif.
+
+  io_grid-&gt;get_frontend_layout(
+    importing
+      es_layout = fs_layout    &quot; Layout
+  ).
+
+  &quot;get fieldcat and selected columns
+  io_grid-&gt;get_frontend_fieldcatalog(
+  importing
+    et_fieldcatalog = gt_fcat_mass[]
+    ).
+
+  io_grid-&gt;get_filtered_entries(
+      importing
+        et_filtered_entries = ft_filtered
+           ).
+
+  io_grid-&gt;get_selected_rows(
+      importing
+*        et_index_rows = et_index_rows    &quot; Indexes of Selected Rows
+        et_row_no     =  ft_selected_rows
+    ).
+
+  io_grid-&gt;get_selected_columns(
+  importing
+    et_index_columns = gt_mass_sel_columns[]
+    ).
+
+  sort ft_selected_rows by row_id.
+
+  &quot;remove not editable fields
+  delete gt_fcat_mass where edit eq abap_false.
+  if gt_fcat_mass[] is initial.
+    message s001(00) display like &apos;W&apos; with &apos;No editable fields in the grid&apos;.
+    return.
+  endif.
+  sort gt_fcat_mass by fieldname.
+
+  loop at gt_mass_sel_columns assigning &lt;col&gt;.
+    f_tabix = sy-tabix.
+    read table gt_fcat_mass with key fieldname = &lt;col&gt;-fieldname transporting no fields binary search.
+    if sy-subrc ne 0.
+      delete gt_mass_sel_columns index f_tabix.
+    endif.
+  endloop.
+  if sy-subrc eq 0.
+    if gt_mass_sel_columns[] is initial.
+      message s001(00) display like &apos;W&apos; with &apos;Please select editable fields only&apos;.
+      return.
+    endif.
+  endif.
+
+
+
+
+  if gt_mass_sel_columns[] is initial.
+    message s001(00) display like &apos;W&apos; with &apos;Please select at least one column!&apos;.
+    return.
+  endif.
+  describe table gt_mass_sel_columns lines f_lines.
+  if f_lines gt 10.
+    message s001(00) display like &apos;W&apos; with &apos;Maximum number of columns in mass change function is 10&apos;.
+    return.
+  endif.
+
+  loop at gt_mass_sel_columns[] assigning &lt;col&gt;.
+    data f_fieldname type string.
+    concatenate &apos;G_&apos; &lt;col&gt;-fieldname into f_fieldname.
+    assign (f_fieldname) to &lt;any&gt;.
+    if sy-subrc eq 0.
+      &lt;any&gt; = &apos;X&apos;.
+      read table gt_fcat_mass with key fieldname = &lt;col&gt;-fieldname assigning &lt;fcat&gt; binary search.
+      if sy-subrc eq 0.
+        concatenate &apos;PD&apos; &lt;col&gt;-fieldname into f_fieldname.
+        assign (f_fieldname) to &lt;any&gt;.
+        if sy-subrc eq 0.
+          &lt;any&gt; = &lt;fcat&gt;-scrtext_s.
+        endif.
+      endif.
+    endif.
+  endloop.
+
+
+  refresh gt_rsparams[].
+  sort gt_fcat_mass by col_pos.
+  call function &apos;RM_FREE_SESSION_CHECK&apos;
+    exceptions
+      no_free_session = 1
+      others          = 2.
+  if sy-subrc eq 0.
+    g_wait = abap_true.
+    call function &apos;Z_AB_CALL_SS_1001&apos;
+      destination &apos;NONE&apos;
+      starting new task &apos;ZABMASSR&apos;
+      performing ss1001_call_end on end of task
+      exporting
+        it_mass_sel_columns = gt_mass_sel_columns
+        it_fcat_mass        = gt_fcat_mass.
+  else.
+    message s001(00) display like &apos;W&apos; with &apos;No more free sessions. Close one window.&apos;.
+    return.
+  endif.
+  wait until g_wait eq space.
+
+  sort gt_rsparams by selname.
+  clear f_num.
+  data: f_row type i.
+  data: ft_delta type lvc_t_modi.
+  data: fs_delta type lvc_s_modi.
+  ft_rsparams[] = gt_rsparams[].
+  sort ft_rsparams by selname.
+  clear f_num.
+  loop at gt_fcat_mass assigning &lt;fcat&gt;.
+    read table gt_mass_sel_columns[] with key fieldname = &lt;fcat&gt;-fieldname transporting no fields.&quot; binary search.
+    if sy-subrc eq 0.
+      add 1 to f_num.
+      concatenate &apos;P_PARC&apos; f_num into f_field.
+      read table ft_rsparams assigning &lt;paramsc&gt; with key selname = f_field binary search.
+      if sy-subrc ne 0.
+        assign f_space to &lt;paramsc&gt;.
+      endif.
+      concatenate &apos;P_PARF&apos; f_num into f_field.
+      read table ft_rsparams assigning &lt;paramsf&gt; with key selname = f_field binary search.
+      if sy-subrc eq 0.
+        concatenate &apos;P_PART&apos; f_num into f_field.
+        read table ft_rsparams assigning &lt;paramst&gt; with key selname = f_field binary search.
+        if sy-subrc eq 0 and ( &lt;paramsf&gt;-low ne &lt;paramst&gt;-low  or &lt;paramsc&gt;-low eq abap_true ).
+          loop at ct_outtab assigning &lt;out&gt;.
+            f_row = sy-tabix.
+            if ft_filtered[] is not initial.
+              read table ft_filtered with key table_line = f_row transporting no fields.
+              if sy-subrc eq 0.
+                continue.
+              endif.
+            endif.
+            if ft_selected_rows[] is not initial.
+              read table ft_selected_rows with key row_id = f_row transporting no fields binary search.
+              if sy-subrc ne 0. &quot;only selected rows can be changed.
+                continue.
+              endif.
+            endif.
+            assign component &lt;fcat&gt;-fieldname of structure &lt;out&gt; to &lt;any&gt;.
+            if sy-subrc eq 0 and ( &lt;any&gt; eq &lt;paramsf&gt;-low or &lt;paramsc&gt;-low eq abap_true ).
+              &quot;check if field is not disabled in row :)
+              if fs_layout-stylefname is not initial.
+                assign component fs_layout-stylefname of structure &lt;out&gt; to &lt;stylet&gt;.
+                if sy-subrc eq 0.
+                  read table &lt;stylet&gt; with key fieldname = &lt;fcat&gt;-fieldname assigning &lt;style&gt;.
+                  if sy-subrc eq 0 and &lt;style&gt;-style eq cl_gui_alv_grid=&gt;mc_style_disabled.
+                    &quot;do not change that cell as it&apos;s not editable.
+                    continue.
+                  endif.
+                endif.
+              endif.
+
+              &lt;any&gt; = &lt;paramst&gt;-low.
+              clear fs_delta.
+              fs_delta-fieldname = &lt;fcat&gt;-fieldname.
+              fs_delta-row_id    = f_row.
+              fs_delta-value = &lt;paramst&gt;-low.
+              append fs_delta to ft_delta.
+
+              f_changed = abap_true.
+            endif.
+          endloop.
+        endif.
+      endif.
+    endif.
+  endloop.
+
+  if f_changed eq abap_true.
+    sy-ucomm = &apos;MASSREPL&apos;.
+    &quot;&lt;outtab_ref&gt; = &lt;outtab&gt;.
+    io_grid-&gt;set_delta_cells(
+      exporting
+        it_delta_cells  = ft_delta    &quot; Delta Table
+        i_modified      = abap_true    &quot; Modified
+        i_frontend_only = abap_true   &quot; Update only at Frontend
+    ).
+    sy-ucomm = space.
+    io_grid-&gt;check_changed_data( ).
+  endif.</fm_source_new>
+    <functionModuleDocumentation/>
+   </functionmodule>
+   <functionmodule NAME="Z_AB_POPUP_GRID_MULTI_SEL" STEXT="Popup with Grid and mulit-selection">
+    <importing PARAMETER="IT_FCAT" TYP="LVC_T_FCAT"/>
+    <importing PARAMETER="I_QUESTION" OPTIONAL="X" TYP="CHAR70"/>
+    <changing PARAMETER="CT_OUTTAB" REFERENCE="X" TYP="STANDARD TABLE"/>
+    <documentation PARAMETER="IT_FCAT" KIND="P" STEXT="Field Catalog for List Viewer Control" INDEX=" 001"/>
+    <documentation PARAMETER="I_QUESTION" KIND="P" STEXT="Character field, length 70" INDEX=" 002"/>
+    <documentation PARAMETER="CT_OUTTAB" KIND="P" INDEX=" 003"/>
+    <fm_source_new>if go_popup_custom_cont is not initial.
+    go_popup_custom_cont-&gt;free(
+      exceptions
+        cntl_error        = 1
+        cntl_system_error = 2
+        others            = 3
+    ).
+    if sy-subrc &lt;&gt; 0.
+*  message id sy-msgid type sy-msgty number sy-msgno
+*             with sy-msgv1 sy-msgv2 sy-msgv3 sy-msgv4.
+    endif.
+  endif.
+
+  field-symbols: &lt;structure&gt; type any.
+  data: ft_row_no type lvc_t_roid .
+  data: ft_table_ref type ref to data.
+  field-symbols: &lt;temptable&gt; type standard table.
+
+  check ct_outtab[] is not initial.
+
+  &quot;to be able to use it in PBO/PAI
+  assign ct_outtab to &lt;gt_popup_outtab&gt;.
+
+  gt_popup_fcat[] = it_fcat[].
+  g_popup_question = i_question.
+
+  call screen 0501 starting at 1 1.
+
+  case g_okcode.
+    when &apos;ENTER&apos;.
+      go_popup_grid-&gt;get_selected_rows(
+        importing
+          &quot;et_index_rows = et_index_rows
+          et_row_no     = ft_row_no
+             ).
+      if ft_row_no[] is initial.
+        refresh ct_outtab[].
+      else.
+        sort ft_row_no by row_id ascending.
+        create data ft_table_ref like ct_outtab.
+        assign ft_table_ref-&gt;* to &lt;temptable&gt;.
+        &lt;temptable&gt;[] = ct_outtab[].
+        loop at &lt;temptable&gt; assigning &lt;structure&gt;.
+          read table ft_row_no with key row_id = sy-tabix binary search transporting no fields.
+          if sy-subrc ne 0.
+            delete ct_outtab index sy-tabix.
+          endif.
+        endloop.
+      endif.
+    when &apos;CANCEL&apos;.
+      refresh ct_outtab[].
+  endcase.
+  clear g_okcode.</fm_source_new>
+    <functionModuleDocumentation/>
+   </functionmodule>
+   <functionmodule NAME="Z_AB_CALL_SS_1001" REMOTE="R" STEXT="Call selection-screen 1001">
+    <importing PARAMETER="IT_MASS_SEL_COLUMNS" TYP="LVC_T_COL"/>
+    <importing PARAMETER="IT_FCAT_MASS" TYP="LVC_T_FCAT"/>
+    <exporting PARAMETER="ET_RSPARAMS" TYP="RSPARAMS_TT"/>
+    <documentation PARAMETER="IT_MASS_SEL_COLUMNS" KIND="P" STEXT="ALV control: Table with rows of type LVC_S_COL" INDEX=" 001"/>
+    <documentation PARAMETER="IT_FCAT_MASS" KIND="P" STEXT="Field Catalog for List Viewer Control" INDEX=" 002"/>
+    <documentation PARAMETER="ET_RSPARAMS" KIND="P" STEXT="rsparams Table" INDEX=" 003"/>
+    <fm_source_new>field-symbols: &lt;col&gt; like line of it_mass_sel_columns.
+  data: ft_mass_sel_columns like it_mass_sel_columns.
+  data: f_num(2) type n.
+
+
+  ft_mass_sel_columns = it_mass_sel_columns.
+  loop at it_fcat_mass assigning &lt;fcat&gt;.
+    read table ft_mass_sel_columns[] with key fieldname = &lt;fcat&gt;-fieldname transporting no fields.
+    if sy-subrc eq 0.
+      add 1 to f_num.
+      add_param_descr: f_num &lt;fcat&gt;-scrtext_s.
+      change_parametr_type: f_num &lt;fcat&gt;-ref_table &lt;fcat&gt;-ref_field.
+    endif.
+  endloop.
+
+  call selection-screen 1001 starting at 1 1.
+
+  call function &apos;RS_REFRESH_FROM_SELECTOPTIONS&apos;
+    exporting
+      curr_report           = sy-repid
+* IMPORTING
+*   SP                    = SP
+    tables
+      selection_table       = et_rsparams
+   exceptions
+     not_found             = 1
+     no_report             = 2
+     others                = 3
+            .
+  if sy-subrc &lt;&gt; 0.
+* MESSAGE ID SY-MSGID TYPE SY-MSGTY NUMBER SY-MSGNO
+*         WITH SY-MSGV1 SY-MSGV2 SY-MSGV3 SY-MSGV4.
+  endif.</fm_source_new>
+    <functionModuleDocumentation/>
+   </functionmodule>
+  </functionmodules>
+ </FUGR>
+ <PROG NAME="ZAB_MASS_REPLACE_DEMO" VARCL="X" SUBC="1" RSTAT="K" RMAND="001" RLOAD="E" FIXPT="X" UCCHECK="X">
+  <textPool>
+   <language SPRAS="E">
+    <textElement ID="R" ENTRY="Program ZAB_MASS_REPLACE_DEMO" LENGTH="29 "/>
+   </language>
+  </textPool>
+  <dynpros>
+   <dynpro PROG="ZAB_MASS_REPLACE_DEMO" DNUM="0100" FNUM="0100" BZMX="0 " BZBR="0 " MILI="192 " MICO="37 " MALI="0 " MACO="0 " NOLI="38 " NOCO="192 " VALP="0 " CUAN="G" SPRA="E" DTEXT="MASS REPLACE DEMO">
+    <dynprofield FNAM="CC_0100" DIDX="0026" FLG1="00" FLG2="30" FLG3="00" FILL="U" FMB1="30" FMB2="00" LENG="BF" LINE="01" COLN="02" LANF="00" LBLK="00" LREP="00" AUTH="101" AGLT="0A" ADEZ="0A"/>
+    <dynprofield FNAM="OK_CODE" DIDX="0000" FLG1="80" FLG2="10" FLG3="00" FMB1="00" FMB2="00" LENG="14" LINE="FF" COLN="01" LTYP="O" LANF="00" LBLK="00" LREP="00" TYPE="CHAR" AGLT="00" ADEZ="00" STXT="____________________"/>
+    <dynproflowsource>PROCESS BEFORE OUTPUT.
+ MODULE STATUS_0100.
+*
+PROCESS AFTER INPUT.
+ MODULE USER_COMMAND_0100.</dynproflowsource>
+   </dynpro>
+  </dynpros>
+  <pfstatus>
+   <pfstatus_sta CODE="STATUS_0100" MODAL="D" ACTCODE="000001" PFKCODE="000001" BUTCODE="0001" INT_NOTE="TEST"/>
+   <pfstatus_fun CODE="BACK" TEXTNO="001" TEXT_TYPE="S" FUN_TEXT="Back"/>
+   <pfstatus_fun CODE="EXIT" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_CANCEL" ICON_ID="@0W@" FUN_TEXT="Cancel"/>
+   <pfstatus_fun CODE="MASS_REPLA" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_MASS_CHANGE" ICON_ID="@HB@" FUN_TEXT="Mass Replace" ICON_TEXT="Mass Replace"/>
+   <pfstatus_fun CODE="POPUP_DEMO" TEXTNO="001" TEXT_TYPE="S" TEXT_NAME="ICON_SYSTEM_MARK" ICON_ID="@2X@" FUN_TEXT="POPUP DEMO" ICON_TEXT="POPUP DEMO"/>
+   <pfstatus_fun CODE="UP" TEXTNO="001" TEXT_TYPE="S" FUN_TEXT="Exit"/>
+   <pfstatus_but PFK_CODE="000001" CODE="0001" NO="01" PFNO="02"/>
+   <pfstatus_but PFK_CODE="000001" CODE="0001" NO="02" PFNO="06"/>
+   <pfstatus_pfk CODE="000001" PFNO="02" FUNCODE="MASS_REPLA" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="03" FUNCODE="BACK" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="06" FUNCODE="POPUP_DEMO" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="12" FUNCODE="EXIT" FUNNO="001"/>
+   <pfstatus_pfk CODE="000001" PFNO="15" FUNCODE="UP" FUNNO="001"/>
+   <pfstatus_set STATUS="STATUS_0100" FUNCTION="BACK"/>
+   <pfstatus_set STATUS="STATUS_0100" FUNCTION="EXIT"/>
+   <pfstatus_set STATUS="STATUS_0100" FUNCTION="MASS_REPLA"/>
+   <pfstatus_set STATUS="STATUS_0100" FUNCTION="POPUP_DEMO"/>
+   <pfstatus_set STATUS="STATUS_0100" FUNCTION="UP"/>
+   <pfstatus_doc OBJ_TYPE="A" OBJ_CODE="000001" MODAL="D" INT_NOTE="TEST"/>
+   <pfstatus_doc OBJ_TYPE="P" OBJ_CODE="000001" MODAL="D" INT_NOTE="TEST"/>
+   <pfstatus_doc OBJ_TYPE="B" OBJ_CODE="000001" SUB_CODE="0001" MODAL="D" INT_NOTE="TEST"/>
+   <pfstatus_tit CODE="TITLE_0100" TEXT="MASS REPLACE DEMO"/>
+  </pfstatus>
+  <source>*&amp;---------------------------------------------------------------------*
+*&amp; Report  ZAB_MASS_REPLACE_DEMO
+*&amp;
+*&amp;---------------------------------------------------------------------*
+*&amp;
+*&amp;
+*&amp;---------------------------------------------------------------------*
+
+report  zab_mass_replace_demo.
+
+
+data: ok_code type sy-ucomm.
+
+data: begin of gs_spfli.
+        include structure spfli.
+data: styles type lvc_t_styl,
+     end of gs_spfli.
+data: gt_spfli like standard table of gs_spfli.
+data: go_cc type ref to cl_gui_custom_container.
+data: go_alv type ref to cl_gui_alv_grid.
+data: gs_layout type lvc_s_layo.
+data: gt_fieldcat type lvc_t_fcat.
+data: g_row type i.
+data: g_field type i.
+data: gs_style type lvc_s_styl.
+field-symbols: &lt;spfli&gt; like gs_spfli.
+field-symbols: &lt;fcat&gt; type lvc_s_fcat.
+
+select * up to 250 rows into corresponding fields of table gt_spfli
+  from spfli.
+
+call function &apos;LVC_FIELDCATALOG_MERGE&apos;
+  exporting
+*   i_buffer_active        = i_buffer_active    &quot; Buffer active
+    i_structure_name       = &apos;SPFLI&apos; &quot; Structure name (structure, table, view)
+*   i_client_never_display = &apos;X&apos; &quot; Hide client fields
+    i_bypassing_buffer     = abap_true    &quot; Ignore buffer while reading
+*   i_internal_tabname     = i_internal_tabname    &quot; Table Name
+  changing
+    ct_fieldcat            = gt_fieldcat    &quot; Field Catalog with Field Descriptions
+  exceptions
+    inconsistent_interface = 1
+    program_error          = 2
+    others                 = 3.
+if sy-subrc eq 0.
+
+  loop at gt_fieldcat assigning &lt;fcat&gt;.
+    if &lt;fcat&gt;-key is initial.
+      if sy-tabix mod 2 eq 0.
+        &lt;fcat&gt;-edit = abap_true.
+      endif.
+    endif.
+  endloop.
+  loop at gt_spfli assigning &lt;spfli&gt;.
+    g_row = sy-tabix.
+    g_field = 0.
+    loop at gt_fieldcat assigning &lt;fcat&gt; where edit eq abap_true.
+      add 1 to g_field.
+      if ( g_row mod 2 eq 0 ) and ( g_field mod 2 eq 0 ).
+        clear gs_style.
+        gs_style-fieldname = &lt;fcat&gt;-fieldname.
+        gs_style-style = cl_gui_alv_grid=&gt;mc_style_disabled.
+        insert gs_style into table &lt;spfli&gt;-styles.
+      endif.
+    endloop.
+  endloop.
+
+endif.
+
+
+call screen 0100.
+
+module status_0100 output.
+  set pf-status &apos;STATUS_0100&apos;.
+  set titlebar &apos;TITLE_0100&apos;.
+  if go_cc is initial.
+
+    create object go_cc
+      exporting
+        container_name              = &apos;CC_0100&apos;
+      exceptions
+        cntl_error                  = 1
+        cntl_system_error           = 2
+        create_error                = 3
+        lifetime_error              = 4
+        lifetime_dynpro_dynpro_link = 5
+        others                      = 6.
+    if sy-subrc eq 0.
+      create object go_alv
+        exporting
+          i_parent          = go_cc
+        exceptions
+          error_cntl_create = 1
+          error_cntl_init   = 2
+          error_cntl_link   = 3
+          error_dp_create   = 4
+          others            = 5.
+      if sy-subrc eq 0.
+        gs_layout-stylefname = &apos;STYLES&apos;.
+        go_alv-&gt;set_table_for_first_display(
+          exporting
+            i_structure_name              = &apos;SPFLI&apos;
+            is_layout                     = gs_layout
+          changing
+            it_outtab                     = gt_spfli
+            it_fieldcatalog               = gt_fieldcat
+          exceptions
+            invalid_parameter_combination = 1
+            program_error                 = 2
+            too_many_lines                = 3
+            others                        = 4
+               ).
+        if sy-subrc eq 0.
+
+          go_alv-&gt;register_edit_event(
+            exporting
+              i_event_id = cl_gui_alv_grid=&gt;mc_evt_modified  &quot; Event ID
+            exceptions
+              error      = 1
+              others     = 2
+          ).
+          if sy-subrc &lt;&gt; 0.
+*           message id sy-msgid type sy-msgty number sy-msgno
+*                      with sy-msgv1 sy-msgv2 sy-msgv3 sy-msgv4.
+          endif.
+        endif.
+      endif.
+    endif.
+  endif.
+
+endmodule.
+
+module user_command_0100 input.
+  case ok_code.
+    when &apos;BACK&apos; or &apos;END&apos; or &apos;EXIT&apos;.
+      leave program.
+    when &apos;MASS_REPLA&apos;.
+      call function &apos;Z_AB_MASS_REPLACE_ALV&apos;
+        exporting
+          io_grid   = go_alv    &quot; ALV List Viewer
+        changing
+          ct_outtab = gt_spfli.    &quot; ALV List Viewer
+    when &apos;POPUP_DEMO&apos;.
+        call function &apos;Z_AB_POPUP_GRID_MULTI_SEL&apos;
+          exporting
+            it_fcat    =  gt_fieldcat
+            i_question =  &apos;Anything to select?&apos;
+          changing
+            ct_outtab  = gt_spfli
+          .
+          go_alv-&gt;refresh_table_display(
+            exceptions
+              finished       = 1
+              others         = 2
+          ).
+          if sy-subrc &lt;&gt; 0.
+*           message id sy-msgid type sy-msgty number sy-msgno
+*                      with sy-msgv1 sy-msgv2 sy-msgv3 sy-msgv4.
+          endif.
+  endcase.
+endmodule.</source>
+ </PROG>
+</nugget>

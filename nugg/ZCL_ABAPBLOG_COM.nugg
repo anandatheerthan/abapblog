@@ -1,0 +1,847 @@
+<?xml version="1.0" encoding="utf-16"?>
+<nugget name="ZCL_ABAPBLOG_COM">
+ <CLAS CLSNAME="ZCL_ABAPBLOG_COM" VERSION="1" LANGU="E" DESCRIPT="ABABblog.com methods" UUID="10BF48847F771ED2ADD12A34BD26C72C" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" AUTHOR="BCUSER" CREATEDON="20130506" CHANGEDON="00000000" CHGDANYON="00000000" CLSCCINCL="X" FIXPT="X" UNICODE="X" R3RELEASE="731" CLSBCCAT="00" DURATION_TYPE="0 " RISK_LEVEL="0 ">
+  <types CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="TT_CLOBJEKTE" VERSION="1" LANGU="E" EXPOSURE="2" STATE="1" EDITORDER="1 " AUTHOR="BCUSER" CREATEDON="20130517" CHANGEDBY="BCUSER" CHANGEDON="20130818" TYPTYPE="4" SRCROW1="13 " SRCCOLUMN1="6 " SRCROW2="13 " SRCCOLUMN2="50 " TYPESRC_LENG="47 " TYPESRC="tt_clobjekte type standard table of clobjekte
+"/>
+  <types CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="TT_RA_SCOMPO_NAME" VERSION="1" LANGU="E" EXPOSURE="2" STATE="1" EDITORDER="2 " AUTHOR="BCUSER" CREATEDON="20130818" CHANGEDBY="BCUSER" CHANGEDON="20130818" TYPTYPE="4" SRCROW1="15 " SRCCOLUMN1="4 " SRCROW2="15 " SRCCOLUMN2="46 " TYPESRC_LENG="45 " TYPESRC="tt_ra_scompo_name type range of scompo-name
+"/>
+  <types CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="T_SCOMPO_NAME" VERSION="1" LANGU="E" EXPOSURE="2" STATE="1" EDITORDER="3 " AUTHOR="BCUSER" CREATEDON="20130818" CHANGEDBY="BCUSER" CHANGEDON="20130818" TYPTYPE="4" SRCROW1="17 " SRCCOLUMN1="4 " SRCROW2="17 " SRCCOLUMN2="47 " TYPESRC_LENG="46 " TYPESRC="t_scompo_name type line of tt_ra_scompo_name
+"/>
+  <publicSection>*----------------------------------------------------------------------*
+*       CLASS ZCL_ABAPBLOG_COM DEFINITION
+*----------------------------------------------------------------------*
+*
+*----------------------------------------------------------------------*
+class zcl_abapblog_com definition
+  public
+  create public .
+
+  public section.
+
+    types:
+      tt_clobjekte type standard table of clobjekte .
+    types:
+    tt_ra_scompo_name type range of scompo-name .
+    types:
+    t_scompo_name type line of tt_ra_scompo_name .
+
+    constants cname_cl_gui_custom_container type abap_abstypename value &apos;\CLASS=CL_GUI_CUSTOM_CONTAINER&apos;.
+    constants cname_cl_gui_textedit type abap_abstypename value &apos;\CLASS=CL_GUI_TEXTEDIT&apos;.
+    constants cname_cl_gui_alv_grid type abap_abstypename value &apos;\CLASS=CL_GUI_ALV_GRID&apos;.
+
+    methods chart_customizing
+      importing
+        !i_textname type rssce-tdname
+        !i_title type csequence
+        !i_subtitle type csequence
+      returning
+        value(c_xstring) type xstring .
+    methods create_and_init_chart
+      importing
+        value(i_container_name) type csequence
+      changing
+        !co_chart_engine type ref to cl_gui_chart_engine
+        !co_container type ref to cl_gui_custom_container .
+    class-methods create_xls_from_itab
+      importing
+        !it_fieldcat type lvc_t_fcat optional
+        !it_sort type lvc_t_sort optional
+        !it_filt type lvc_t_filt optional
+        !is_layout type lvc_s_layo optional
+        !i_xlsx type flag optional
+      exporting
+        !e_xstring type xstring
+      changing
+        !ct_data type standard table .
+    class-methods f4_with_customized_params
+      importing
+        value(i_display_only) type abap_bool default space
+        value(i_max_records) type i default space
+        value(i_shlp_name) type shlpname
+        value(it_ddshifaces) type ddshifaces
+      exporting
+        !et_values type tfw_ddshretval_tab .
+    class-methods grid_refresh_and_keep_position
+      importing
+        !i_soft type char01 default &apos;X&apos;
+        !i_set_current type char01 default space
+        !i_set_selected type char01 default space
+      changing
+        !grid type ref to cl_gui_alv_grid .
+    class-methods free_global_data
+      importing
+        !it_exclude type tt_ra_scompo_name optional
+        !i_program type syst-repid
+      preferred parameter it_exclude .
+    class-methods zip
+      importing
+        !i_xstring type xstring optional
+        !i_string type string optional
+        !i_filename type string
+        !i_solix type solix_tab optional
+        !i_soli type soli_tab optional
+        !i_get_xstring type c default space
+      exporting
+        !e_xstring type xstring
+      changing
+        !c_zipper type ref to cl_abap_zip optional
+      exceptions
+        attachment_is_empty
+        string_conv_error .
+    class-methods get_filename_from_path
+      importing
+        value(i_path) type csequence
+      exporting
+        !e_filename type csequence
+        !e_filenamefull type csequence
+        !e_extension type csequence .</publicSection>
+  <protectedSection>protected section.</protectedSection>
+  <privateSection>private section.</privateSection>
+  <localImplementation>*&quot;* use this source file for the definition and implementation of
+*&quot;* local helper classes, interface definitions and type
+*&quot;* declarations</localImplementation>
+  <localTypes>*&quot;* use this source file for any type of declarations (class
+*&quot;* definitions, interfaces or type declarations) you need for
+*&quot;* components in the private section</localTypes>
+  <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+  <attribute CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="CNAME_CL_GUI_ALV_GRID" VERSION="1" LANGU="E" EXPOSURE="2" STATE="1" EDITORDER="3 " AUTHOR="BCUSER" CREATEDON="20130818" CHANGEDON="00000000" ATTDECLTYP="2" ATTVALUE="&apos;\CLASS=CL_GUI_ALV_GRID&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="ABAP_ABSTYPENAME" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " R3RELEASE="731" TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="CNAME_CL_GUI_CUSTOM_CONTAINER" VERSION="1" LANGU="E" EXPOSURE="2" STATE="1" EDITORDER="1 " AUTHOR="BCUSER" CREATEDON="20130818" CHANGEDON="00000000" ATTDECLTYP="2" ATTVALUE="&apos;\CLASS=CL_GUI_CUSTOM_CONTAINER&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="ABAP_ABSTYPENAME" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " R3RELEASE="731" TYPESRC_LENG="0 "/>
+  <attribute CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="CNAME_CL_GUI_TEXTEDIT" VERSION="1" LANGU="E" EXPOSURE="2" STATE="1" EDITORDER="2 " AUTHOR="BCUSER" CREATEDON="20130818" CHANGEDON="00000000" ATTDECLTYP="2" ATTVALUE="&apos;\CLASS=CL_GUI_TEXTEDIT&apos;" ATTEXPVIRT="0" TYPTYPE="1" TYPE="ABAP_ABSTYPENAME" SRCROW1="0 " SRCCOLUMN1="0 " SRCROW2="0 " SRCCOLUMN2="0 " R3RELEASE="731" TYPESRC_LENG="0 "/>
+  <method CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="CHART_CUSTOMIZING" VERSION="1" LANGU="E" DESCRIPT="Chart customizing (Part2)" EXPOSURE="2" STATE="1" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130506" CHANGEDBY="BCUSER" CHANGEDON="20130818" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="CHART_CUSTOMIZING" SCONAME="I_TEXTNAME" VERSION="1" LANGU="E" DESCRIPT="Name" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130506" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="RSSCE-TDNAME"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="CHART_CUSTOMIZING" SCONAME="I_TITLE" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130506" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="CHART_CUSTOMIZING" SCONAME="I_SUBTITLE" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130506" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="CHART_CUSTOMIZING" SCONAME="C_XSTRING" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130506" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="3" PARPASSTYP="0" TYPTYPE="1" TYPE="XSTRING"/>
+   <source>method chart_customizing.
+  data: ft_raw255 type solix_tab.
+  data: fs_raw255 type solix.
+  data: f_tablenght type i.
+  data: f_string type string.
+  data: f_xstring type xstring.
+  data: fo_ixml type ref to if_ixml.
+  data: fo_streamfactory type ref to if_ixml_stream_factory.
+  data: fo_istream type ref to if_ixml_istream.
+  data: fo_document type ref to if_ixml_document. &quot;&lt;=== here is IF_IXML_DOCUMENT
+  data: fo_parser type ref to if_ixml_parser.
+  data: f_ostream  type ref to if_ixml_ostream.
+  data: f_subtitle type string.
+  data: f_title type string.
+  data: ft_itf_text type table of tline.
+  field-symbols: &lt;itf&gt; type tline.
+
+  f_subtitle = i_subtitle.
+  f_title = i_title.
+
+  call function &apos;READ_TEXT&apos;
+    exporting
+      id        = &apos;ST&apos;
+      language  = &apos;E&apos;
+      name      = i_textname
+      object    = &apos;TEXT&apos;
+    tables
+      lines     = ft_itf_text
+    exceptions
+      id        = 1
+      language  = 2
+      name      = 3
+      not_found = 4
+      object    = 5
+      others    = 8.
+  if sy-subrc &lt;&gt; 0.
+*    raise error_reading_standard_text.
+  else.
+    loop at ft_itf_text assigning &lt;itf&gt;.
+      concatenate f_string &lt;itf&gt;-tdline into f_string.
+    endloop.
+  endif.
+
+  if f_string is not initial.  &quot;if you have other special html characters in titles or variables in configurations then add it here
+    replace all occurrences of &apos;&amp;&apos; in f_subtitle with &apos;&amp;amp;&apos;.
+    replace all occurrences of &apos;&amp;&apos; in f_title with &apos;&amp;amp;&apos;.
+    replace all occurrences of &apos;&lt;&apos; in f_subtitle with &apos;&amp;lt;&apos;.
+    replace all occurrences of &apos;&lt;&apos; in f_title with &apos;&amp;lt;&apos;.
+    replace all occurrences of &apos;&gt;&apos; in f_subtitle with &apos;&amp;gt;&apos;.
+    replace all occurrences of &apos;&gt;&apos; in f_title with &apos;&amp;gt;&apos;.
+    replace all occurrences of &apos;SUBTITLE_REPLACE&apos; in f_string with f_subtitle.
+    replace all occurrences of &apos;TITLE_REPLACE&apos; in f_string with f_title.
+    clear f_xstring.
+
+    call function &apos;SCMS_STRING_TO_XSTRING&apos;
+      exporting
+        text     = f_string
+*       MIMETYPE = &apos; &apos;
+*       ENCODING = ENCODING
+      importing
+        buffer   = f_xstring
+      exceptions
+        failed   = 1
+        others   = 2.
+    if sy-subrc eq 0.
+      call function &apos;SCMS_XSTRING_TO_BINARY&apos;
+        exporting
+          buffer          = f_xstring
+*         APPEND_TO_TABLE = &apos; &apos;
+        importing
+          output_length   = f_tablenght
+        tables
+          binary_tab      = ft_raw255.
+    endif.
+
+    check ft_raw255[] is not initial.
+
+    fo_ixml = cl_ixml=&gt;create( ).
+    fo_streamfactory = fo_ixml-&gt;create_stream_factory( ).
+    fo_document = fo_ixml-&gt;create_document( ).
+    fo_istream = fo_streamfactory-&gt;create_istream_itable(
+                                                        size = f_tablenght
+                                                        table = ft_raw255 ).
+    fo_parser = fo_ixml-&gt;create_parser( stream_factory = fo_streamfactory
+                                        istream        = fo_istream
+                                        document       = fo_document ).
+    fo_parser-&gt;parse( ).
+    clear c_xstring.
+    f_ostream = fo_streamfactory-&gt;create_ostream_xstring( c_xstring ).
+    call method fo_document-&gt;render
+      exporting
+        ostream = f_ostream.
+
+  endif.
+
+endmethod.</source>
+  </method>
+  <method CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="CREATE_AND_INIT_CHART" VERSION="1" LANGU="E" DESCRIPT="Chart render (Part 3)" EXPOSURE="2" STATE="1" EDITORDER="2 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130506" CHANGEDBY="BCUSER" CHANGEDON="20130818" MTDTYPE="0" MTDDECLTYP="0" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="CREATE_AND_INIT_CHART" SCONAME="I_CONTAINER_NAME" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130506" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="0" TYPTYPE="1" TYPE="CSEQUENCE"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="CREATE_AND_INIT_CHART" SCONAME="CO_CHART_ENGINE" VERSION="1" LANGU="E" DESCRIPT="Graphics: Presentation Graphics" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130506" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="2" PARPASSTYP="1" TYPTYPE="3" TYPE="CL_GUI_CHART_ENGINE"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="CREATE_AND_INIT_CHART" SCONAME="CO_CONTAINER" VERSION="1" LANGU="E" DESCRIPT="Container for Custom Controls in the Screen Area" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130506" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="2" PARPASSTYP="1" TYPTYPE="3" TYPE="CL_GUI_CUSTOM_CONTAINER"/>
+   <source>method create_and_init_chart.
+  data: f_lenght type i.
+  data: f_xstring type xstring.
+  data: fo_ixml_mf type ref to if_ixml.
+  data: fo_ixml_sf type ref to if_ixml_stream_factory.
+  data: f_ixml_data_doc   type ref to if_ixml_document.
+  data: f_ostream         type ref to if_ixml_ostream.
+  data: f_encoding        type ref to if_ixml_encoding.
+* chart data elements:
+  data: f_chartdata       type ref to if_ixml_element,
+        f_categories      type ref to if_ixml_element,
+        f_category        type ref to if_ixml_element,
+        f_series          type ref to if_ixml_element,
+        f_point           type ref to if_ixml_element,
+        f_value           type ref to if_ixml_element.
+
+
+  if co_container is initial.
+    &quot;create container
+    create object co_container
+      exporting
+        container_name = i_container_name.
+    &quot;create an engine assigned to our container
+    create object co_chart_engine
+      exporting
+        parent = co_container.
+  endif.
+
+
+* processing data
+  fo_ixml_mf = cl_ixml=&gt;create( ).
+  fo_ixml_sf = fo_ixml_mf-&gt;create_stream_factory( ).
+* create an empty document and set encoding
+  f_ixml_data_doc = fo_ixml_mf-&gt;create_document( ).
+  f_encoding = fo_ixml_mf-&gt;create_encoding(
+                           byte_order    = if_ixml_encoding=&gt;co_little_endian
+                           character_set = &apos;utf-8&apos; ).
+  f_ixml_data_doc-&gt;set_encoding( f_encoding ).
+
+* Now build a DOM, representing an XML document with chart data
+  f_chartdata = f_ixml_data_doc-&gt;create_simple_element(
+                                        name   = &apos;ChartData&apos;
+                                        parent = f_ixml_data_doc ).
+
+* Categories (parent)
+  f_categories = f_ixml_data_doc-&gt;create_simple_element(
+                                        name   = &apos;Categories&apos;
+                                        parent = f_chartdata ).
+* Categories (children)
+  f_category = f_ixml_data_doc-&gt;create_simple_element(
+                                        name   = &apos;Category&apos;
+                                        parent = f_categories ).
+  f_category-&gt;if_ixml_node~set_value( &apos;My first category&apos; ).
+
+  f_category = f_ixml_data_doc-&gt;create_simple_element(
+                                      name   = &apos;Category&apos;
+                                      parent = f_categories ).
+  f_category-&gt;if_ixml_node~set_value( &apos;My second category&apos; ).
+  f_category = f_ixml_data_doc-&gt;create_simple_element(
+                                      name   = &apos;Category&apos;
+                                      parent = f_categories ).
+  f_category-&gt;if_ixml_node~set_value( &apos;My third category&apos; ).
+
+
+* Build series (we need only 1)
+  f_series = f_ixml_data_doc-&gt;create_simple_element(
+            name = &apos;Series&apos;
+            parent = f_chartdata ).
+  f_series-&gt;set_attribute( name = &apos;customizing&apos;
+                           value = &apos;Series1&apos; ).
+
+*1st category
+  f_point = f_ixml_data_doc-&gt;create_simple_element(
+                              name = &apos;Point&apos;
+                              parent = f_series ).
+  f_point-&gt;set_attribute( name = &apos;customizing&apos;
+                          value = &apos;Category1&apos; ).
+  f_point-&gt;set_attribute( name = &apos;label&apos;
+                        value = &apos;Best one&apos; ).
+  f_value = f_ixml_data_doc-&gt;create_simple_element(
+                        name = &apos;Value&apos;
+                        parent = f_point ).
+  f_value-&gt;if_ixml_node~set_value( &apos;50&apos; ).
+
+*2nd category
+  f_point = f_ixml_data_doc-&gt;create_simple_element(
+                              name = &apos;Point&apos;
+                              parent = f_series ).
+  f_point-&gt;set_attribute( name = &apos;customizing&apos;
+                          value = &apos;Category2&apos; ).
+  f_point-&gt;set_attribute( name = &apos;label&apos;
+                          value = &apos;Not so bad&apos; ).
+  f_value = f_ixml_data_doc-&gt;create_simple_element(
+                              name = &apos;Value&apos;
+                              parent = f_point ).
+  f_value-&gt;if_ixml_node~set_value( &apos;35&apos; ).
+
+*3rd category
+  f_point = f_ixml_data_doc-&gt;create_simple_element(
+                              name = &apos;Point&apos;
+                              parent = f_series ).
+  f_point-&gt;set_attribute( name = &apos;customizing&apos;
+                           value = &apos;Category3&apos; ).
+  f_point-&gt;set_attribute( name = &apos;label&apos;
+                          value = &apos;Worst one&apos; ).
+  f_value = f_ixml_data_doc-&gt;create_simple_element(
+                              name = &apos;Value&apos;
+                              parent = f_point ).
+  f_value-&gt;if_ixml_node~set_value( &apos;15&apos; ).
+
+
+* create ostream (into string variable) and render document into stream
+  f_ostream = fo_ixml_sf-&gt;create_ostream_xstring( f_xstring ).
+  f_ixml_data_doc-&gt;render( f_ostream ). &quot;here f_xstring is filled
+
+  &quot;set data to chart
+  co_chart_engine-&gt;set_data( xdata = f_xstring ).
+
+  &quot;get customizing from Standard text
+  f_xstring = chart_customizing(
+                                      i_textname = &apos;Z_MY_CHART_CUSTOMIZING&apos;
+                                      i_title    = &apos;My nice chart&apos;
+                                      i_subtitle = &apos;http://abapblog.com&apos;).
+  &quot;set customizing
+  co_chart_engine-&gt;set_customizing( xdata = f_xstring ).
+
+  &quot;render chart
+  co_chart_engine-&gt;render( ).
+
+
+
+endmethod.</source>
+  </method>
+  <method CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="CREATE_XLS_FROM_ITAB" VERSION="1" LANGU="E" DESCRIPT="Create MHTML XLS from Internal table" EXPOSURE="2" STATE="1" EDITORDER="3 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130512" CHANGEDBY="BCUSER" CHANGEDON="20130818" MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="CREATE_XLS_FROM_ITAB" SCONAME="IT_FIELDCAT" VERSION="1" LANGU="E" DESCRIPT="Field Catalog for List Viewer Control" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130512" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="LVC_T_FCAT" PAROPTIONL="X"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="CREATE_XLS_FROM_ITAB" SCONAME="IT_SORT" VERSION="1" LANGU="E" DESCRIPT="ALV Control: Table of Sort Criteria" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130512" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="LVC_T_SORT" PAROPTIONL="X"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="CREATE_XLS_FROM_ITAB" SCONAME="IT_FILT" VERSION="1" LANGU="E" DESCRIPT="ALV control: Table of filter conditions" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130512" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="LVC_T_FILT" PAROPTIONL="X"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="CREATE_XLS_FROM_ITAB" SCONAME="IS_LAYOUT" VERSION="1" LANGU="E" DESCRIPT="ALV control: Layout structure" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130512" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="LVC_S_LAYO" PAROPTIONL="X"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="CREATE_XLS_FROM_ITAB" SCONAME="I_XLSX" VERSION="1" LANGU="E" DESCRIPT="Create XLSX file?" CMPTYPE="1" MTDTYPE="0" EDITORDER="5 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130512" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="FLAG" PAROPTIONL="X"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="CREATE_XLS_FROM_ITAB" SCONAME="E_XSTRING" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="6 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130512" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="1" PARPASSTYP="1" TYPTYPE="1" TYPE="XSTRING"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="CREATE_XLS_FROM_ITAB" SCONAME="CT_DATA" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="7 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130512" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="2" PARPASSTYP="1" TYPTYPE="1" TYPE="STANDARD TABLE"/>
+   <source>method create_xls_from_itab.
+  data: mt_fcat type lvc_t_fcat.
+  data: mt_data       type ref to data.
+  data: m_flavour type string.
+  data: m_version type string.
+  data: mo_result_data type ref to cl_salv_ex_result_data_table.
+  data: mo_columns  type ref to cl_salv_columns_table.
+  data: mo_aggreg   type ref to cl_salv_aggregations.
+  data: mo_salv_table  type ref to cl_salv_table.
+  data: m_file_type type salv_bs_constant.
+  field-symbols &lt;tab&gt; type any table.
+
+  get reference of ct_data into mt_data.
+
+*if we didn&apos;t pass fieldcatalog we need to create it
+  if it_fieldcat[] is initial.
+    assign mt_data-&gt;* to &lt;tab&gt;.
+    try .
+        cl_salv_table=&gt;factory(
+        exporting
+          list_display = abap_false
+        importing
+          r_salv_table = mo_salv_table
+        changing
+          t_table      = &lt;tab&gt; ).
+      catch cx_salv_msg.
+
+    endtry.
+    &quot;get colums &amp; aggregation infor to create fieldcat
+    mo_columns  = mo_salv_table-&gt;get_columns( ).
+    mo_aggreg   = mo_salv_table-&gt;get_aggregations( ).
+    mt_fcat     =  cl_salv_controller_metadata=&gt;get_lvc_fieldcatalog(
+                                  r_columns      = mo_columns
+                                  r_aggregations = mo_aggreg ).
+
+  else.
+*else we take the one we passed
+    mt_fcat[] = it_fieldcat[].
+  endif.
+
+
+  if cl_salv_bs_a_xml_base=&gt;get_version( ) eq if_salv_bs_xml=&gt;version_25 or
+     cl_salv_bs_a_xml_base=&gt;get_version( ) eq if_salv_bs_xml=&gt;version_26.
+
+    mo_result_data = cl_salv_ex_util=&gt;factory_result_data_table(
+        r_data                      = mt_data
+        s_layout                    = is_layout
+        t_fieldcatalog              = mt_fcat
+        t_sort                      = it_sort
+        t_filter                    = it_filt
+    ).
+
+    case cl_salv_bs_a_xml_base=&gt;get_version( ).
+      when if_salv_bs_xml=&gt;version_25.
+        m_version = if_salv_bs_xml=&gt;version_25.
+      when if_salv_bs_xml=&gt;version_26.
+        m_version = if_salv_bs_xml=&gt;version_26.
+    endcase.
+
+    &quot;if we flag i_XLSX then we&apos;ll create XLSX if not then MHTML excel file
+    if i_xlsx is not initial.
+      m_file_type = if_salv_bs_xml=&gt;c_type_xlsx.
+    else.
+      m_file_type = if_salv_bs_xml=&gt;c_type_mhtml.
+    endif.
+
+
+    m_flavour = if_salv_bs_c_tt=&gt;c_tt_xml_flavour_export.
+    &quot;transformation of data to excel
+    call method cl_salv_bs_tt_util=&gt;if_salv_bs_tt_util~transform
+      exporting
+        xml_type      = m_file_type
+        xml_version   = m_version
+        r_result_data = mo_result_data
+        xml_flavour   = m_flavour
+        gui_type      = if_salv_bs_xml=&gt;c_gui_type_gui
+      importing
+        xml           = e_xstring.
+  endif.
+endmethod.</source>
+  </method>
+  <method CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="F4_WITH_CUSTOMIZED_PARAMS" VERSION="1" LANGU="E" DESCRIPT="call dictionary F4 help with parameters" EXPOSURE="2" STATE="1" EDITORDER="4 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130606" CHANGEDBY="BCUSER" CHANGEDON="20130818" MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="F4_WITH_CUSTOMIZED_PARAMS" SCONAME="I_DISPLAY_ONLY" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130606" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="0" TYPTYPE="1" TYPE="ABAP_BOOL" PARVALUE="SPACE"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="F4_WITH_CUSTOMIZED_PARAMS" SCONAME="I_MAX_RECORDS" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130606" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="0" TYPTYPE="1" TYPE="I" PARVALUE="SPACE"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="F4_WITH_CUSTOMIZED_PARAMS" SCONAME="I_SHLP_NAME" VERSION="1" LANGU="E" DESCRIPT="Name of a Search Help" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130606" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="0" TYPTYPE="1" TYPE="SHLPNAME"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="F4_WITH_CUSTOMIZED_PARAMS" SCONAME="IT_DDSHIFACES" VERSION="1" LANGU="E" DESCRIPT="Complete Interface of Search Help for Screen" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130606" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="0" TYPTYPE="1" TYPE="DDSHIFACES"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="F4_WITH_CUSTOMIZED_PARAMS" SCONAME="ET_VALUES" VERSION="1" LANGU="E" DESCRIPT="F4 Help: Return Selected Values" CMPTYPE="1" MTDTYPE="0" EDITORDER="5 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130606" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="1" PARPASSTYP="1" TYPTYPE="1" TYPE="TFW_DDSHRETVAL_TAB"/>
+   <source>method f4_with_customized_params.
+  field-symbols: &lt;iface&gt; type ddshiface,
+                 &lt;sface&gt; type ddshiface.
+  data: f_shlp type shlp_descr.
+  data: f_rc type sy-subrc.
+  call function &apos;F4IF_GET_SHLP_DESCR&apos;
+    exporting
+      shlpname = i_shlp_name
+      shlptype = &apos;SH&apos;
+    importing
+      shlp     = f_shlp.
+
+  loop at it_ddshifaces assigning &lt;iface&gt;.
+    read table f_shlp-interface[] with key shlpfield = &lt;iface&gt;-shlpfield assigning &lt;sface&gt;.
+    if sy-subrc eq 0.
+      move-corresponding &lt;iface&gt; to &lt;sface&gt;.
+    endif.
+
+  endloop.
+
+  call function &apos;F4IF_START_VALUE_REQUEST&apos;
+    exporting
+      shlp          = f_shlp
+      disponly      = i_display_only
+      maxrecords    = i_max_records
+      multisel      = space
+*     CUCOL         = SY-CUCOL
+*     CUROW         = SY-CUROW
+    importing
+      rc            = f_rc
+    tables
+      return_values = et_values.
+
+endmethod.</source>
+  </method>
+  <method CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="FREE_GLOBAL_DATA" VERSION="1" LANGU="E" DESCRIPT="Free global data" EXPOSURE="2" STATE="1" EDITORDER="6 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130818" CHANGEDBY="BCUSER" CHANGEDON="20130818" MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="FREE_GLOBAL_DATA" SCONAME="IT_EXCLUDE" VERSION="1" LANGU="E" DESCRIPT="Range for excluding" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130818" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="TT_RA_SCOMPO_NAME" PAROPTIONL="X" PARPREFERD="X"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="FREE_GLOBAL_DATA" SCONAME="I_PROGRAM" VERSION="1" LANGU="E" DESCRIPT="Main program name" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130818" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SYST-REPID"/>
+   <source>method free_global_data.
+  field-symbols: &lt;any&gt; type any,
+  &lt;comp&gt; type scompo,
+  &lt;token&gt; type stoken,
+  &lt;ccont&gt; type ref to cl_gui_custom_container,
+  &lt;textedit&gt; type ref to cl_gui_textedit,
+  &lt;alvgrid&gt; type ref to cl_gui_alv_grid.
+
+  types: type_tokens     type table of stoken ,
+  type_statements type table of sstmnt,
+  type_levels     type table of slevel.
+
+  data: m_k(30) value &apos;CONSTANTS&apos;.
+  data: mt_src        type table of string,
+        mt_tokens     type type_tokens     ,
+        mt_statements type type_statements ,
+        mt_keywords   like table of m_k,
+        mt_levels     type type_levels  ,
+        m_overflow(4096).
+
+  data: m_lenght type i.
+  data: m_shift type i.
+  data: mt_compo type table of scompo.
+  data: mt_cross_ref type table of cross.
+  data: mt_inc type table of d010inc.
+  data: ms_exclude like line of it_exclude.
+  data: mt_exclude type tt_ra_scompo_name.
+  data: m_compname(255) type c.
+  data: m_classref type ref to cl_abap_typedescr.
+  data: m_classname type abap_abstypename.
+
+  &quot;selecting global data names
+  call function &apos;RS_PROGRAM_INDEX&apos;
+  exporting
+    pg_name             = i_program
+*   WITHOUT_TREE        = &apos; &apos;
+* IMPORTING
+*   MESSAGE_CLASS       = MESSAGE_CLASS
+  tables
+    compo               = mt_compo
+    cross_ref           = mt_cross_ref
+    inc                 = mt_inc
+  exceptions
+    syntax_error        = 1
+    others              = 2.
+
+  check sy-subrc eq 0.
+
+  &quot;selecting constants to avoid dump
+  append m_k to mt_keywords.
+  read report i_program into mt_src.
+
+  scan abap-source mt_src
+  tokens     into mt_tokens
+  statements into mt_statements
+  keywords   from mt_keywords
+  levels     into mt_levels
+  with includes
+  with list tokenization
+  preserving identifier escaping
+  frame program   from i_program.
+
+  sort mt_tokens by str ascending.
+
+  &quot;let&apos;s find all variables with length definition like var(5) type c
+  &quot;and shift it&apos;s name to var
+  loop at mt_tokens assigning &lt;token&gt; where str ca &apos;()&apos;.
+    find &apos;(&apos; in &lt;token&gt;-str.
+    &lt;token&gt;-str = &lt;token&gt;-str+0(sy-fdpos).
+  endloop.
+
+  &quot;if we do not want to exclude any global data then the range is empty,
+  &quot;if we let it like this then we will not clear anything
+  if it_exclude[] is initial.
+    clear ms_exclude.
+    ms_exclude-sign = &apos;I&apos;.
+    ms_exclude-option = &apos;EQ&apos;.
+    ms_exclude-low = &apos;ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ&apos;.
+    append ms_exclude to mt_exclude.
+  else.
+    mt_exclude[] = it_exclude[].
+  endif.
+
+  &quot;we ommit field symbols as they will be cleared when source data
+  &quot;will be cleared.
+  loop at mt_compo assigning &lt;comp&gt; where name not in mt_exclude[]
+  and   type eq &apos;D&apos;
+  and   name na &apos;&lt;&gt;&apos;.
+
+    read table mt_tokens with key str = &lt;comp&gt;-name
+    transporting no fields binary search.
+    if sy-subrc ne 0.
+      unassign &lt;any&gt;.
+      clear m_compname.
+      concatenate &apos;(&apos; i_program &apos;)&apos; &lt;comp&gt;-name into m_compname.
+      assign (m_compname) to &lt;any&gt;.
+      if &lt;any&gt; is assigned and sy-subrc eq 0.
+        m_classref ?=  cl_abap_classdescr=&gt;describe_by_data( &lt;any&gt; ).
+        if sy-subrc eq 0 and m_classref-&gt;kind eq &apos;R&apos;.
+          m_classname = cl_abap_classdescr=&gt;get_class_name( &lt;any&gt;  ).
+          case m_classname.
+            when cname_cl_gui_custom_container.
+              assign &lt;any&gt; to &lt;ccont&gt;.
+              if &lt;ccont&gt; is not initial.
+                &lt;ccont&gt;-&gt;free(
+                exceptions
+                  cntl_error        = 1
+                  cntl_system_error = 2
+                  others            = 3
+                  ).
+                if sy-subrc &lt;&gt; 0.
+*
+                endif.
+              endif.
+            when cname_cl_gui_alv_grid.
+              assign &lt;any&gt; to &lt;alvgrid&gt;.
+              &lt;alvgrid&gt;-&gt;free(
+              exceptions
+                cntl_error        = 1
+                cntl_system_error = 2
+                others            = 3
+                ).
+              if sy-subrc &lt;&gt; 0.
+*
+              endif.
+            when cname_cl_gui_textedit.
+              assign &lt;any&gt; to &lt;textedit&gt;.
+              &lt;textedit&gt;-&gt;free(
+              exceptions
+                cntl_error        = 1
+                cntl_system_error = 2
+                others            = 3
+                ).
+              if sy-subrc &lt;&gt; 0.
+*
+              endif.
+          endcase.
+        endif.
+        free: m_classname, m_classref.
+        free &lt;any&gt;. clear &lt;any&gt;.
+      endif.
+
+      &quot;now try free table, as the one with header line will not
+      &quot;be cleared by previous assigment.
+      unassign &lt;any&gt;.
+      clear m_compname.
+      concatenate &apos;(&apos; i_program &apos;)&apos; &lt;comp&gt;-name &apos;[]&apos; into m_compname.
+      assign (m_compname) to &lt;any&gt;.
+      if &lt;any&gt; is assigned and sy-subrc eq 0.
+        free &lt;any&gt;.clear &lt;any&gt;.
+      endif.
+
+    endif.
+  endloop.
+endmethod.</source>
+  </method>
+  <method CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="GET_FILENAME_FROM_PATH" VERSION="1" LANGU="E" DESCRIPT="get filename from full path" EXPOSURE="2" STATE="1" EDITORDER="8 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130818" CHANGEDBY="BCUSER" CHANGEDON="20130818" MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="GET_FILENAME_FROM_PATH" SCONAME="I_PATH" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130818" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="0" TYPTYPE="1" TYPE="CSEQUENCE"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="GET_FILENAME_FROM_PATH" SCONAME="E_FILENAME" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130818" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="1" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="GET_FILENAME_FROM_PATH" SCONAME="E_FILENAMEFULL" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130818" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="1" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="GET_FILENAME_FROM_PATH" SCONAME="E_EXTENSION" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130818" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="1" PARPASSTYP="1" TYPTYPE="1" TYPE="CSEQUENCE"/>
+   <source>method get_filename_from_path.
+
+  data: m_offset type i.
+  data: m_path type string.
+  data: m_filename type string.
+  data: m_length type i.
+  data: m_size type i.
+
+  clear m_offset.
+  m_path = i_path.
+  find all occurrences of &apos;\&apos; in m_path in character mode
+  match offset m_offset.
+
+  if m_offset ne 0.
+    add 1 to m_offset.
+    shift m_path by m_offset places left.
+  endif.
+
+  if e_filenamefull is requested.
+    e_filenamefull = m_path.
+  endif.
+  if e_filename is requested or e_extension is requested.
+    m_filename     = m_path.
+  endif.
+  clear m_offset.
+
+  find all occurrences of &apos;.&apos; in m_filename in character mode
+  match offset m_offset.
+
+  m_length = strlen( m_filename ).
+
+  if m_offset ne 0.
+    e_filename = m_filename+0(m_offset).
+    if e_extension is requested.
+      add 1 to m_offset.
+      m_size = m_length - m_offset.
+      e_extension = m_filename+m_offset(m_size).
+    endif.
+  else.
+    e_filename = m_filename.
+  endif.
+
+endmethod.</source>
+  </method>
+  <method CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="GRID_REFRESH_AND_KEEP_POSITION" VERSION="1" LANGU="E" DESCRIPT="Refresh ALV Grid and keep position" EXPOSURE="2" STATE="1" EDITORDER="5 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130818" CHANGEDBY="BCUSER" CHANGEDON="20130818" MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="GRID_REFRESH_AND_KEEP_POSITION" SCONAME="I_SOFT" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130818" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CHAR01" PARVALUE="&apos;X&apos;"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="GRID_REFRESH_AND_KEEP_POSITION" SCONAME="I_SET_CURRENT" VERSION="1" LANGU="E" DESCRIPT="Character Field Length 1" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130818" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CHAR01" PARVALUE="SPACE"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="GRID_REFRESH_AND_KEEP_POSITION" SCONAME="I_SET_SELECTED" VERSION="1" LANGU="E" DESCRIPT="Character Field Length 1" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130818" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="CHAR01" PARVALUE="SPACE"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="GRID_REFRESH_AND_KEEP_POSITION" SCONAME="GRID" VERSION="1" LANGU="E" DESCRIPT="ALV List Viewer" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130818" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="2" PARPASSTYP="1" TYPTYPE="3" TYPE="CL_GUI_ALV_GRID"/>
+   <source>method grid_refresh_and_keep_position.
+  data: es_row_no  type lvc_s_roid.
+  data: es_row_info  type lvc_s_row.
+  data: es_col_info  type lvc_s_col.
+  data: fes_row_no  type lvc_s_roid.
+  data: fes_row_id  type lvc_s_row.
+  data: fes_col_id  type lvc_s_col.
+  data: mt_cells type lvc_t_ceno.
+  data: mt_rows type lvc_t_row.
+
+  grid-&gt;get_scroll_info_via_id(
+  importing
+    es_row_no   = es_row_no
+    es_row_info = es_row_info
+    es_col_info = es_col_info
+    ).
+
+  grid-&gt;get_current_cell(
+  importing
+*        e_row     = e_row
+*        e_value   = e_value
+*        e_col     = e_col
+    es_row_id = fes_row_id
+    es_col_id = fes_col_id
+    es_row_no = fes_row_no
+    ).
+
+
+  grid-&gt;get_selected_rows(
+  importing
+    et_index_rows = mt_rows
+*            et_row_no     = et_row_no
+    ).
+  if mt_rows[] is initial.
+    grid-&gt;get_selected_cells_id(
+    importing  et_cells = mt_cells ).
+  endif.
+
+
+  grid-&gt;refresh_table_display( i_soft_refresh = i_soft ).
+
+
+  if i_set_selected eq &apos;X&apos;.
+    if mt_cells[] is not initial.
+      grid-&gt;set_selected_cells_id( it_cells = mt_cells   ).
+    else.
+      grid-&gt;set_selected_rows(
+      it_index_rows            = mt_rows
+*        it_row_no                = it_row_no
+*        is_keep_other_selections = is_keep_other_selections
+      ).
+    endif.
+  endif.
+
+  grid-&gt;set_scroll_info_via_id(
+  is_row_info = es_row_info
+  is_col_info = es_col_info
+  is_row_no   = es_row_no
+  ).
+
+  if i_set_current eq &apos;X&apos;.
+    grid-&gt;set_current_cell_via_id( is_row_id = fes_row_id
+    is_column_id = fes_col_id
+    is_row_no = fes_row_no ).
+  endif.
+  refresh: mt_rows[], mt_cells[].
+endmethod.</source>
+  </method>
+  <method CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="ZIP" VERSION="1" LANGU="E" DESCRIPT="Zip string/ xstring /solitab / solixtab" EXPOSURE="2" STATE="1" EDITORDER="7 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130818" CHANGEDBY="BCUSER" CHANGEDON="20130818" MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="ZIP" SCONAME="I_XSTRING" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="1 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130818" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="XSTRING" PAROPTIONL="X"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="ZIP" SCONAME="I_STRING" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="2 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130818" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="STRING" PAROPTIONL="X"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="ZIP" SCONAME="I_FILENAME" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="3 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130818" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="STRING"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="ZIP" SCONAME="I_SOLIX" VERSION="1" LANGU="E" DESCRIPT="GBT: SOLIX as Table Type" CMPTYPE="1" MTDTYPE="0" EDITORDER="4 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130818" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SOLIX_TAB" PAROPTIONL="X"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="ZIP" SCONAME="I_SOLI" VERSION="1" LANGU="E" DESCRIPT="Objcont and Objhead as Table Type" CMPTYPE="1" MTDTYPE="0" EDITORDER="5 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130818" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="SOLI_TAB" PAROPTIONL="X"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="ZIP" SCONAME="I_GET_XSTRING" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="6 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130818" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="0" PARPASSTYP="1" TYPTYPE="1" TYPE="C" PARVALUE="SPACE"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="ZIP" SCONAME="E_XSTRING" VERSION="1" LANGU="E" CMPTYPE="1" MTDTYPE="0" EDITORDER="7 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130818" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="1" PARPASSTYP="1" TYPTYPE="1" TYPE="XSTRING"/>
+   <parameter CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="ZIP" SCONAME="C_ZIPPER" VERSION="1" LANGU="E" DESCRIPT="Zip Utility" CMPTYPE="1" MTDTYPE="0" EDITORDER="8 " DISPID="0 " AUTHOR="BCUSER" CREATEDON="20130818" CHANGEDBY="BCUSER" CHANGEDON="20130818" PARDECLTYP="2" PARPASSTYP="1" TYPTYPE="3" TYPE="CL_ABAP_ZIP" PAROPTIONL="X"/>
+   <exception CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="ZIP" SCONAME="ATTACHMENT_IS_EMPTY" VERSION="1" LANGU="E" DESCRIPT="I_XSTRING &amp; I_STRING variables are empty" MTDTYPE="0" EDITORDER="1 " AUTHOR="BCUSER" CREATEDON="20130818" CHANGEDBY="BCUSER" CHANGEDON="20130818"/>
+   <exception CLSNAME="ZCL_ABAPBLOG_COM" CMPNAME="ZIP" SCONAME="STRING_CONV_ERROR" VERSION="1" LANGU="E" DESCRIPT="Error during conversion string to xstring" MTDTYPE="0" EDITORDER="2 " AUTHOR="BCUSER" CREATEDON="20130818" CHANGEDBY="BCUSER" CHANGEDON="20130818"/>
+   <source>method zip.
+  field-symbols: &lt;zip&gt; type ref to cl_abap_zip.
+  data: m_zipper type ref to cl_abap_zip.
+  data: m_xstring type xstring.
+  data: m_solix type solix_tab.
+
+  if c_zipper is supplied.
+    assign c_zipper to &lt;zip&gt;.
+    if sy-subrc ne 0.
+      exit.
+    endif.
+  else.
+    create object m_zipper.
+    assign m_zipper to &lt;zip&gt;.
+    if sy-subrc ne 0.
+      exit.
+    endif.
+  endif.
+
+*get xstring of file to be packed
+  if i_xstring is not initial.
+    m_xstring = i_xstring.
+  elseif i_string is not initial.
+    call function &apos;SCMS_STRING_TO_XSTRING&apos;
+      exporting
+        text     = i_string
+*       MIMETYPE = &apos; &apos;
+*       ENCODING =
+      importing
+        buffer   = m_xstring
+      exceptions
+        failed   = 1
+        others   = 2.
+    if sy-subrc &lt;&gt; 0.
+      raise string_conv_error.
+    endif.
+  elseif i_solix[] is not initial.
+    try.
+        m_xstring = cl_bcs_convert=&gt;solix_to_xstring(
+        it_solix   = i_solix
+*                                                  iv_size    = iv_size
+        ).
+      catch cx_bcs.
+        message e445(so).
+    endtry.
+  elseif i_soli[] is not initial.
+
+    try.
+        m_solix[] = cl_bcs_convert=&gt;soli_to_solix( it_soli = i_soli ).
+
+        m_xstring = cl_bcs_convert=&gt;solix_to_xstring(
+        it_solix   = m_solix
+*                                                  iv_size    = iv_size
+        ).
+      catch cx_bcs.
+        message e445(so).
+    endtry.
+  else.
+    raise attachment_is_empty.
+  endif.
+
+* Add File
+  &lt;zip&gt;-&gt;add(
+  exporting
+    name = i_filename
+    content = m_xstring ).
+
+  if i_get_xstring is not initial.
+* Get Zip-Archive
+    e_xstring = &lt;zip&gt;-&gt;save( ).
+  endif.
+
+endmethod.</source>
+  </method>
+ </CLAS>
+</nugget>

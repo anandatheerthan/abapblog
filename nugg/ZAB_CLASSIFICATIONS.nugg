@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-16"?>
+<nugget name="ZAB_CLASSIFICATIONS">
+ <PROG NAME="ZAB_CLASSIFICATIONS" VARCL="X" SUBC="1" APPL="*" CNAM="BCUSER" CDAT="20130525" UNAM="BCUSER" UDAT="20130818" VERN="000017" RSTAT="K" RMAND="001" RLOAD="E" FIXPT="X" SDATE="20130818" STIME="105928" IDATE="20130818" ITIME="105928" UCCHECK="X">
+  <textPool>
+   <language SPRAS="E">
+    <textElement ID="R" ENTRY="Program ZAB_CLASSIFICATIONS" LENGTH="27 "/>
+   </language>
+  </textPool>
+  <source>report  zab_classifications.
+*--------------------------------------------------------------------*
+* This program was prepared by #ukasz P#giel for presentation purpose
+* at http://abapblog.com .
+* You can use it in your SAP instance without any warranty
+* for non-commercial and commercial  use but you cannot sell it as
+* a full program or a part of it.
+*
+* If you&apos;d like to use it on your own site please contact me before to
+* get the agreement before.
+*
+*--------------------------------------------------------------------*
+
+data: gt_objects_1 type standard table of clobjekte.
+data: gt_objects_2 type standard table of clobjekte.
+data: gt_data1     type ref to data.
+data: gt_data2     type ref to data.
+field-symbols:  &lt;tab1&gt; type standard table,
+                &lt;tab2&gt; type standard table,
+                &lt;wa1&gt; type any,
+                &lt;wa2&gt; type any,
+                &lt;any&gt; type any.
+
+&quot;call aour method to get objects of class and all details
+zcl_abapblog_com_classific=&gt;get_objects_of_class(
+  exporting
+    i_class            = &apos;ECM_CLASS1&apos;
+    i_classtype        = &apos;025&apos;
+    i_key_date         = sy-datum
+  importing
+    et_objects         = gt_objects_1
+    et_data            = gt_data1
+*    e_tablestr         = e_tablestr
+*    e_structure        = e_structure
+  exceptions
+    fetch_values_error = 1
+    structure_error    = 2
+    others             = 3
+       ).
+if sy-subrc eq 0.
+  &quot;assign data to FS
+  assign gt_data1-&gt;* to &lt;tab1&gt;.
+  loop at &lt;tab1&gt; assigning &lt;wa1&gt;.
+    assign component &apos;OBJECT_NUMBER&apos; of structure &lt;wa1&gt; to &lt;any&gt;.
+    if sy-subrc eq 0.
+      write:/ &apos;OBJECT_NUMBER: &apos;, &lt;any&gt;.
+    endif.
+    &quot;you can get all components from structure so no need to manually
+    &quot;write all the names of characteristics  but just to show it I will
+    &quot;it fast and I&apos;ll directly put characteristic name
+    assign component &apos;CHARACT_NUM1&apos; of structure &lt;wa1&gt; to &lt;tab2&gt;.
+    if sy-subrc eq 0.
+      write:/ &apos;CHARACT_NUM1&apos;.
+      &quot;then loop through characteristic values
+      loop at &lt;tab2&gt; assigning &lt;wa2&gt;.
+        assign component &apos;LOW&apos; of structure &lt;wa2&gt; to &lt;any&gt;.
+        if sy-subrc eq 0.
+          write:/ &apos;LOW: &apos;, &lt;any&gt;.
+        endif.
+        assign component &apos;HIGH&apos; of structure &lt;wa2&gt; to &lt;any&gt;.
+        if sy-subrc eq 0.
+          write:/ &apos;HIGH: &apos;, &lt;any&gt;.
+        endif.
+        assign component &apos;OPTLOW&apos; of structure &lt;wa2&gt; to &lt;any&gt;.
+        if sy-subrc eq 0.
+          write:/ &apos;OPTLOW: &apos;, &lt;any&gt;.
+        endif.
+        assign component &apos;OPTHIGH&apos; of structure &lt;wa2&gt; to &lt;any&gt;.
+        if sy-subrc eq 0.
+          write:/ &apos;OPTHIGH: &apos;, &lt;any&gt;.
+        endif.
+      endloop.
+    endif.
+  endloop.
+endif.</source>
+ </PROG>
+</nugget>

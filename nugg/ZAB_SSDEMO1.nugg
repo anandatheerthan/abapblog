@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-16"?>
+<nugget name="SS1_DEMO">
+ <PROG NAME="ZAB_SSDEMO1" VARCL="X" SUBC="1" CNAM="BCUSER" CDAT="20130507" UNAM="BCUSER" UDAT="20130609" VERN="000147" RMAND="001" RLOAD="E" FIXPT="X" SDATE="20130609" STIME="011342" IDATE="20130609" ITIME="011342" UCCHECK="X">
+  <textPool>
+   <language SPRAS="E">
+    <textElement ID="R" ENTRY="Program ZAB_SSDEMO1" LENGTH="19 "/>
+   </language>
+  </textPool>
+  <source>report zab_ssdemo1.
+
+&quot;parameter without any typing (1 character)
+parameters: p_name.
+&quot;will be shown as checkbox
+parameters: p_name1 as checkbox .
+*&quot;Radiobuton parameter, there must be at least two of them
+parameters: p_name2 radiobutton group rb1.
+*&quot;second one is set as defaulty set
+parameters: p_name3 radiobutton group rb1 default &apos;X&apos;.
+*&quot;parameter with ditctionary type
+parameters: p_carrid type scarr-carrid.
+**&quot;parameter with dynamic type
+data: g_paramname(60) type c.
+parameters: p_dynami like (g_paramname).
+&quot;parameter with ditctionary with value check
+parameters: p_curr1  type scarr-currcode value check.
+*&quot;obligatory parameter
+parameters: p_carri1 type scarr-carrid obligatory.
+*&quot;hidden parameter
+parameters: p_carri2 type scarr-carrid no-display.
+*&quot;parameter with memory id
+ parameters: p_carri3 type char3 memory id car.
+*&quot;string parameter with field lenght set
+parameters: p_strin1 type string visible length 15 default &apos;aaaa&apos;.
+*&quot;string parameter with field lenght set and in lower case
+parameters: p_strin2 type string visible length 15 lower case default &apos;aaaa&apos;.
+*&quot;parameter with modify group
+parameters: p_carri4 type scarr-carrid modif id gr1.
+*&quot;listbox parameter
+parameters: p_name4  type char2 as listbox visible length 25 modif id gr1.
+*&quot;listobx parameter with user-command
+parameters: p_name5  type char2 as listbox visible length 25 user-command lbchange.
+*&quot;parameter with matchcode object
+parameters: p_name6  type char2 matchcode object h_t002.
+*
+*
+&quot;event at each output of selection screen
+at selection-screen output.
+  &quot;loop at screen elements
+  loop at screen.
+    &quot;if we find elements of our group
+    if screen-group1 eq &apos;GR1&apos;.
+      &quot;then change the font color
+      screen-intensified = 1.
+      modify screen.
+    endif.
+
+  endloop.
+*
+*&quot;events at user-command
+at selection-screen.
+  &quot;if the listobox has changed
+  if sy-ucomm eq &apos;LBCHANGE&apos;.
+    &quot;check if fields are same
+    if p_name5 = p_name4.
+      &quot;if yes then throw put a cursor on P_NAME5 and show message
+      set cursor field &apos;P_NAME4&apos;.
+      message w001(00) with &apos;P_NAME5 should be different than P_NAME4&apos;.
+    endif.
+
+  endif.
+
+
+initialization.
+    g_paramname = &apos;SFLIGHT-CARRID&apos;.
+*  &quot;fill listboxes at initialization of program
+  perform set_listbox_values.
+*
+*
+start-of-selection.
+  break-point.
+*
+**&amp;---------------------------------------------------------------------*
+**&amp;      Form  set_listbox_values
+**&amp;---------------------------------------------------------------------*
+*
+form set_listbox_values.
+  type-pools: vrm.
+  data: f_name type vrm_id.
+  data: ft_values type vrm_values.
+  data: fs_values like line of ft_values.
+
+  f_name = &apos;P_NAME4&apos;. &quot;parameter name
+
+  fs_values-key  = &apos;K1&apos;. &quot;key is the value that will be passed to parameter
+  fs_values-text = &apos;Text of K1&apos;. &quot;descritpion of paramter shown in listbox
+  append fs_values to ft_values.
+
+  fs_values-key  = &apos;K2&apos;.
+  fs_values-text = &apos;Text of K2&apos;.
+  append fs_values to ft_values.
+
+  fs_values-key  = &apos;K3&apos;.
+  fs_values-text = &apos;Text of K3&apos;.
+  append fs_values to ft_values.
+
+  fs_values-key  = &apos;K4&apos;.
+  fs_values-text = &apos;Text of K4&apos;.
+  append fs_values to ft_values.
+
+
+  call function &apos;VRM_SET_VALUES&apos;
+    exporting
+      id              = f_name
+      values          = ft_values
+    exceptions
+      id_illegal_name = 1
+      others          = 2.
+  if sy-subrc &lt;&gt; 0.
+* Implement suitable error handling here
+  endif.
+
+  f_name = &apos;P_NAME5&apos;.
+
+  call function &apos;VRM_SET_VALUES&apos;
+    exporting
+      id              = f_name
+      values          = ft_values
+    exceptions
+      id_illegal_name = 1
+      others          = 2.
+  if sy-subrc &lt;&gt; 0.
+* Implement suitable error handling here
+  endif.
+
+endform.                    &quot;set_listbox_values</source>
+ </PROG>
+</nugget>

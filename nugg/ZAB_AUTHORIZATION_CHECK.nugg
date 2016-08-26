@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-16"?>
+<nugget name="ZAB_AUTHORIZATION_CHECK">
+ <PROG NAME="ZAB_AUTHORIZATION_CHECK_LIST" VARCL="X" SUBC="1" APPL="*" CNAM="BCUSER" CDAT="20130713" UNAM="BCUSER" UDAT="20130713" VERN="000026" RSTAT="K" RMAND="001" RLOAD="E" FIXPT="X" SDATE="20130713" STIME="224228" IDATE="20130713" ITIME="224228" UCCHECK="X">
+  <textPool>
+   <language SPRAS="E">
+    <textElement ID="R" ENTRY="Program ZAB_AUTHORIZATION_CHECK_LIST" LENGTH="36 "/>
+    <textElement ID="S" KEY="S_PRGNAM" ENTRY="D       ." LENGTH="9 "/>
+   </language>
+  </textPool>
+  <source>report  zab_authorization_check_list.
+
+types: begin of t_alv,
+        program type trdir-name,
+        objct type 	xuobject,
+        fiel1 type 	xufield,
+        valu1 type 	sstringwa,
+        fiel2 type 	xufield,
+        valu2 type 	sstringwa,
+        fiel3 type 	xufield,
+        valu3 type 	sstringwa,
+        fiel4 type 	xufield,
+        valu4 type 	sstringwa,
+        fiel5 type 	xufield,
+        valu5 type 	sstringwa,
+        fiel6 type 	xufield,
+        valu6 type 	sstringwa,
+        fiel7 type 	xufield,
+        valu7 type 	sstringwa,
+        fiel8 type 	xufield,
+        valu8 type 	sstringwa,
+        fiel9 type 	xufield,
+        valu9 type 	sstringwa,
+        fiel0 type 	xufield,
+        valu0 type 	sstringwa,
+      end of t_alv.
+
+types: tt_alv type standard table of t_alv.
+
+data: gt_alv type tt_alv.
+data: gs_alv type t_alv.
+data: gt_trdir type standard table of trdir.
+data: gt_fcat type  slis_t_fieldcat_alv.
+data: gr_salv type ref to cl_salv_table.
+data: gr_columns type ref to cl_salv_columns_table.
+
+field-symbols: &lt;trdir&gt; type trdir.
+
+
+select-options: s_prgnam for gs_alv-program.
+
+
+start-of-selection.
+
+  &quot;dummy authorization check to show the results
+  authority-check object &apos;S_DEVELOP&apos;
+           id &apos;DEVCLASS&apos; dummy
+           id &apos;OBJTYPE&apos; dummy
+           id &apos;OBJNAME&apos; dummy
+           id &apos;P_GROUP&apos; dummy
+           id &apos;ACTVT&apos; dummy.
+  if sy-subrc &lt;&gt; 0.
+* Implement a suitable exception handling here
+  endif.
+
+  &quot;select programs from trdir
+  select name from trdir into corresponding fields of table gt_trdir
+   where name in s_prgnam.
+  loop at gt_trdir assigning &lt;trdir&gt;.
+    perform check_authorization
+                using
+                   &lt;trdir&gt;-name
+                changing
+                   gt_alv.
+
+  endloop.
+
+
+end-of-selection.
+
+&quot;display results
+  try.
+      call method cl_salv_table=&gt;factory
+        exporting
+          list_display = if_salv_c_bool_sap=&gt;false
+        importing
+          r_salv_table = gr_salv
+        changing
+          t_table      = gt_alv.
+    catch cx_salv_msg .
+  endtry.
+
+  gr_columns = gr_salv-&gt;get_columns( ).
+  gr_columns-&gt;set_optimize( abap_true ).
+
+  gr_salv-&gt;display( ).
+
+
+*&amp;---------------------------------------------------------------------*
+*&amp;      Form  check_authorization
+*&amp;---------------------------------------------------------------------*
+*       text
+*----------------------------------------------------------------------*
+*      --&gt;F_PROGRAM  text
+*      --&gt;FT_ALV     text
+*----------------------------------------------------------------------*
+form check_authorization using f_program type trdir-name
+                         changing ft_alv type tt_alv.
+
+  field-symbols: &lt;token&gt; type stoken,
+                 &lt;value&gt; type any.
+
+  types: type_tokens     type table of stoken ,
+         type_statements type table of sstmnt,
+         type_levels     type table of slevel.
+
+
+  constants: c_k(30) value &apos;AUTHORITY-CHECK&apos;.
+  data: ft_src        type table of string,
+        ft_tokens     type type_tokens     ,
+        ft_statements type type_statements ,
+        ft_keywords   like table of c_k,
+        ft_levels     type type_levels  ,
+        f_overflow(4096).
+  data: fs_authorization type t_alv.
+  data: f_prev_level type string.
+  data: f_fieldnr(1)    type c.
+  data: f_fieldname type string.
+  data: f_lines type i.
+
+  append c_k to ft_keywords.
+
+  clear fs_authorization.
+
+*read the source of an program
+  read report f_program into ft_src.
+
+*scan source for authorizations
+  scan abap-source ft_src
+  tokens     into ft_tokens
+  statements into ft_statements
+  keywords   from ft_keywords
+  levels     into ft_levels
+*    overflow   into f_overflow
+  with includes
+  frame program   from f_program
+  .
+
+  if sy-subrc eq 0.
+    describe table ft_tokens lines f_lines.
+    &quot;go through results
+    loop at ft_tokens assigning &lt;token&gt;.
+
+      if sy-tabix ne 1 and &lt;token&gt;-str eq c_k.
+        fs_authorization-program = f_program.
+        append fs_authorization to ft_alv.
+        clear fs_authorization.
+      endif.
+*      if &lt;token&gt;-type = &apos;I&apos;.
+      case &lt;token&gt;-str.
+        when &apos;AUTHORITY-CHECK&apos;.
+          f_prev_level = &lt;token&gt;-str.
+          clear f_fieldnr.
+        when &apos;OBJECT&apos;.
+          f_prev_level = &lt;token&gt;-str.
+        when &apos;ID&apos;.
+          if f_fieldnr lt 9 or f_fieldnr is initial.
+            add 1 to f_fieldnr.
+          else.
+            f_fieldnr = 0.
+          endif.
+          f_prev_level = &lt;token&gt;-str.
+        when &apos;FIELD&apos;.
+          f_prev_level = &lt;token&gt;-str.
+        when &apos;DUMMY&apos;.
+          f_prev_level = &lt;token&gt;-str.
+          concatenate &apos;VALU&apos; f_fieldnr into f_fieldname.
+          assign component f_fieldname of structure fs_authorization
+          to &lt;value&gt;.
+          if sy-subrc eq 0.
+            &lt;value&gt; = &lt;token&gt;-str.
+          endif.
+        when others.
+          case f_prev_level.
+            when &apos;OBJECT&apos;.
+              &quot;replace of &apos; marks with space
+              replace all occurrences of &apos;&apos;&apos;&apos; in &lt;token&gt;-str with &apos; &apos;.
+              condense &lt;token&gt;-str.
+              fs_authorization-objct = &lt;token&gt;-str.
+            when &apos;ID&apos;.
+              &quot;replace of &apos; marks with space
+              replace all occurrences of &apos;&apos;&apos;&apos; in &lt;token&gt;-str with &apos; &apos;.
+              condense &lt;token&gt;-str.
+              concatenate &apos;FIEL&apos; f_fieldnr into f_fieldname.
+              assign component f_fieldname of structure fs_authorization
+              to &lt;value&gt;.
+              if sy-subrc eq 0.
+                &lt;value&gt; = &lt;token&gt;-str.
+              endif.
+            when &apos;FIELD&apos;.
+              concatenate &apos;VALU&apos; f_fieldnr into f_fieldname.
+              assign component f_fieldname of structure fs_authorization
+              to &lt;value&gt;.
+              if sy-subrc eq 0.
+                &lt;value&gt; = &lt;token&gt;-str.
+              endif.
+            when others.
+          endcase.
+      endcase.
+
+      if sy-tabix eq f_lines.
+        fs_authorization-program = f_program.
+        append fs_authorization to ft_alv.
+        clear fs_authorization.
+      endif.
+    endloop.
+  endif.
+
+endform.                    &quot;check_authorization</source>
+ </PROG>
+</nugget>

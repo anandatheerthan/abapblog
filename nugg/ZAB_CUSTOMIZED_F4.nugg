@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-16"?>
+<nugget name="ZAB_CUSTOMIZED_F4">
+ <PROG NAME="ZAB_CUSTOMIZED_F4" VARCL="X" SUBC="1" CNAM="BCUSER" CDAT="20130606" UNAM="BCUSER" UDAT="20130817" VERN="000033" RSTAT="K" RMAND="001" RLOAD="E" FIXPT="X" SDATE="20130818" STIME="105029" IDATE="20130817" ITIME="153505" UCCHECK="X">
+  <textPool>
+   <language SPRAS="E">
+    <textElement ID="R" ENTRY="Program ZAB_CUSTOMIZED_F4" LENGTH="25 "/>
+    <textElement ID="S" KEY="P_CARRID" ENTRY="D       ." LENGTH="9 "/>
+    <textElement ID="S" KEY="P_CONNID" ENTRY="D       ." LENGTH="9 "/>
+   </language>
+  </textPool>
+  <source>report  zab_customized_f4.
+*--------------------------------------------------------------------*
+* This program was prepared by #ukasz P#giel for presentation purpose
+* at http://abapblog.com .
+* You can use it in your SAP instance without any warranty
+* for non-commercial and commercial  use but you cannot sell it as
+* a full program or a part of it.
+*
+* If you&apos;d like to use it on your own site please contact me before to
+* get the agreement before.
+*
+*--------------------------------------------------------------------*
+
+parameters: p_carrid type sflight-carrid .
+parameters: p_connid type sflight-connid .
+
+
+at selection-screen on value-request for p_connid.
+  perform customized_f4.
+
+*&amp;---------------------------------------------------------------------*
+*&amp;      Form  customized_f4
+*&amp;---------------------------------------------------------------------*
+form customized_f4.
+
+  data: ft_values type standard table of ddshretval.
+  data: ft_interfaces type ddshifaces.
+  data: fs_interface type ddshiface.
+  field-symbols: &lt;val&gt; type ddshretval.
+
+  clear fs_interface.
+  fs_interface-shlpfield = &apos;CARRID&apos;.
+  fs_interface-valfield  = &apos;X&apos;.
+  fs_interface-value     = p_carrid.
+*  fs_interface-dispfield = &apos;X&apos;.
+  append fs_interface to ft_interfaces.
+
+  clear fs_interface.
+  fs_interface-shlpfield = &apos;CONNID&apos;.
+  fs_interface-valfield  = &apos;X&apos;.
+  fs_interface-value     = &apos;*&apos;.
+  append fs_interface to ft_interfaces.
+
+
+  zcl_abapblog_com=&gt;f4_with_customized_params(
+    exporting
+      i_display_only = space
+      i_max_records  = space
+      i_shlp_name    = &apos;H_SPFLI&apos;
+      it_ddshifaces  = ft_interfaces
+    importing
+      et_values      = ft_values
+         ).
+
+  read table ft_values with key fieldname = &apos;CONNID&apos; assigning &lt;val&gt;.
+  if sy-subrc eq 0.
+    move &lt;val&gt;-fieldval to p_connid.
+  endif.
+
+  read table ft_values with key fieldname = &apos;CARRID&apos; assigning &lt;val&gt;.
+  if sy-subrc eq 0.
+    move &lt;val&gt;-fieldval to p_carrid.
+  endif.
+
+  &quot;send dummy ok_code to refresh screen data
+  call function &apos;SAPGUI_SET_FUNCTIONCODE&apos;
+    exporting
+      functioncode           = &apos;DUMMY&apos;
+    exceptions
+      function_not_supported = 1
+      others                 = 2.
+  if sy-subrc &lt;&gt; 0.
+* Implement suitable error handling here
+  endif.
+
+
+endform.                    &quot;customized_f4</source>
+ </PROG>
+</nugget>

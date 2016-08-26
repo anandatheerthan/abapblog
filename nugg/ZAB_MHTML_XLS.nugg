@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-16"?>
+<nugget name="ZAB_MHTML_XLS">
+ <PROG NAME="ZAB_MHTML_XLS" VARCL="X" SUBC="1" APPL="*" CNAM="BCUSER" CDAT="20130512" UNAM="BCUSER" UDAT="20130817" VERN="000024" RSTAT="K" RMAND="001" RLOAD="E" FIXPT="X" SDATE="20130818" STIME="105029" IDATE="20130817" ITIME="153651" UCCHECK="X">
+  <textPool>
+   <language SPRAS="E">
+    <textElement ID="R" ENTRY="Program ZAB_MHTML_XLS" LENGTH="21 "/>
+   </language>
+  </textPool>
+  <source>report  zab_mhtml_xls.
+*--------------------------------------------------------------------*
+* This program was prepared by #ukasz P#giel for presentation purpose
+* at http://abapblog.com .
+* You can use it in your SAP instance without any warranty
+* for non-commercial and commercial  use but you cannot sell it as
+* a full program or a part of it.
+*
+* If you&apos;d like to use it on your own site please contact me before to
+* get the agreement before.
+*
+*--------------------------------------------------------------------*
+
+data: gt_file type filetable with header line.
+data: g_rc type i.
+data: gt_spfli type standard table of spfli.
+data: g_xstring type xstring.
+data: g_size type i.
+data: gt_bintab type solix_tab.
+data: g_filename type string.
+data: g_path type string.
+&quot;get path
+parameters: p_path type string obligatory.
+
+
+at selection-screen on value-request for p_path.
+
+  cl_gui_frontend_services=&gt;file_save_dialog(
+    exporting
+*      window_title         = window_title
+      default_extension    = &apos;XLS&apos;
+*      default_file_name    = default_file_name
+*      with_encoding        = with_encoding
+*      file_filter          = file_filter
+*      initial_directory    = initial_directory
+*      prompt_on_overwrite  = &apos;X&apos;
+    changing
+      filename             = g_filename
+      path                 = g_path
+      fullpath             = p_path
+*      user_action          = user_action
+*      file_encoding        = file_encoding
+    exceptions
+      cntl_error           = 1
+      error_no_gui         = 2
+      not_supported_by_gui = 3
+      others               = 4
+         ).
+  if sy-subrc &lt;&gt; 0.
+*   Implement suitable error handling here
+  endif.
+
+
+start-of-selection.
+  &quot;fill table with data
+  select * from spfli into corresponding fields of table gt_spfli.
+  &quot;call creation of xls
+  zcl_abapblog_com=&gt;create_xls_from_itab(
+*    exporting
+*    it_fieldcat       = it_fieldcat
+*    it_sort           = it_sort
+*    it_filt           = it_filt
+*    is_layout         = is_layout
+*    i_xlsx             = &apos;X&apos;
+    importing
+      e_xstring         = g_xstring
+    changing
+      ct_data           =  gt_spfli
+         ).
+
+  if g_xstring is not initial.
+    &quot;save file
+    call function &apos;SCMS_XSTRING_TO_BINARY&apos;
+      exporting
+        buffer          = g_xstring
+*       APPEND_TO_TABLE = &apos; &apos;
+      importing
+        output_length   = g_size
+      tables
+        binary_tab      = gt_bintab.
+
+    cl_gui_frontend_services=&gt;gui_download(
+      exporting
+        bin_filesize              = g_size
+        filename                  = p_path
+        filetype                  = &apos;BIN&apos;
+      changing
+        data_tab                  = gt_bintab
+      exceptions
+        file_write_error          = 1
+        no_batch                  = 2
+        gui_refuse_filetransfer   = 3
+        invalid_type              = 4
+        no_authority              = 5
+        unknown_error             = 6
+        header_not_allowed        = 7
+        separator_not_allowed     = 8
+        filesize_not_allowed      = 9
+        header_too_long           = 10
+        dp_error_create           = 11
+        dp_error_send             = 12
+        dp_error_write            = 13
+        unknown_dp_error          = 14
+        access_denied             = 15
+        dp_out_of_memory          = 16
+        disk_full                 = 17
+        dp_timeout                = 18
+        file_not_found            = 19
+        dataprovider_exception    = 20
+        control_flush_error       = 21
+        not_supported_by_gui      = 22
+        error_no_gui              = 23
+        others                    = 24
+           ).
+    if sy-subrc &lt;&gt; 0.
+*     Implement suitable error handling here
+    endif.
+
+  endif.</source>
+ </PROG>
+</nugget>

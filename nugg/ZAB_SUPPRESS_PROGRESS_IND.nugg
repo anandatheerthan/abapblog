@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<nugget name="ZAB_SUPPRESS_PROGRESS_IND">
+ <CLAS CLSNAME="ZAB_SUPPRESS_PROGRESS_IND" VERSION="1" LANGU="E" DESCRIPT="Supress progress indicator to show up" CATEGORY="00" EXPOSURE="2" STATE="1" RELEASE="0" CLSCCINCL="X" FIXPT="X" UNICODE="X" CLSBCCAT="00" WITH_UNIT_TESTS="X" DURATION_TYPE="0 " RISK_LEVEL="0 ">
+  <localImplementation>*&quot;* use this source file for the definition and implementation of
+*&quot;* local helper classes, interface definitions and type
+*&quot;* declarations</localImplementation>
+  <localTypes>*&quot;* use this source file for any type of declarations (class
+*&quot;* definitions, interfaces or type declarations) you need for
+*&quot;* components in the private section</localTypes>
+  <localMacros>*&quot;* use this source file for any macro definitions you need
+*&quot;* in the implementation part of the class</localMacros>
+  <localTestClasses>*&quot;* use this source file for your ABAP unit test classes</localTestClasses>
+  <method CLSNAME="ZAB_SUPPRESS_PROGRESS_IND" CMPNAME="SUPPRESS" VERSION="1" LANGU="E" EXPOSURE="2" STATE="1" EDITORDER="1 " DISPID="0 " MTDTYPE="0" MTDDECLTYP="1" BCMTDCAT="00" BCMTDSYN="0">
+   <source>method SUPPRESS.
+    constants: sin_0 type c length 1 value 0.
+    constants: sin type memoryid value &apos;SIN&apos;.
+    data: sin_oryginal type c length 1.
+
+    get parameter id sin field sin_oryginal.
+    check sin_oryginal ne &apos;0&apos;. &quot;no need to set anything
+
+    set parameter id sin field sin_0.
+    &quot;A call of which will set up parameter prog_indi_mode in FG SGUI
+    call function &apos;SAPGUI_PROGRESS_INDICATOR&apos;
+      exporting
+        percentage = 100
+        text       = &apos;Dummy&apos;.
+
+    set parameter id sin field sin_oryginal. &quot;Return to original mode
+  endmethod.                    &quot;supress</source>
+  </method>
+ </CLAS>
+ <PROG NAME="ZAB_SUPPRESS_PROGRESS_DEMO" VARCL="X" DBAPL="S" SUBC="1" RMAND="001" FIXPT="X" LDBNAME="D$S" UCCHECK="X">
+  <textPool>
+   <language SPRAS="E">
+    <textElement ID="R" ENTRY="Supress progress indicator DEMO" LENGTH="31 "/>
+    <textElement ID="S" KEY="P_SHOW" ENTRY="        Show progress indicator" LENGTH="31 "/>
+    <textElement ID="S" KEY="P_SUPP" ENTRY="        Suppress progress indicator" LENGTH="35 "/>
+   </language>
+  </textPool>
+  <source>report  zab_suppress_progress_demo.
+
+data: gt_sbook type standard table of sbook.
+data: gt_csv type truxs_t_text_data.
+
+parameters: p_supp radiobutton group gr1 ,
+            p_show radiobutton group gr1 default &apos;X&apos;.
+
+
+start-of-selection.
+  select * up to 50000 rows
+  into corresponding fields of table gt_sbook
+  from sbook.
+
+
+  if p_supp eq abap_true.
+    zab_suppress_progress_ind=&gt;suppress( ).
+  endif.
+
+  call function &apos;SAP_CONVERT_TO_CSV_FORMAT&apos;
+    exporting
+      i_field_seperator    = &apos;;&apos;
+      i_line_header        = abap_true
+    tables
+      i_tab_sap_data       = gt_sbook
+    changing
+      i_tab_converted_data = gt_csv
+    exceptions
+      conversion_failed    = 1
+      others               = 2.
+
+  if sy-subrc eq 0.
+
+  endif.
+
+  message i001(00) with &apos;Done&apos;.</source>
+ </PROG>
+</nugget>
